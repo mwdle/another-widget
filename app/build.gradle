@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-kapt'
+    id 'com.google.devtools.ksp'
 }
 
 def apikeyPropertiesFile = rootProject.file("apikey.properties")
@@ -10,12 +10,12 @@ apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
 
 android {
 
-    compileSdk 30
+    compileSdk 31
 
     defaultConfig {
         applicationId "com.tommasoberlose.anotherwidget"
         minSdkVersion 28
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 139
         versionName "2.3.3"
 
@@ -64,14 +64,13 @@ dependencies {
     // Lifecycle
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
-    implementation "androidx.work:work-runtime-ktx:2.5.0"
+    implementation "androidx.work:work-runtime-ktx:2.7.0"
 
     // EventBus
     implementation 'org.greenrobot:eventbus:3.2.0'
-
     // Room
     implementation "androidx.room:room-runtime:2.3.0"
-    kapt "androidx.room:room-compiler:2.3.0"
+    ksp "androidx.room:room-compiler:2.3.0"
 
     // Navigation
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
