@@ -6,33 +6,28 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Context.CLIPBOARD_SERVICE
 import android.graphics.Color
-import android.util.Log
-import androidx.core.content.ContextCompat
 import com.tommasoberlose.anotherwidget.R
 import com.tommasoberlose.anotherwidget.global.Preferences
-import com.tommasoberlose.anotherwidget.utils.isDarkTheme
 import com.tommasoberlose.anotherwidget.utils.toast
 import kotlin.math.roundToInt
 
 
 object ColorHelper {
+
     fun getFontColor(isDark: Boolean): Int {
         return try {
-            Color.parseColor("#%s%s".format(if (!isDark) Preferences.textGlobalAlpha else Preferences.textGlobalAlphaDark,
-                (if (!isDark) Preferences.textGlobalColor else Preferences.textGlobalColorDark).replace(
-                    "#",
-                    "")))
+            Color.parseColor(
+                "#%s%s".format(
+                    if (!isDark) Preferences.textGlobalAlpha else Preferences.textGlobalAlphaDark,
+                    (if (!isDark) Preferences.textGlobalColor else Preferences.textGlobalColorDark).replace(
+                        "#",
+                        ""
+                    )
+                )
+            )
         } catch (e: Exception) {
             Color.parseColor("#FFFFFFFF")
         }
-    }
-
-    fun getFontColorAlpha(isDark: Boolean): Int {
-        return try {
-            (if (!isDark) Preferences.textGlobalAlpha else Preferences.textGlobalAlphaDark).toIntValue().toDouble() * 255 / 100
-        } catch (e: Exception) {
-            "FF".toIntValue().toDouble() * 255 / 100
-        }.roundToInt()
     }
 
     fun getFontColorRgb(isDark: Boolean): Int {
@@ -45,21 +40,18 @@ object ColorHelper {
 
     fun getSecondaryFontColor(isDark: Boolean): Int {
         return try {
-            Color.parseColor("#%s%s".format((if (!isDark) Preferences.textSecondaryAlpha else Preferences.textSecondaryAlphaDark),
-                (if (!isDark) Preferences.textSecondaryColor else Preferences.textSecondaryColorDark).replace(
-                    "#",
-                    "")))
+            Color.parseColor(
+                "#%s%s".format(
+                    (if (!isDark) Preferences.textSecondaryAlpha else Preferences.textSecondaryAlphaDark),
+                    (if (!isDark) Preferences.textSecondaryColor else Preferences.textSecondaryColorDark).replace(
+                        "#",
+                        ""
+                    )
+                )
+            )
         } catch (e: Exception) {
             Color.parseColor("#FFFFFFFF")
         }
-    }
-
-    fun getSecondaryFontColorAlpha(isDark: Boolean): Int {
-        return try {
-            (if (!isDark) Preferences.textSecondaryAlpha else Preferences.textSecondaryAlphaDark).toIntValue().toDouble() * 255 / 100
-        } catch (e: Exception) {
-            "FF".toIntValue().toDouble() * 255 / 100
-        }.roundToInt()
     }
 
     fun getSecondaryFontColorRgb(isDark: Boolean): Int {
@@ -72,21 +64,18 @@ object ColorHelper {
 
     fun getClockFontColor(isDark: Boolean): Int {
         return try {
-            Color.parseColor("#%s%s".format((if (!isDark) Preferences.clockTextAlpha else Preferences.clockTextAlphaDark),
-                (if (!isDark) Preferences.clockTextColor else Preferences.clockTextColorDark).replace(
-                    "#",
-                    "")))
+            Color.parseColor(
+                "#%s%s".format(
+                    (if (!isDark) Preferences.clockTextAlpha else Preferences.clockTextAlphaDark),
+                    (if (!isDark) Preferences.clockTextColor else Preferences.clockTextColorDark).replace(
+                        "#",
+                        ""
+                    )
+                )
+            )
         } catch (e: Exception) {
             Color.parseColor("#FFFFFFFF")
         }
-    }
-
-    fun getClockFontColorAlpha(isDark: Boolean): Int {
-        return try {
-            (if (!isDark) Preferences.clockTextAlpha else Preferences.clockTextAlphaDark).toIntValue().toDouble() * 255 / 100
-        } catch (e: Exception) {
-            "FF".toIntValue().toDouble() * 255 / 100
-        }.roundToInt()
     }
 
     fun getClockFontColorRgb(isDark: Boolean): Int {
@@ -99,10 +88,15 @@ object ColorHelper {
 
     fun getBackgroundColor(isDark: Boolean): Int {
         return try {
-            Color.parseColor("#%s%s".format((if (!isDark) Preferences.backgroundCardAlpha else Preferences.backgroundCardAlphaDark),
-                (if (!isDark) Preferences.backgroundCardColor else Preferences.backgroundCardColorDark).replace(
-                    "#",
-                    "")))
+            Color.parseColor(
+                "#%s%s".format(
+                    (if (!isDark) Preferences.backgroundCardAlpha else Preferences.backgroundCardAlphaDark),
+                    (if (!isDark) Preferences.backgroundCardColor else Preferences.backgroundCardColorDark).replace(
+                        "#",
+                        ""
+                    )
+                )
+            )
         } catch (e: Exception) {
             Color.parseColor("#00000000")
         }
@@ -110,7 +104,8 @@ object ColorHelper {
 
     fun getBackgroundAlpha(isDark: Boolean): Int {
         return try {
-            (if (!isDark) Preferences.backgroundCardAlpha else Preferences.backgroundCardAlphaDark).toIntValue().toDouble() * 255 / 100
+            (if (!isDark) Preferences.backgroundCardAlpha else Preferences.backgroundCardAlphaDark).toIntValue()
+                .toDouble() * 255 / 100
         } catch (e: Exception) {
             "00".toIntValue().toDouble() * 255 / 100
         }.roundToInt()
@@ -176,7 +171,11 @@ object ColorHelper {
 
     fun Context.isClipboardColor(): Boolean {
         with(getSystemService(CLIPBOARD_SERVICE) as ClipboardManager) {
-            return try { primaryClip?.getItemAt(0)?.text?.toString()?.isColor() ?: false } catch (ex: Exception) { false }
+            return try {
+                primaryClip?.getItemAt(0)?.text?.toString()?.isColor() ?: false
+            } catch (ex: Exception) {
+                false
+            }
         }
     }
 
