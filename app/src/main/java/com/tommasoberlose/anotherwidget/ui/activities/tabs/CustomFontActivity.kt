@@ -6,9 +6,7 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
-import android.util.Log
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.provider.FontRequest
@@ -19,7 +17,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chibatching.kotpref.blockingBulk
-import com.google.gson.Gson
 import com.koolio.library.Font
 import com.tommasoberlose.anotherwidget.R
 import com.tommasoberlose.anotherwidget.components.BottomSheetMenu
@@ -43,7 +40,7 @@ class CustomFontActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(CustomFontViewModel::class.java)
+        viewModel = ViewModelProvider(this)[CustomFontViewModel::class.java]
         binding = ActivityCustomFontBinding.inflate(layoutInflater)
         handlerThread = HandlerThread("listCustomFonts")
         handlerThread.start()
@@ -200,7 +197,7 @@ class CustomFontActivity : AppCompatActivity() {
         binding.loader.visibility = View.VISIBLE
         filterJob?.cancel()
         filterJob = lifecycleScope.launch(Dispatchers.IO) {
-            if (list != null && list.isNotEmpty()) {
+            if (!list.isNullOrEmpty()) {
                 delay(200)
                 val filteredList: List<Any> = if (search == null || search == "") {
                     listOf(getString(R.string.custom_font_subtitle_1)) + list.distinctBy { it.fontFamily }
@@ -219,14 +216,19 @@ class CustomFontActivity : AppCompatActivity() {
                         }
                     }
                 }.sortedWith { el1, el2 ->
-                    if (el1 is Font && el2 is Font) {
-                        el1.fontFamily.compareTo(el2.fontFamily)
-                    } else if (el1 is Font && el2 is String) {
-                        el1.fontFamily.compareTo(el2)
-                    } else if (el1 is String && el2 is Font) {
-                        el1.compareTo(el2.fontFamily)
-                    } else {
-                        1
+                    when {
+                        el1 is Font && el2 is Font -> {
+                            el1.fontFamily.compareTo(el2.fontFamily)
+                        }
+                        el1 is Font && el2 is String -> {
+                            el1.fontFamily.compareTo(el2)
+                        }
+                        el1 is String && el2 is Font -> {
+                            el1.compareTo(el2.fontFamily)
+                        }
+                        else -> {
+                            1
+                        }
                     }
                 }
                 withContext(Dispatchers.Main) {

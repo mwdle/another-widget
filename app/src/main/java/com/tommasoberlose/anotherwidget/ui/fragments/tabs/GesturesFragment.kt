@@ -7,39 +7,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.chibatching.kotpref.blockingBulk
 import com.chibatching.kotpref.bulk
 import com.google.android.material.transition.MaterialSharedAxis
 import com.tommasoberlose.anotherwidget.R
-import com.tommasoberlose.anotherwidget.components.BottomSheetColorPicker
 import com.tommasoberlose.anotherwidget.components.BottomSheetMenu
 import com.tommasoberlose.anotherwidget.databinding.FragmentTabGesturesBinding
-import com.tommasoberlose.anotherwidget.databinding.FragmentTabLayoutBinding
 import com.tommasoberlose.anotherwidget.global.Constants
 import com.tommasoberlose.anotherwidget.global.Preferences
 import com.tommasoberlose.anotherwidget.global.RequestCode
-import com.tommasoberlose.anotherwidget.helpers.ColorHelper
-import com.tommasoberlose.anotherwidget.helpers.ColorHelper.toHexValue
-import com.tommasoberlose.anotherwidget.helpers.ColorHelper.toIntValue
-import com.tommasoberlose.anotherwidget.helpers.DateHelper
 import com.tommasoberlose.anotherwidget.helpers.IntentHelper
-import com.tommasoberlose.anotherwidget.ui.activities.tabs.CustomDateActivity
 import com.tommasoberlose.anotherwidget.ui.activities.MainActivity
 import com.tommasoberlose.anotherwidget.ui.activities.tabs.ChooseApplicationActivity
 import com.tommasoberlose.anotherwidget.ui.viewmodels.MainViewModel
 import com.tommasoberlose.anotherwidget.ui.widgets.MainWidget
-import com.tommasoberlose.anotherwidget.utils.isDarkTheme
-import com.tommasoberlose.anotherwidget.utils.isDefaultSet
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.util.*
 
 class GesturesFragment : Fragment() {
 
@@ -61,7 +46,7 @@ class GesturesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        viewModel = ViewModelProvider(activity as MainActivity).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(activity as MainActivity)[MainViewModel::class.java]
         binding = FragmentTabGesturesBinding.inflate(inflater)
 
         subscribeUi(viewModel)

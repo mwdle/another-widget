@@ -6,12 +6,10 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
-import android.text.format.DateUtils
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RemoteViews
 import android.widget.TextView
@@ -272,7 +270,7 @@ class StandardWidget(val context: Context) {
             } else if (GlanceProviderHelper.showGlanceProviders(context)) {
                 var showSomething = false
                 var isWeatherShown = false
-                loop@ for (provider: Constants.GlanceProviderId in GlanceProviderHelper.getGlanceProviders(context)) {
+                loop@ for (provider: Constants.GlanceProviderId in GlanceProviderHelper.getGlanceProviders()) {
                     when (provider) {
                         Constants.GlanceProviderId.PLAYING_SONG -> {
                             if (MediaPlayerHelper.isSomeonePlaying(context)) {
@@ -325,19 +323,6 @@ class StandardWidget(val context: Context) {
                                 break@loop
                             }
                         }
-                        Constants.GlanceProviderId.GOOGLE_FIT_STEPS -> {
-                            if (Preferences.showDailySteps && Preferences.googleFitSteps > 0) {
-                                val fitIntent = IntentHelper.getPendingIntent(
-                                    context,
-                                    widgetID,
-                                    IntentHelper.getFitIntent(context),
-                                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-                                )
-                                views.setOnClickPendingIntent(R.id.sub_line_rect, fitIntent)
-                                showSomething = true
-                                break@loop
-                            }
-                        }
                         Constants.GlanceProviderId.NOTIFICATIONS -> {
                             if (Preferences.showNotifications && ActiveNotificationsHelper.showLastNotification()) {
                                 try {
@@ -360,7 +345,7 @@ class StandardWidget(val context: Context) {
                                     )
                                     showSomething = true
                                     break@loop
-                                } catch (ex: Exception) {}
+                                } catch (ignored: Exception) {}
                             }
                         }
                         Constants.GlanceProviderId.GREETINGS -> {
@@ -658,9 +643,7 @@ class StandardWidget(val context: Context) {
             } else if (GlanceProviderHelper.showGlanceProviders(context)) {
                 bindingView.subLineIcon.isVisible = true
                 var showSomething = false
-                loop@ for (provider: Constants.GlanceProviderId in GlanceProviderHelper.getGlanceProviders(
-                    context
-                )) {
+                loop@ for (provider: Constants.GlanceProviderId in GlanceProviderHelper.getGlanceProviders()) {
                     when (provider) {
                         Constants.GlanceProviderId.PLAYING_SONG -> {
                             if (MediaPlayerHelper.isSomeonePlaying(context)) {
@@ -723,16 +706,6 @@ class StandardWidget(val context: Context) {
                                 break@loop
                             }
                         }
-                        Constants.GlanceProviderId.GOOGLE_FIT_STEPS -> {
-                            if (Preferences.showDailySteps && Preferences.googleFitSteps > 0) {
-                                bindingView.subLineIcon.isVisible = false
-                                bindingView.subLineText.text =
-                                    context.getString(R.string.daily_steps_counter)
-                                        .format(Preferences.googleFitSteps)
-                                showSomething = true
-                                break@loop
-                            }
-                        }
                         Constants.GlanceProviderId.NOTIFICATIONS -> {
                             if (Preferences.showNotifications && ActiveNotificationsHelper.showLastNotification()) {
                                 try {
@@ -749,7 +722,7 @@ class StandardWidget(val context: Context) {
                                     bindingView.subLineText.text = Preferences.lastNotificationTitle
                                     showSomething = true
                                     break@loop
-                                } catch (ex: Exception) {}
+                                } catch (ignored: Exception) {}
                             }
                         }
                         Constants.GlanceProviderId.GREETINGS -> {

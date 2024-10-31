@@ -11,14 +11,11 @@ import android.net.Uri
 import android.provider.AlarmClock
 import android.provider.CalendarContract
 import android.provider.CalendarContract.Events
-import android.util.Log
-import com.tommasoberlose.anotherwidget.R
 import com.tommasoberlose.anotherwidget.global.Actions
 import com.tommasoberlose.anotherwidget.global.Preferences
 import com.tommasoberlose.anotherwidget.models.Event
 import com.tommasoberlose.anotherwidget.receivers.UpdatesReceiver
 import com.tommasoberlose.anotherwidget.ui.widgets.MainWidget
-import com.tommasoberlose.anotherwidget.utils.toast
 import java.util.*
 
 
@@ -236,18 +233,6 @@ object IntentHelper {
                     Intent()
                 }
             }
-        }
-    }
-
-    fun getFitIntent(context: Context): Intent {
-        val pm: PackageManager = context.packageManager
-        return try {
-            pm.getLaunchIntentForPackage("com.google.android.apps.fitness")!!.apply {
-                addCategory(Intent.CATEGORY_LAUNCHER)
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            }
-        } catch (e: Exception) {
-            Intent()
         }
     }
 

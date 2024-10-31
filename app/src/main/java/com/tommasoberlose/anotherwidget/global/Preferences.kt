@@ -49,28 +49,30 @@ object Preferences : KotprefModel() {
 
     var widgetUpdateFrequency by intPref(default = Constants.WidgetUpdateFrequency.DEFAULT.rawValue)
 
-    var textGlobalColor by stringPref(key = "PREF_TEXT_COLOR", default = "#FFFFFF")
+    var whiteColor = "#FFFFFF"
+
+    var textGlobalColor by stringPref(key = "PREF_TEXT_COLOR", default = whiteColor)
     var textGlobalAlpha by stringPref(default = "FF")
 
-    var textSecondaryColor by stringPref(default = "#FFFFFF")
+    var textSecondaryColor by stringPref(default = whiteColor)
     var textSecondaryAlpha by stringPref(default = "FF")
 
     var backgroundCardColor by stringPref(default = "#000000")
     var backgroundCardAlpha by stringPref(default = "00")
 
-    var clockTextColor by stringPref(default = "#FFFFFF")
+    var clockTextColor by stringPref(default = whiteColor)
     var clockTextAlpha by stringPref(default = "FF")
 
-    var textGlobalColorDark by stringPref(default = "#FFFFFF")
+    var textGlobalColorDark by stringPref(default = whiteColor)
     var textGlobalAlphaDark by stringPref(default = "FF")
 
-    var textSecondaryColorDark by stringPref(default = "#FFFFFF")
+    var textSecondaryColorDark by stringPref(default = whiteColor)
     var textSecondaryAlphaDark by stringPref(default = "FF")
 
     var backgroundCardColorDark by stringPref(default = "#000000")
     var backgroundCardAlphaDark by stringPref(default = "00")
 
-    var clockTextColorDark by stringPref(default = "#FFFFFF")
+    var clockTextColorDark by stringPref(default = whiteColor)
     var clockTextAlphaDark by stringPref(default = "FF")
 
 
@@ -126,8 +128,6 @@ object Preferences : KotprefModel() {
     var showBatteryCharging by booleanPref(default = false)
     var isBatteryLevelLow by booleanPref(default = false)
     var isCharging by booleanPref(default = false)
-    var googleFitSteps by longPref(default = -1)
-    var showDailySteps by booleanPref(default = false)
     var showGreetings by booleanPref(default = false)
     var showNotifications by booleanPref(default = false)
     var hideNotificationAfter by intPref(default = Constants.GlanceNotificationTimer.ONE_MINUTE.rawValue)
