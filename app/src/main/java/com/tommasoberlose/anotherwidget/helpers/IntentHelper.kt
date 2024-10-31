@@ -27,9 +27,9 @@ object IntentHelper {
 
     fun getPendingIntent(context: Context, requestCode: Int, intent: Intent, flags: Int): PendingIntent {
         return if (intent.flags and Intent.FLAG_ACTIVITY_NEW_TASK == Intent.FLAG_ACTIVITY_NEW_TASK)
-            PendingIntent.getActivity(context, requestCode, intent, flags)
+            PendingIntent.getActivity(context, requestCode, intent, flags or PendingIntent.FLAG_IMMUTABLE)
         else
-            PendingIntent.getBroadcast(context, requestCode, intent, flags)
+            PendingIntent.getBroadcast(context, requestCode, intent, flags or PendingIntent.FLAG_IMMUTABLE)
     }
 
     fun getWidgetUpdateIntent(context: Context): Intent {
