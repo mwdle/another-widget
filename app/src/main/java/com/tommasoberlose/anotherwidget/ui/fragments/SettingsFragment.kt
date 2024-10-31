@@ -69,6 +69,7 @@ class SettingsFragment : Fragment() {
         return binding.root
     }
 
+    @Deprecated("Deprecated")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -107,7 +108,8 @@ class SettingsFragment : Fragment() {
         viewModel.installedIntegrations.observe(viewLifecycleOwner) {
             binding.integrationsCountLabel.text =
                 getString(R.string.label_count_installed_integrations).format(
-                    it)
+                    it
+                )
         }
 
         viewModel.showPreview.observe(viewLifecycleOwner) {
@@ -154,8 +156,10 @@ class SettingsFragment : Fragment() {
 
         binding.actionChangeTheme.setOnClickListener {
             maintainScrollPosition {
-                BottomSheetMenu<Int>(requireContext(),
-                    header = getString(R.string.settings_theme_title))
+                BottomSheetMenu<Int>(
+                    requireContext(),
+                    header = getString(R.string.settings_theme_title)
+                )
                     .setSelectedValue(Preferences.darkThemePreference)
                     .addItem(
                         getString(R.string.settings_subtitle_dark_theme_light),
@@ -212,7 +216,11 @@ class SettingsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        binding.showWallpaperToggle.setCheckedNoEvent(Preferences.showWallpaper && requireActivity().checkGrantedPermission(Manifest.permission.READ_EXTERNAL_STORAGE))
+        binding.showWallpaperToggle.setCheckedNoEvent(
+            Preferences.showWallpaper && requireActivity().checkGrantedPermission(
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+        )
     }
 
     private fun requirePermission() {

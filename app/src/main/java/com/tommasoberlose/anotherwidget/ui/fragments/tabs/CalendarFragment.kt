@@ -12,15 +12,14 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.transition.MaterialSharedAxis
 import com.tommasoberlose.anotherwidget.R
 import com.tommasoberlose.anotherwidget.components.BottomSheetMenu
-import com.tommasoberlose.anotherwidget.models.CalendarSelector
 import com.tommasoberlose.anotherwidget.databinding.FragmentTabCalendarBinding
 import com.tommasoberlose.anotherwidget.global.Constants
 import com.tommasoberlose.anotherwidget.global.Preferences
-import com.tommasoberlose.anotherwidget.ui.activities.MainActivity
-import com.tommasoberlose.anotherwidget.ui.viewmodels.MainViewModel
 import com.tommasoberlose.anotherwidget.helpers.CalendarHelper
 import com.tommasoberlose.anotherwidget.helpers.SettingsStringHelper
-import com.tommasoberlose.anotherwidget.ui.widgets.MainWidget
+import com.tommasoberlose.anotherwidget.models.CalendarSelector
+import com.tommasoberlose.anotherwidget.ui.activities.MainActivity
+import com.tommasoberlose.anotherwidget.ui.viewmodels.MainViewModel
 import com.tommasoberlose.anotherwidget.utils.checkGrantedPermission
 import com.tommasoberlose.anotherwidget.utils.toast
 import kotlinx.coroutines.delay
@@ -46,7 +45,7 @@ class CalendarFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        viewModel = ViewModelProvider(activity as MainActivity).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(activity as MainActivity)[MainViewModel::class.java]
         binding = FragmentTabCalendarBinding.inflate(inflater)
 
         subscribeUi(viewModel)
@@ -57,6 +56,7 @@ class CalendarFragment : Fragment() {
         return binding.root
     }
 
+    @Deprecated("Deprecated")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -93,13 +93,15 @@ class CalendarFragment : Fragment() {
 
         viewModel.showNextEventOnMultipleLines.observe(viewLifecycleOwner) {
             maintainScrollPosition {
-                binding.showNextEventOnMultipleLinesLabel.text = if (it) getString(R.string.settings_enabled) else getString(R.string.settings_disabled)
+                binding.showNextEventOnMultipleLinesLabel.text =
+                    if (it) getString(R.string.settings_enabled) else getString(R.string.settings_disabled)
             }
         }
 
         viewModel.showDiffTime.observe(viewLifecycleOwner) {
             maintainScrollPosition {
-                binding.showDiffTimeLabel.text = if (it) getString(R.string.settings_visible) else getString(R.string.settings_not_visible)
+                binding.showDiffTimeLabel.text =
+                    if (it) getString(R.string.settings_visible) else getString(R.string.settings_not_visible)
                 binding.isDiffEnabled = it || !Preferences.showEvents
             }
         }
@@ -137,12 +139,15 @@ class CalendarFragment : Fragment() {
                     cal1.accountName != cal2.accountName -> {
                         cal1.accountName.compareTo(cal2.accountName)
                     }
+
                     cal1.accountName == cal1.name -> {
                         -1
                     }
+
                     cal2.accountName == cal2.name -> {
                         1
                     }
+
                     else -> {
                         cal1.name.compareTo(cal2.name)
                     }
@@ -151,16 +156,21 @@ class CalendarFragment : Fragment() {
 
             if (calendarSelectorList.isNotEmpty()) {
                 val filteredCalendarIds = CalendarHelper.getFilteredCalendarIdList()
-                val visibleCalendarIds = calendarSelectorList.map { it.id }.filter { id: Long -> !filteredCalendarIds.contains(id) }
+                val visibleCalendarIds =
+                    calendarSelectorList.map { it.id }.filter { id: Long -> !filteredCalendarIds.contains(id) }
 
-                val dialog = BottomSheetMenu<Long>(requireContext(), header = getString(R.string.settings_filter_calendar_subtitle), isMultiSelection = true)
+                val dialog = BottomSheetMenu<Long>(
+                    requireContext(),
+                    header = getString(R.string.settings_filter_calendar_subtitle),
+                    isMultiSelection = true
+                )
                     .setSelectedValues(visibleCalendarIds)
 
                 calendarSelectorList.indices.forEach { index ->
                     if (index == 0 || calendarSelectorList[index].accountName != calendarSelectorList[index - 1].accountName) {
                         dialog.addItem(calendarSelectorList[index].accountName)
                     }
-                    
+
                     dialog.addItem(
                         if (calendarSelectorList[index].name == calendarSelectorList[index].accountName) getString(R.string.main_calendar) else calendarSelectorList[index].name,
                         calendarSelectorList[index].id
@@ -197,7 +207,11 @@ class CalendarFragment : Fragment() {
                 selectedValues.add(CalendarContract.Attendees.ATTENDEE_STATUS_ACCEPTED)
             }
 
-            val dialog = BottomSheetMenu<Int>(requireContext(), header = getString(R.string.settings_attendee_status_title), isMultiSelection = true)
+            val dialog = BottomSheetMenu<Int>(
+                requireContext(),
+                header = getString(R.string.settings_attendee_status_title),
+                isMultiSelection = true
+            )
                 .setSelectedValues(selectedValues)
 
             dialog.addItem(
@@ -249,10 +263,23 @@ class CalendarFragment : Fragment() {
 
         binding.actionWidgetUpdateFrequency.setOnClickListener {
             if (Preferences.showEvents && Preferences.showDiffTime) {
-                BottomSheetMenu<Int>(requireContext(), header = getString(R.string.settings_widget_update_frequency_title), message = getString(R.string.settings_widget_update_frequency_subtitle)).setSelectedValue(Preferences.widgetUpdateFrequency)
-                    .addItem(getString(R.string.settings_widget_update_frequency_high), Constants.WidgetUpdateFrequency.HIGH.rawValue)
-                    .addItem(getString(R.string.settings_widget_update_frequency_default), Constants.WidgetUpdateFrequency.DEFAULT.rawValue)
-                    .addItem(getString(R.string.settings_widget_update_frequency_low), Constants.WidgetUpdateFrequency.LOW.rawValue)
+                BottomSheetMenu<Int>(
+                    requireContext(),
+                    header = getString(R.string.settings_widget_update_frequency_title),
+                    message = getString(R.string.settings_widget_update_frequency_subtitle)
+                ).setSelectedValue(Preferences.widgetUpdateFrequency)
+                    .addItem(
+                        getString(R.string.settings_widget_update_frequency_high),
+                        Constants.WidgetUpdateFrequency.HIGH.rawValue
+                    )
+                    .addItem(
+                        getString(R.string.settings_widget_update_frequency_default),
+                        Constants.WidgetUpdateFrequency.DEFAULT.rawValue
+                    )
+                    .addItem(
+                        getString(R.string.settings_widget_update_frequency_low),
+                        Constants.WidgetUpdateFrequency.LOW.rawValue
+                    )
                     .addOnSelectItemListener { value ->
                         Preferences.widgetUpdateFrequency = value
                         updateCalendar()
@@ -261,8 +288,11 @@ class CalendarFragment : Fragment() {
         }
 
         binding.actionSecondRowInfo.setOnClickListener {
-            val dialog = BottomSheetMenu<Int>(requireContext(), header = getString(R.string.settings_second_row_info_title)).setSelectedValue(Preferences.secondRowInformation)
-            (0 .. 1).forEach {
+            val dialog = BottomSheetMenu<Int>(
+                requireContext(),
+                header = getString(R.string.settings_second_row_info_title)
+            ).setSelectedValue(Preferences.secondRowInformation)
+            (0..1).forEach {
                 dialog.addItem(getString(SettingsStringHelper.getSecondRowInfoString(it)), it)
             }
             dialog.addOnSelectItemListener { value ->
@@ -271,8 +301,11 @@ class CalendarFragment : Fragment() {
         }
 
         binding.actionShowUntil.setOnClickListener {
-            val dialog = BottomSheetMenu<Int>(requireContext(), header = getString(R.string.settings_show_until_title)).setSelectedValue(Preferences.showUntil)
-            intArrayOf(6,7,0,1,2,3, 4, 5).forEach {
+            val dialog = BottomSheetMenu<Int>(
+                requireContext(),
+                header = getString(R.string.settings_show_until_title)
+            ).setSelectedValue(Preferences.showUntil)
+            intArrayOf(6, 7, 0, 1, 2, 3, 4, 5).forEach {
                 dialog.addItem(getString(SettingsStringHelper.getShowUntilString(it)), it)
             }
             dialog.addOnSelectItemListener { value ->

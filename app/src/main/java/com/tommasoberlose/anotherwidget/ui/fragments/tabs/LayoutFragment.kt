@@ -2,7 +2,6 @@ package com.tommasoberlose.anotherwidget.ui.fragments.tabs
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,7 +49,7 @@ class LayoutFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        viewModel = ViewModelProvider(activity as MainActivity).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(activity as MainActivity)[MainViewModel::class.java]
         binding = FragmentTabLayoutBinding.inflate(inflater)
 
         subscribeUi(viewModel)
@@ -62,6 +61,7 @@ class LayoutFragment : Fragment() {
         return binding.root
     }
 
+    @Deprecated("Deprecated")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -121,12 +121,26 @@ class LayoutFragment : Fragment() {
 
         viewModel.widgetAlign.observe(viewLifecycleOwner) {
             maintainScrollPosition {
-                binding.widgetAlignIcon.setImageDrawable(when (it) {
-                    Constants.WidgetAlign.LEFT.rawValue -> ContextCompat.getDrawable(requireContext(), R.drawable.round_align_horizontal_left_24)
-                    Constants.WidgetAlign.RIGHT.rawValue -> ContextCompat.getDrawable(requireContext(), R.drawable.round_align_horizontal_right_24)
-                    Constants.WidgetAlign.CENTER.rawValue -> ContextCompat.getDrawable(requireContext(), R.drawable.round_align_horizontal_center_24)
-                    else -> ContextCompat.getDrawable(requireContext(), R.drawable.round_align_horizontal_center_24)
-                })
+                binding.widgetAlignIcon.setImageDrawable(
+                    when (it) {
+                        Constants.WidgetAlign.LEFT.rawValue -> ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.round_align_horizontal_left_24
+                        )
+
+                        Constants.WidgetAlign.RIGHT.rawValue -> ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.round_align_horizontal_right_24
+                        )
+
+                        Constants.WidgetAlign.CENTER.rawValue -> ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.round_align_horizontal_center_24
+                        )
+
+                        else -> ContextCompat.getDrawable(requireContext(), R.drawable.round_align_horizontal_center_24)
+                    }
+                )
 
                 binding.widgetAlignLabel.text = when (it) {
                     Constants.WidgetAlign.LEFT.rawValue -> getString(R.string.settings_widget_align_left_subtitle)
@@ -154,7 +168,8 @@ class LayoutFragment : Fragment() {
                     binding.backgroundColorLabel.text = getString(R.string.transparent)
                 } else {
                     binding.backgroundColorLabel.text =
-                        "#%s".format(Integer.toHexString(ColorHelper.getBackgroundColor(requireActivity().isDarkTheme()))).toUpperCase()
+                        "#%s".format(Integer.toHexString(ColorHelper.getBackgroundColor(requireActivity().isDarkTheme())))
+                            .toUpperCase()
                 }
             }
         }

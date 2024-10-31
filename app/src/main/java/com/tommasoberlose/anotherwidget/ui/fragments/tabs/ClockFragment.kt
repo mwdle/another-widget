@@ -60,6 +60,7 @@ class ClockFragment : Fragment() {
         return binding.root
     }
 
+    @Deprecated("Deprecated")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -104,7 +105,8 @@ class ClockFragment : Fragment() {
 
         viewModel.showAMPMIndicator.observe(viewLifecycleOwner) {
             maintainScrollPosition {
-                binding.ampmIndicatorLabel.text = if (it) getString(R.string.settings_visible) else getString(R.string.settings_not_visible)
+                binding.ampmIndicatorLabel.text =
+                    if (it) getString(R.string.settings_visible) else getString(R.string.settings_not_visible)
             }
         }
 
@@ -114,7 +116,8 @@ class ClockFragment : Fragment() {
                     binding.clockTextColorLabel.text = getString(R.string.transparent)
                 } else {
                     binding.clockTextColorLabel.text =
-                        "#%s".format(Integer.toHexString(ColorHelper.getClockFontColor(activity?.isDarkTheme() == true))).toUpperCase()
+                        "#%s".format(Integer.toHexString(ColorHelper.getClockFontColor(activity?.isDarkTheme() == true)))
+                            .toUpperCase()
                 }
             }
         }
@@ -125,7 +128,8 @@ class ClockFragment : Fragment() {
                     binding.clockTextColorLabel.text = getString(R.string.transparent)
                 } else {
                     binding.clockTextColorLabel.text =
-                        "#%s".format(Integer.toHexString(ColorHelper.getClockFontColor(activity?.isDarkTheme() == true))).toUpperCase()
+                        "#%s".format(Integer.toHexString(ColorHelper.getClockFontColor(activity?.isDarkTheme() == true)))
+                            .toUpperCase()
                 }
             }
         }
@@ -136,10 +140,11 @@ class ClockFragment : Fragment() {
         binding.actionClockTextSize.setOnClickListener {
             BottomSheetPicker(
                 requireContext(),
-                items = (120 downTo 30).filter { it % 2 == 0 }.map { BottomSheetPicker.MenuItem("${it}sp", it.toFloat()) },
+                items = (120 downTo 30).filter { it % 2 == 0 }
+                    .map { BottomSheetPicker.MenuItem("${it}sp", it.toFloat()) },
                 getSelected = { Preferences.clockTextSize },
                 header = getString(R.string.settings_clock_text_size_title),
-                onItemSelected = {value ->
+                onItemSelected = { value ->
                     if (value != null) Preferences.clockTextSize = value
                 }
             ).show()

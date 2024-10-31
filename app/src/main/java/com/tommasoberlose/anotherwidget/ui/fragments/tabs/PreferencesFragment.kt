@@ -6,9 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
@@ -28,7 +26,8 @@ import com.tommasoberlose.anotherwidget.receivers.UpdatesReceiver
 import com.tommasoberlose.anotherwidget.receivers.WeatherReceiver
 import com.tommasoberlose.anotherwidget.ui.activities.MainActivity
 import com.tommasoberlose.anotherwidget.ui.viewmodels.MainViewModel
-import com.tommasoberlose.anotherwidget.utils.*
+import com.tommasoberlose.anotherwidget.utils.checkGrantedPermission
+import com.tommasoberlose.anotherwidget.utils.setOnSingleClickListener
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -53,7 +52,7 @@ class PreferencesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        viewModel = ViewModelProvider(activity as MainActivity).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(activity as MainActivity)[MainViewModel::class.java]
         binding = FragmentPreferencesBinding.inflate(inflater)
 
         subscribeUi(viewModel)
@@ -64,6 +63,7 @@ class PreferencesFragment : Fragment() {
         return binding.root
     }
 
+    @Deprecated("Deprecated")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -165,7 +165,7 @@ class PreferencesFragment : Fragment() {
         Dexter.withContext(requireContext())
             .withPermissions(
                 Manifest.permission.READ_CALENDAR
-            ).withListener(object: MultiplePermissionsListener {
+            ).withListener(object : MultiplePermissionsListener {
                 private var shouldShowRationale = false
                 override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
                     report?.let {
@@ -173,29 +173,29 @@ class PreferencesFragment : Fragment() {
                         Preferences.showEvents = granted
                         if (granted) {
                             CalendarHelper.updateEventList(requireContext())
-                        }
-                        else if (!shouldShowRationale && report.isAnyPermissionPermanentlyDenied) {
+                        } else if (!shouldShowRationale && report.isAnyPermissionPermanentlyDenied) {
                             MaterialBottomSheetDialog(
                                 requireContext(),
                                 getString(R.string.title_permission_calendar),
                                 getString(R.string.description_permission_calendar)
                             ).setNegativeButton(getString(R.string.action_ignore))
-                            .setPositiveButton(getString(R.string.action_grant_permission)) {
-                                startActivity(
-                                    android.content.Intent(
-                                        android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-                                    ).apply {
-                                        data = android.net.Uri.fromParts(
-                                            "package",
-                                            requireContext().packageName,
-                                            null
-                                        )
-                                    }
-                                )
-                            }.show()
+                                .setPositiveButton(getString(R.string.action_grant_permission)) {
+                                    startActivity(
+                                        android.content.Intent(
+                                            android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                                        ).apply {
+                                            data = android.net.Uri.fromParts(
+                                                "package",
+                                                requireContext().packageName,
+                                                null
+                                            )
+                                        }
+                                    )
+                                }.show()
                         }
                     }
                 }
+
                 override fun onPermissionRationaleShouldBeShown(
                     permissions: MutableList<PermissionRequest>?,
                     token: PermissionToken?
@@ -210,16 +210,22 @@ class PreferencesFragment : Fragment() {
     }
 
     private fun checkWeatherProviderConfig() {
-        binding.weatherProviderError.isVisible = Preferences.showWeather && Preferences.weatherProviderError != "" && Preferences.weatherProviderError != "-"
+        binding.weatherProviderError.isVisible =
+            Preferences.showWeather && Preferences.weatherProviderError != "" && Preferences.weatherProviderError != "-"
         binding.weatherProviderError.text = Preferences.weatherProviderError
 
-        binding.weatherProviderLocationError.isVisible = Preferences.showWeather && Preferences.weatherProviderLocationError != ""
+        binding.weatherProviderLocationError.isVisible =
+            Preferences.showWeather && Preferences.weatherProviderLocationError != ""
         binding.weatherProviderLocationError.text = Preferences.weatherProviderLocationError
     }
 
     override fun onResume() {
         super.onResume()
-        binding.showEventsSwitch.setCheckedNoEvent(Preferences.showEvents && requireActivity().checkGrantedPermission(Manifest.permission.READ_CALENDAR))
+        binding.showEventsSwitch.setCheckedNoEvent(
+            Preferences.showEvents && requireActivity().checkGrantedPermission(
+                Manifest.permission.READ_CALENDAR
+            )
+        )
     }
 
     private fun maintainScrollPosition(callback: () -> Unit) {

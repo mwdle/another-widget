@@ -57,6 +57,7 @@ class GesturesFragment : Fragment() {
         return binding.root
     }
 
+    @Deprecated("Deprecated")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -94,7 +95,8 @@ class GesturesFragment : Fragment() {
 
         viewModel.openEventDetails.observe(viewLifecycleOwner) {
             maintainScrollPosition {
-                binding.openEventDetailsLabel.text = if (it) getString(R.string.default_event_app) else getString(R.string.default_calendar_app)
+                binding.openEventDetailsLabel.text =
+                    if (it) getString(R.string.default_event_app) else getString(R.string.default_calendar_app)
             }
         }
 
@@ -138,7 +140,10 @@ class GesturesFragment : Fragment() {
         }
 
         binding.actionOpenEventDetails.setOnClickListener {
-            BottomSheetMenu<Boolean>(requireContext(), header = getString(R.string.settings_event_app_title)).setSelectedValue(Preferences.openEventDetails)
+            BottomSheetMenu<Boolean>(
+                requireContext(),
+                header = getString(R.string.settings_event_app_title)
+            ).setSelectedValue(Preferences.openEventDetails)
                 .addItem(getString(R.string.default_event_app), true)
                 .addItem(getString(R.string.default_calendar_app), false)
                 .addOnSelectItemListener { value ->
@@ -184,31 +189,42 @@ class GesturesFragment : Fragment() {
         }
     }
 
+    @Deprecated("Deprecated")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == Activity.RESULT_OK && data != null && data.hasExtra(Constants.RESULT_APP_NAME) && data.hasExtra(Constants.RESULT_APP_PACKAGE)) {
+        if (resultCode == Activity.RESULT_OK && data != null && data.hasExtra(Constants.RESULT_APP_NAME) && data.hasExtra(
+                Constants.RESULT_APP_PACKAGE
+            )
+        ) {
             when (requestCode) {
                 RequestCode.CALENDAR_APP_REQUEST_CODE.code -> {
                     Preferences.bulk {
                         calendarAppName = data.getStringExtra(Constants.RESULT_APP_NAME) ?: IntentHelper.DEFAULT_OPTION
-                        calendarAppPackage = data.getStringExtra(Constants.RESULT_APP_PACKAGE) ?: IntentHelper.DEFAULT_OPTION
+                        calendarAppPackage =
+                            data.getStringExtra(Constants.RESULT_APP_PACKAGE) ?: IntentHelper.DEFAULT_OPTION
                     }
                 }
+
                 RequestCode.EVENT_APP_REQUEST_CODE.code -> {
                     Preferences.bulk {
                         eventAppName = data.getStringExtra(Constants.RESULT_APP_NAME) ?: IntentHelper.DEFAULT_OPTION
-                        eventAppPackage = data.getStringExtra(Constants.RESULT_APP_PACKAGE) ?: IntentHelper.DEFAULT_OPTION
+                        eventAppPackage =
+                            data.getStringExtra(Constants.RESULT_APP_PACKAGE) ?: IntentHelper.DEFAULT_OPTION
                     }
                 }
+
                 RequestCode.WEATHER_APP_REQUEST_CODE.code -> {
                     Preferences.bulk {
                         weatherAppName = data.getStringExtra(Constants.RESULT_APP_NAME) ?: IntentHelper.DEFAULT_OPTION
-                        weatherAppPackage = data.getStringExtra(Constants.RESULT_APP_PACKAGE) ?: IntentHelper.DEFAULT_OPTION
+                        weatherAppPackage =
+                            data.getStringExtra(Constants.RESULT_APP_PACKAGE) ?: IntentHelper.DEFAULT_OPTION
                     }
                 }
+
                 RequestCode.CLOCK_APP_REQUEST_CODE.code -> {
                     Preferences.bulk {
                         clockAppName = data.getStringExtra(Constants.RESULT_APP_NAME) ?: IntentHelper.DEFAULT_OPTION
-                        clockAppPackage = data.getStringExtra(Constants.RESULT_APP_PACKAGE) ?: IntentHelper.DEFAULT_OPTION
+                        clockAppPackage =
+                            data.getStringExtra(Constants.RESULT_APP_PACKAGE) ?: IntentHelper.DEFAULT_OPTION
                     }
                 }
             }

@@ -25,9 +25,9 @@ import com.tommasoberlose.anotherwidget.helpers.ColorHelper.toHexValue
 import com.tommasoberlose.anotherwidget.helpers.ColorHelper.toIntValue
 import com.tommasoberlose.anotherwidget.helpers.DateHelper
 import com.tommasoberlose.anotherwidget.helpers.SettingsStringHelper
-import com.tommasoberlose.anotherwidget.ui.activities.tabs.CustomFontActivity
 import com.tommasoberlose.anotherwidget.ui.activities.MainActivity
 import com.tommasoberlose.anotherwidget.ui.activities.tabs.CustomDateActivity
+import com.tommasoberlose.anotherwidget.ui.activities.tabs.CustomFontActivity
 import com.tommasoberlose.anotherwidget.ui.viewmodels.MainViewModel
 import com.tommasoberlose.anotherwidget.utils.isDarkTheme
 import kotlinx.coroutines.Dispatchers
@@ -58,7 +58,7 @@ class TypographyFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        viewModel = ViewModelProvider(activity as MainActivity).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(activity as MainActivity)[MainViewModel::class.java]
         binding = FragmentTabTypographyBinding.inflate(inflater)
 
         subscribeUi(viewModel)
@@ -70,6 +70,7 @@ class TypographyFragment : Fragment() {
         return binding.root
     }
 
+    @Deprecated("Deprecated")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -317,6 +318,7 @@ class TypographyFragment : Fragment() {
         }
     }
 
+    @Deprecated("Deprecated")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == android.app.Activity.RESULT_OK) {
             when (requestCode) {

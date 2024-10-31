@@ -80,6 +80,7 @@ class GlanceTabFragment : Fragment() {
         return binding.root
     }
 
+    @Deprecated("Deprecated")
     @SuppressLint("NotifyDataSetChanged")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -101,7 +102,7 @@ class GlanceTabFragment : Fragment() {
                     }
                     .clicked(R.id.item) {
                         if (provider == Constants.GlanceProviderId.CUSTOM_INFO) {
-                            CustomNotesDialog(requireContext()){
+                            CustomNotesDialog(requireContext()) {
                                 adapter.notifyItemRangeChanged(0, adapter.data.size)
                             }.show()
                         } else {
@@ -130,12 +131,14 @@ class GlanceTabFragment : Fragment() {
                                 )
                                 isVisible = Preferences.showMusic
                             }
+
                             Preferences.showMusic -> {
                                 injector.visibility(R.id.error_icon, View.VISIBLE)
                                 injector.visibility(R.id.info_icon, View.GONE)
                                 injector.text(R.id.label, getString(R.string.settings_not_visible))
                                 isVisible = false
                             }
+
                             else -> {
                                 injector.visibility(R.id.error_icon, View.GONE)
                                 injector.visibility(R.id.info_icon, View.VISIBLE)
@@ -144,6 +147,7 @@ class GlanceTabFragment : Fragment() {
                             }
                         }
                     }
+
                     Constants.GlanceProviderId.NEXT_CLOCK_ALARM -> {
                         injector.text(
                             R.id.label,
@@ -172,6 +176,7 @@ class GlanceTabFragment : Fragment() {
                             requireContext()
                         ))
                     }
+
                     Constants.GlanceProviderId.BATTERY_LEVEL_LOW -> {
                         injector.text(
                             R.id.label,
@@ -183,6 +188,7 @@ class GlanceTabFragment : Fragment() {
                         injector.visibility(R.id.info_icon, View.VISIBLE)
                         isVisible = Preferences.showBatteryCharging
                     }
+
                     Constants.GlanceProviderId.NOTIFICATIONS -> {
                         when {
                             ActiveNotificationsHelper.checkNotificationAccess(requireContext()) -> {
@@ -196,12 +202,14 @@ class GlanceTabFragment : Fragment() {
                                 )
                                 isVisible = Preferences.showNotifications
                             }
+
                             Preferences.showNotifications -> {
                                 injector.visibility(R.id.error_icon, View.VISIBLE)
                                 injector.visibility(R.id.info_icon, View.GONE)
                                 injector.text(R.id.label, getString(R.string.settings_not_visible))
                                 isVisible = false
                             }
+
                             else -> {
                                 injector.visibility(R.id.error_icon, View.GONE)
                                 injector.visibility(R.id.info_icon, View.VISIBLE)
@@ -210,6 +218,7 @@ class GlanceTabFragment : Fragment() {
                             }
                         }
                     }
+
                     Constants.GlanceProviderId.GREETINGS -> {
                         injector.text(
                             R.id.label,
@@ -221,6 +230,7 @@ class GlanceTabFragment : Fragment() {
                         injector.visibility(R.id.info_icon, View.VISIBLE)
                         isVisible = Preferences.showGreetings
                     }
+
                     Constants.GlanceProviderId.CUSTOM_INFO -> {
                         injector.text(
                             R.id.label,
@@ -232,6 +242,7 @@ class GlanceTabFragment : Fragment() {
                         injector.visibility(R.id.info_icon, View.VISIBLE)
                         isVisible = Preferences.customNotes != ""
                     }
+
                     Constants.GlanceProviderId.EVENTS -> {
                         isVisible =
                             Preferences.showEventsAsGlanceProvider
@@ -253,10 +264,12 @@ class GlanceTabFragment : Fragment() {
                             if (!(isVisible && hasError)) View.VISIBLE else View.GONE
                         )
                     }
+
                     Constants.GlanceProviderId.WEATHER -> {
                         isVisible =
                             Preferences.showWeatherAsGlanceProvider
-                        val hasError = !Preferences.showWeather || (Preferences.weatherProviderError != "" && Preferences.weatherProviderError != "-") || Preferences.weatherProviderLocationError != ""
+                        val hasError =
+                            !Preferences.showWeather || (Preferences.weatherProviderError != "" && Preferences.weatherProviderError != "-") || Preferences.weatherProviderLocationError != ""
                         injector.text(
                             R.id.label,
                             if (isVisible && !hasError) getString(R.string.settings_visible) else getString(
@@ -388,18 +401,18 @@ class GlanceTabFragment : Fragment() {
 
         mIth.attachToRecyclerView(binding.providersList)
 
-        setupListener()
-
         binding.scrollView.viewTreeObserver.addOnScrollChangedListener {
             viewModel.fragmentScrollY.value = binding.scrollView.scrollY
         }
 
         lifecycleScope.launch(Dispatchers.IO) {
             delay(500)
-            val l = list.map { GlanceProviderHelper.getGlanceProviderById(
-                requireContext(),
-                it
-            ) }
+            val l = list.map {
+                GlanceProviderHelper.getGlanceProviderById(
+                    requireContext(),
+                    it
+                )
+            }
             withContext(Dispatchers.Main) {
                 binding.loader.animate().scaleX(0f).scaleY(0f).alpha(0f).start()
                 adapter.updateData(l)
@@ -411,9 +424,6 @@ class GlanceTabFragment : Fragment() {
                 binding.providersList.scheduleLayoutAnimation()
             }
         }
-    }
-
-    private fun setupListener() {
     }
 
     private val nextAlarmChangeBroadcastReceiver = object : BroadcastReceiver() {

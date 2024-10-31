@@ -67,6 +67,7 @@ class WeatherFragment : Fragment() {
         return binding.root
     }
 
+    @Deprecated("Deprecated")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setupListener()
@@ -195,6 +196,7 @@ class WeatherFragment : Fragment() {
         }
     }
 
+    @Deprecated("Deprecated")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
