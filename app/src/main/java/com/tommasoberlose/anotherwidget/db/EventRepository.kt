@@ -13,7 +13,7 @@ class EventRepository(val context: Context) {
     private val db by lazy { EventDatabase.getDatabase(context) }
 
     fun saveEvents(eventList: List<Event>) {
-        db.runInTransaction{
+        db.runInTransaction {
             db.dao().run {
                 deleteAll()
                 insert(eventList)
@@ -154,7 +154,7 @@ class EventRepository(val context: Context) {
         fun deleteAll()
     }
 
-    @Database(entities = arrayOf(Event::class), version = 1, exportSchema = false)
+    @Database(entities = [Event::class], version = 1, exportSchema = false)
     abstract class EventDatabase : RoomDatabase() {
         abstract fun dao(): EventDao
 
