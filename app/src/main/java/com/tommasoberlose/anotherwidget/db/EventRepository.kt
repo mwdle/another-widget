@@ -1,30 +1,19 @@
 package com.tommasoberlose.anotherwidget.db
 
 import android.content.Context
-import android.provider.CalendarContract
-import android.util.Log
-import androidx.room.Dao
-import androidx.room.Database
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
 import com.chibatching.kotpref.bulk
 import com.tommasoberlose.anotherwidget.global.Preferences
-import com.tommasoberlose.anotherwidget.helpers.CalendarHelper.applyFilters
 import com.tommasoberlose.anotherwidget.helpers.CalendarHelper.sortEvents
 import com.tommasoberlose.anotherwidget.models.Event
-import com.tommasoberlose.anotherwidget.receivers.UpdatesReceiver
 import com.tommasoberlose.anotherwidget.ui.widgets.MainWidget
 import java.util.*
-import kotlin.Comparator
-import kotlin.collections.ArrayList
 
 class EventRepository(val context: Context) {
     private val db by lazy { EventDatabase.getDatabase(context) }
 
     fun saveEvents(eventList: List<Event>) {
-        db.runInTransaction{
+        db.runInTransaction {
             db.dao().run {
                 deleteAll()
                 insert(eventList)
@@ -144,7 +133,7 @@ class EventRepository(val context: Context) {
     fun getEventsCount(): Int = getEvents().size
 
     fun close() {
-        // db.close()
+//         db.close()
     }
 
     @Dao
@@ -165,7 +154,7 @@ class EventRepository(val context: Context) {
         fun deleteAll()
     }
 
-    @Database(entities = arrayOf(Event::class), version = 1, exportSchema = false)
+    @Database(entities = [Event::class], version = 1, exportSchema = false)
     abstract class EventDatabase : RoomDatabase() {
         abstract fun dao(): EventDao
 

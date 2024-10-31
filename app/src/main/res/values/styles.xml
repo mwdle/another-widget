@@ -131,6 +131,7 @@
         <item name="android:textSize">24sp</item>
         <item name="android:shadowRadius">5</item>
         <item name="android:gravity">center</item>
+        <item name="android:textFontWeight">250</item>
     </style>
 
     <style name="AnotherWidget.Widget.Subtitle" parent="TextAppearance.AppCompat.Small">

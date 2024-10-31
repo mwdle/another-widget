@@ -11,14 +11,11 @@ import android.net.Uri
 import android.provider.AlarmClock
 import android.provider.CalendarContract
 import android.provider.CalendarContract.Events
-import android.util.Log
-import com.tommasoberlose.anotherwidget.R
 import com.tommasoberlose.anotherwidget.global.Actions
 import com.tommasoberlose.anotherwidget.global.Preferences
 import com.tommasoberlose.anotherwidget.models.Event
 import com.tommasoberlose.anotherwidget.receivers.UpdatesReceiver
 import com.tommasoberlose.anotherwidget.ui.widgets.MainWidget
-import com.tommasoberlose.anotherwidget.utils.toast
 import java.util.*
 
 
@@ -30,9 +27,9 @@ object IntentHelper {
 
     fun getPendingIntent(context: Context, requestCode: Int, intent: Intent, flags: Int): PendingIntent {
         return if (intent.flags and Intent.FLAG_ACTIVITY_NEW_TASK == Intent.FLAG_ACTIVITY_NEW_TASK)
-            PendingIntent.getActivity(context, requestCode, intent, flags)
+            PendingIntent.getActivity(context, requestCode, intent, flags or PendingIntent.FLAG_IMMUTABLE)
         else
-            PendingIntent.getBroadcast(context, requestCode, intent, flags)
+            PendingIntent.getBroadcast(context, requestCode, intent, flags or PendingIntent.FLAG_IMMUTABLE)
     }
 
     fun getWidgetUpdateIntent(context: Context): Intent {
@@ -236,18 +233,6 @@ object IntentHelper {
                     Intent()
                 }
             }
-        }
-    }
-
-    fun getFitIntent(context: Context): Intent {
-        val pm: PackageManager = context.packageManager
-        return try {
-            pm.getLaunchIntentForPackage("com.google.android.apps.fitness")!!.apply {
-                addCategory(Intent.CATEGORY_LAUNCHER)
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            }
-        } catch (e: Exception) {
-            Intent()
         }
     }
 

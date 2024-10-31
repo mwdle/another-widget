@@ -7,11 +7,9 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RemoteViews
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -22,13 +20,15 @@ import com.google.android.material.transition.MaterialSharedAxis
 import com.tommasoberlose.anotherwidget.R
 import com.tommasoberlose.anotherwidget.components.MaterialBottomSheetDialog
 import com.tommasoberlose.anotherwidget.databinding.FragmentAppMainBinding
-import com.tommasoberlose.anotherwidget.global.Constants
 import com.tommasoberlose.anotherwidget.global.Preferences
-import com.tommasoberlose.anotherwidget.helpers.*
+import com.tommasoberlose.anotherwidget.helpers.WidgetHelper
 import com.tommasoberlose.anotherwidget.ui.activities.MainActivity
 import com.tommasoberlose.anotherwidget.ui.viewmodels.MainViewModel
 import com.tommasoberlose.anotherwidget.ui.widgets.MainWidget
-import com.tommasoberlose.anotherwidget.utils.*
+import com.tommasoberlose.anotherwidget.utils.convertDpToPixel
+import com.tommasoberlose.anotherwidget.utils.getCurrentWallpaper
+import com.tommasoberlose.anotherwidget.utils.setOnSingleClickListener
+import com.tommasoberlose.anotherwidget.utils.toPixel
 import kotlinx.coroutines.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -55,7 +55,7 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel = ViewModelProvider(activity as MainActivity).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(activity as MainActivity)[MainViewModel::class.java]
         binding = FragmentAppMainBinding.inflate(inflater)
 
         // Warnings
@@ -220,7 +220,7 @@ class MainFragment : Fragment() {
     private var delayJob: Job? = null
 
     class UpdateUiMessageEvent
-    class ChangeTabEvent(val page: Int)
+    class ChangeTabEvent()
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onUpdateUiEvent(@Suppress("UNUSED_PARAMETER") ignore: UpdateUiMessageEvent?) {

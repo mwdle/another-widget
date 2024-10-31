@@ -12,3 +12,5 @@ apikey.properties
 ./.idea/*
 app/release/*
 /app/release/*
+.idea
+anotherwidget.mwdle.jks

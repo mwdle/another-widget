@@ -1,12 +1,9 @@
 package com.tommasoberlose.anotherwidget.ui.activities.tabs
 
-import android.Manifest
 import android.app.Activity
 import android.location.Address
 import android.location.Geocoder
 import android.os.Bundle
-import android.util.Log
-import com.tommasoberlose.anotherwidget.R
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -15,11 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chibatching.kotpref.bulk
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.MultiplePermissionsReport
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import com.tommasoberlose.anotherwidget.R
 import com.tommasoberlose.anotherwidget.databinding.ActivityCustomLocationBinding
 import com.tommasoberlose.anotherwidget.global.Preferences
 import com.tommasoberlose.anotherwidget.ui.viewmodels.tabs.CustomLocationViewModel
@@ -35,7 +28,7 @@ class CustomLocationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(CustomLocationViewModel::class.java)
+        viewModel = ViewModelProvider(this)[CustomLocationViewModel::class.java]
         binding = ActivityCustomLocationBinding.inflate(layoutInflater)
 
 

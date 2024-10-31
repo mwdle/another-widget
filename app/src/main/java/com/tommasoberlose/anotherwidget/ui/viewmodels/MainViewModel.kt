@@ -1,17 +1,11 @@
 package com.tommasoberlose.anotherwidget.ui.viewmodels
 
 import android.app.Application
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
-import androidx.core.os.ConfigurationCompat
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import com.chibatching.kotpref.livedata.asLiveData
-import com.tommasoberlose.anotherwidget.R
-import com.tommasoberlose.anotherwidget.global.Constants
 import com.tommasoberlose.anotherwidget.global.Preferences
-import com.tommasoberlose.anotherwidget.helpers.ColorHelper.isColor
-import com.tommasoberlose.anotherwidget.utils.isMetric
 
 class MainViewModel(context: Application) : AndroidViewModel(context) {
 
@@ -66,7 +60,6 @@ class MainViewModel(context: Application) : AndroidViewModel(context) {
     val dateFormat = Preferences.asLiveData(Preferences::dateFormat)
 
     // Clock Settings
-    val showClock = Preferences.asLiveData(Preferences::showClock)
     val clockTextSize = Preferences.asLiveData(Preferences::clockTextSize)
     val altTimezoneLabel = Preferences.asLiveData(Preferences::altTimezoneLabel)
     val clockTextColor = MediatorLiveData<Boolean>().apply {
@@ -165,7 +158,6 @@ class MainViewModel(context: Application) : AndroidViewModel(context) {
         addSource(Preferences.asLiveData(Preferences::customNotes)) { value = true }
         addSource(Preferences.asLiveData(Preferences::showNextAlarm)) { value = true }
         addSource(Preferences.asLiveData(Preferences::showBatteryCharging)) { value = true }
-        addSource(Preferences.asLiveData(Preferences::showDailySteps)) { value = true }
         addSource(Preferences.asLiveData(Preferences::showGreetings)) { value = true }
         addSource(Preferences.asLiveData(Preferences::showNotifications)) { value = true }
         addSource(Preferences.asLiveData(Preferences::showMusic)) { value = true }

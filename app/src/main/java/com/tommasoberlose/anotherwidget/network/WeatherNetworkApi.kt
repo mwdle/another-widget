@@ -1,7 +1,6 @@
 package com.tommasoberlose.anotherwidget.network
 
 import android.content.Context
-import android.util.Log
 import com.chibatching.kotpref.Kotpref
 import com.google.gson.internal.LinkedTreeMap
 import com.haroldadmin.cnradapter.NetworkResponse
@@ -17,11 +16,10 @@ import com.tommasoberlose.anotherwidget.helpers.WeatherHelper
 import com.tommasoberlose.anotherwidget.network.repository.*
 import com.tommasoberlose.anotherwidget.ui.fragments.MainFragment
 import com.tommasoberlose.anotherwidget.ui.widgets.MainWidget
-import java.lang.Exception
-import java.text.SimpleDateFormat
-import kotlin.coroutines.resume
 import kotlinx.coroutines.suspendCancellableCoroutine
 import org.greenrobot.eventbus.EventBus
+import java.text.SimpleDateFormat
+import kotlin.coroutines.resume
 
 class WeatherNetworkApi(val context: Context) {
     suspend fun updateWeather() {
@@ -142,10 +140,7 @@ class WeatherNetworkApi(val context: Context) {
                                 val periods = props["periods"] as List<*>
                                 @android.annotation.SuppressLint("SimpleDateFormat")
                                 val format = SimpleDateFormat(
-                                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N)
-                                        "yyyy-MM-dd'T'HH:mm:ssXXX"
-                                    else
-                                        "yyyy-MM-dd'T'HH:mm:ssZ"
+                                    "yyyy-MM-dd'T'HH:mm:ssXXX"
                                 )
                                 for (period in periods) {
                                     val now = period as LinkedTreeMap<*, *>

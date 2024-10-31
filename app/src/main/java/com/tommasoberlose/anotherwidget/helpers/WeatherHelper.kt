@@ -1,15 +1,11 @@
 package com.tommasoberlose.anotherwidget.helpers
 
-import android.Manifest
 import android.content.Context
-import com.chibatching.kotpref.Kotpref
 import com.tommasoberlose.anotherwidget.R
 import com.tommasoberlose.anotherwidget.global.Constants
 import com.tommasoberlose.anotherwidget.global.Preferences
-import com.tommasoberlose.anotherwidget.network.WeatherNetworkApi
 import com.tommasoberlose.anotherwidget.services.WeatherWorker
 import com.tommasoberlose.anotherwidget.ui.widgets.MainWidget
-import com.tommasoberlose.anotherwidget.utils.checkGrantedPermission
 import com.tommasoberlose.anotherwidget.utils.isDarkTheme
 
 
@@ -100,17 +96,6 @@ object WeatherHelper {
         else -> true
     }
 
-    fun getApiKey(provider: Constants.WeatherProvider? = Constants.WeatherProvider.fromInt(Preferences.weatherProvider)!!): String = when (provider) {
-        Constants.WeatherProvider.OPEN_WEATHER -> Preferences.weatherProviderApiOpen
-        Constants.WeatherProvider.WEATHER_BIT -> Preferences.weatherProviderApiWeatherBit
-        Constants.WeatherProvider.WEATHER_API -> Preferences.weatherProviderApiWeatherApi
-        Constants.WeatherProvider.HERE -> Preferences.weatherProviderApiHere
-        Constants.WeatherProvider.ACCUWEATHER -> Preferences.weatherProviderApiAccuweather
-        Constants.WeatherProvider.WEATHER_GOV -> ""
-        Constants.WeatherProvider.YR -> ""
-        else -> ""
-    }
-
     fun getWeatherIconResource(context: Context, icon: String, style: Int = Preferences.weatherIconPack): Int {
         return when (icon) {
             "01d" -> {
@@ -137,7 +122,7 @@ object WeatherHelper {
                     else -> if (context.isDarkTheme()) R.drawable.mostly_cloudy_5 else R.drawable.mostly_cloudy_5_light
                 }
             }
-            "04d" -> {
+            "04d", "04n" -> {
                 when (style) {
                     Constants.WeatherIconPack.COOL.rawValue -> R.drawable.cloudy_weather_3
                     Constants.WeatherIconPack.MINIMAL.rawValue -> R.drawable.cloudy_weather_2
@@ -201,7 +186,7 @@ object WeatherHelper {
                     else -> if (context.isDarkTheme()) R.drawable.rain_snow_day_5 else R.drawable.rain_snow_day_5_light
                 }
             }
-            "82d" -> {
+            "82d", "82n" -> {
                 when (style) {
                     Constants.WeatherIconPack.COOL.rawValue -> R.drawable.haze_weather_3
                     Constants.WeatherIconPack.MINIMAL.rawValue -> R.drawable.haze_weather_2
@@ -209,9 +194,6 @@ object WeatherHelper {
                     else -> if (context.isDarkTheme()) R.drawable.haze_weather_5 else R.drawable.haze_weather_5_light
                 }
             }
-
-
-
             "01n" -> {
                 when (style) {
                     Constants.WeatherIconPack.COOL.rawValue -> R.drawable.clear_night_3
@@ -234,14 +216,6 @@ object WeatherHelper {
                     Constants.WeatherIconPack.MINIMAL.rawValue -> R.drawable.mostly_cloudy_night_2
                     Constants.WeatherIconPack.GOOGLE_NEWS.rawValue -> R.drawable.mostly_cloudy_night_4
                     else -> if (context.isDarkTheme()) R.drawable.mostly_cloudy_night_5 else R.drawable.mostly_cloudy_night_5_light
-                }
-            }
-            "04n" -> {
-                when (style) {
-                    Constants.WeatherIconPack.COOL.rawValue -> R.drawable.cloudy_weather_3
-                    Constants.WeatherIconPack.MINIMAL.rawValue -> R.drawable.cloudy_weather_2
-                    Constants.WeatherIconPack.GOOGLE_NEWS.rawValue -> R.drawable.cloudy_weather_4
-                    else -> if (context.isDarkTheme()) R.drawable.cloudy_weather_5 else R.drawable.cloudy_weather_5_light
                 }
             }
             "09n" -> {
@@ -298,14 +272,6 @@ object WeatherHelper {
                     Constants.WeatherIconPack.MINIMAL.rawValue -> R.drawable.rain_snow_night_2
                     Constants.WeatherIconPack.GOOGLE_NEWS.rawValue -> R.drawable.rain_snow_night_4
                     else -> if (context.isDarkTheme()) R.drawable.rain_snow_night_5 else R.drawable.rain_snow_night_5_light
-                }
-            }
-            "82n" -> {
-                when (style) {
-                    Constants.WeatherIconPack.COOL.rawValue -> R.drawable.haze_weather_3
-                    Constants.WeatherIconPack.MINIMAL.rawValue -> R.drawable.haze_weather_2
-                    Constants.WeatherIconPack.GOOGLE_NEWS.rawValue -> R.drawable.haze_weather_4
-                    else -> if (context.isDarkTheme()) R.drawable.haze_weather_5 else R.drawable.haze_weather_5_light
                 }
             }
             else -> {
