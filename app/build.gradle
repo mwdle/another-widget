@@ -39,15 +39,18 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
     }
-
     packagingOptions {
-        exclude 'META-INF/DEPENDENCIES'
+        resources {
+            excludes += ['META-INF/DEPENDENCIES']
+        }
     }
+
 
     buildFeatures {
         dataBinding = true
         viewBinding = true
     }
+    namespace 'com.tommasoberlose.anotherwidget'
 }
 
 dependencies {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.tommasoberlose.anotherwidget">
+>
 
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -22,23 +22,23 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme"
         tools:ignore="LockedOrientationActivity">
-        <activity android:name=".ui.activities.SplashActivity" android:exported="true" android:theme="@style/AppTheme.Main" android:screenOrientation="portrait">
+        <activity android:name=".ui.activities.SplashActivity" android:exported="true" android:theme="@style/AppTheme.Main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activities.MainActivity" android:theme="@style/AppTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activities.tabs.ChooseApplicationActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activities.tabs.CustomFontActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activities.tabs.CustomLocationActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activities.tabs.WeatherProviderActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activities.tabs.CustomDateActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activities.settings.IntegrationsActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activities.tabs.MusicPlayersFilterActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activities.tabs.AppNotificationsFilterActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activities.tabs.MediaInfoFormatActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activities.tabs.TimeZoneSelectorActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activities.MainActivity" android:theme="@style/AppTheme"/>
+        <activity android:name=".ui.activities.tabs.ChooseApplicationActivity"/>
+        <activity android:name=".ui.activities.tabs.CustomFontActivity"/>
+        <activity android:name=".ui.activities.tabs.CustomLocationActivity"/>
+        <activity android:name=".ui.activities.tabs.WeatherProviderActivity"/>
+        <activity android:name=".ui.activities.tabs.CustomDateActivity"/>
+        <activity android:name=".ui.activities.settings.IntegrationsActivity"/>
+        <activity android:name=".ui.activities.tabs.MusicPlayersFilterActivity"/>
+        <activity android:name=".ui.activities.tabs.AppNotificationsFilterActivity"/>
+        <activity android:name=".ui.activities.tabs.MediaInfoFormatActivity"/>
+        <activity android:name=".ui.activities.tabs.TimeZoneSelectorActivity"/>
 
         <receiver android:name=".ui.widgets.MainWidget" android:exported="true">
             <intent-filter>
@@ -83,7 +83,7 @@
         <receiver
             android:name=".receivers.WeatherReceiver"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true" tools:ignore="ExportedReceiver">
             <intent-filter>
                 <action android:name="com.tommasoberlose.anotherwidget.action.WEATHER_UPDATE" />
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
@@ -97,7 +97,7 @@
         <receiver
             android:name=".receivers.WidgetClickListenerReceiver"
             android:enabled="true"
-            android:exported="true">
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.tommasoberlose.anotherwidget.action.OPEN_WEATHER_INTENT" />
             </intent-filter>
