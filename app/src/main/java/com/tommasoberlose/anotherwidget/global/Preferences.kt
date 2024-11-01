@@ -1,6 +1,6 @@
 package com.tommasoberlose.anotherwidget.global
 
-import androidx.appcompat.app.AppCompatDelegate.*
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
 import androidx.core.os.ConfigurationCompat
 import com.chibatching.kotpref.KotprefModel
 import com.tommasoberlose.anotherwidget.helpers.IntentHelper
@@ -17,8 +17,14 @@ object Preferences : KotprefModel() {
     var showWeather by booleanPref(key = "PREF_SHOW_WEATHER", default = false)
     var weatherIcon by stringPref(key = "PREF_WEATHER_ICON", default = "")
     var weatherTemp by floatPref(key = "PREF_WEATHER_TEMP", default = 0f)
-    var weatherTempUnit by stringPref(key = "PREF_WEATHER_TEMP_UNIT", default = if (ConfigurationCompat.getLocales(context.resources.configuration)[0].isMetric()) "C" else "F")
-    var weatherRealTempUnit by stringPref(key = "PREF_WEATHER_REAL_TEMP_UNIT", default = if (ConfigurationCompat.getLocales(context.resources.configuration)[0].isMetric()) "C" else "F")
+    var weatherTempUnit by stringPref(
+        key = "PREF_WEATHER_TEMP_UNIT",
+        default = if (ConfigurationCompat.getLocales(context.resources.configuration)[0].isMetric()) "C" else "F"
+    )
+    var weatherRealTempUnit by stringPref(
+        key = "PREF_WEATHER_REAL_TEMP_UNIT",
+        default = if (ConfigurationCompat.getLocales(context.resources.configuration)[0].isMetric()) "C" else "F"
+    )
     var calendarAllDay by booleanPref(key = "PREF_CALENDAR_ALL_DAY", default = true)
     var calendarFilter by stringPref(key = "PREF_CALENDAR_FILTER", default = "")
 
@@ -97,8 +103,6 @@ object Preferences : KotprefModel() {
     var showClock by booleanPref(key = "PREF_SHOW_CLOCK", default = false)
     var clockAppName by stringPref(key = "PREF_CLOCK_APP_NAME", default = "")
     var clockAppPackage by stringPref(key = "PREF_CLOCK_APP_PACKAGE", default = "")
-    var textShadow by intPref(key = "PREF_TEXT_SHADOW", default = 1)
-    var textShadowDark by intPref(default = 1)
     var showDiffTime by booleanPref(key = "PREF_SHOW_DIFF_TIME", default = true)
     var showDeclinedEvents by booleanPref(key = "PREF_SHOW_DECLINED_EVENTS", default = false)
     var showInvitedEvents by booleanPref(default = false)

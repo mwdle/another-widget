@@ -9,10 +9,6 @@
     <string name="settings_background_color_title">Colore sfondo</string>
     <string name="title_main_text_size">Dimensione testo</string>
     <string name="title_second_text_size">Dimensione testo</string>
-    <string name="title_text_shadow">Ombra testo</string>
-    <string name="settings_text_shadow_subtitle_none">Nessuna</string>
-    <string name="settings_text_shadow_subtitle_low">Bassa</string>
-    <string name="settings_text_shadow_subtitle_high">Alta</string>
     <string name="settings_custom_font_title">Font</string>
     <string name="custom_font_subtitle_0">Font dispositivo</string>
     <string name="custom_font_subtitle_1">Google Sans</string>

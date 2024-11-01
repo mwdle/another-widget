@@ -31,8 +31,6 @@ class MainViewModel(context: Application) : AndroidViewModel(context) {
 
     val textMainSize = Preferences.asLiveData(Preferences::textMainSize)
     val textSecondSize = Preferences.asLiveData(Preferences::textSecondSize)
-    val textShadow = Preferences.asLiveData(Preferences::textShadow)
-    val textShadowDark = Preferences.asLiveData(Preferences::textShadowDark)
     val font = MediatorLiveData<Boolean>().apply {
         addSource(Preferences.asLiveData(Preferences::customFont)) { value = true }
         addSource(Preferences.asLiveData(Preferences::customFontFile)) { value = true }
@@ -122,8 +120,6 @@ class MainViewModel(context: Application) : AndroidViewModel(context) {
         addSource(Preferences.asLiveData(Preferences::backgroundCardAlphaDark)) { value = true }
         addSource(Preferences.asLiveData(Preferences::textMainSize)) { value = true }
         addSource(Preferences.asLiveData(Preferences::textSecondSize)) { value = true }
-        addSource(Preferences.asLiveData(Preferences::textShadow)) { value = true }
-        addSource(Preferences.asLiveData(Preferences::textShadowDark)) { value = true }
         addSource(Preferences.asLiveData(Preferences::customFont)) { value = true }
         addSource(Preferences.asLiveData(Preferences::customFontFile)) { value = true }
         addSource(Preferences.asLiveData(Preferences::customFontName)) { value = true }

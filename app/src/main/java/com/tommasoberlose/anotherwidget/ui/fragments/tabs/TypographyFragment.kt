@@ -111,7 +111,8 @@ class TypographyFragment : Fragment() {
                     binding.fontColorLabel.text = getString(R.string.transparent)
                 } else {
                     binding.fontColorLabel.text =
-                        "#%s".format(Integer.toHexString(ColorHelper.getFontColor(requireActivity().isDarkTheme()))).toUpperCase()
+                        "#%s".format(Integer.toHexString(ColorHelper.getFontColor(requireActivity().isDarkTheme())))
+                            .toUpperCase()
                 }
             }
         }
@@ -122,41 +123,16 @@ class TypographyFragment : Fragment() {
                     binding.secondaryFontColorLabel.text = getString(R.string.transparent)
                 } else {
                     binding.secondaryFontColorLabel.text =
-                        "#%s".format(Integer.toHexString(ColorHelper.getSecondaryFontColor(requireActivity().isDarkTheme()))).toUpperCase()
-                }
-            }
-        }
-
-        viewModel.textShadow.observe(viewLifecycleOwner) {
-            maintainScrollPosition {
-                if (requireActivity().isDarkTheme()) {
-                    binding.textShadowLabel.text =
-                        getString(SettingsStringHelper.getTextShadowString(it))
-                }
-            }
-        }
-
-        viewModel.textShadow.observe(viewLifecycleOwner) {
-            maintainScrollPosition {
-                if (!requireActivity().isDarkTheme()) {
-                    binding.textShadowLabel.text =
-                        getString(SettingsStringHelper.getTextShadowString(it))
-                }
-            }
-        }
-
-        viewModel.textShadowDark.observe(viewLifecycleOwner) {
-            maintainScrollPosition {
-                if (requireActivity().isDarkTheme()) {
-                    binding.textShadowLabel.text =
-                        getString(SettingsStringHelper.getTextShadowString(it))
+                        "#%s".format(Integer.toHexString(ColorHelper.getSecondaryFontColor(requireActivity().isDarkTheme())))
+                            .toUpperCase()
                 }
             }
         }
 
         viewModel.font.observe(viewLifecycleOwner) {
             maintainScrollPosition {
-                binding.customFontLabel.text = SettingsStringHelper.getCustomFontLabel(requireContext(), Preferences.customFont)
+                binding.customFontLabel.text =
+                    SettingsStringHelper.getCustomFontLabel(requireContext(), Preferences.customFont)
             }
         }
 
@@ -174,7 +150,7 @@ class TypographyFragment : Fragment() {
                 items = (40 downTo 10).map { BottomSheetPicker.MenuItem("${it}sp", it.toFloat()) },
                 getSelected = { Preferences.textMainSize },
                 header = getString(R.string.title_main_text_size),
-                onItemSelected = {value ->
+                onItemSelected = { value ->
                     if (value != null) Preferences.textMainSize = value
                 }
             ).show()
@@ -186,23 +162,26 @@ class TypographyFragment : Fragment() {
                 items = (40 downTo 10).map { BottomSheetPicker.MenuItem("${it}sp", it.toFloat()) },
                 getSelected = { Preferences.textSecondSize },
                 header = getString(R.string.title_second_text_size),
-                onItemSelected = {value ->
+                onItemSelected = { value ->
                     if (value != null) Preferences.textSecondSize = value
                 }
             ).show()
         }
 
         binding.actionFontColor.setOnClickListener {
-            BottomSheetColorPicker(requireContext(),
+            BottomSheetColorPicker(
+                requireContext(),
                 colors = colors,
                 header = getString(R.string.settings_font_color_title),
                 getSelected = { ColorHelper.getFontColorRgb(requireActivity().isDarkTheme()) },
                 onColorSelected = { color: Int ->
                     val colorString = Integer.toHexString(color)
                     if (requireActivity().isDarkTheme()) {
-                        Preferences.textGlobalColorDark = "#" + if (colorString.length > 6) colorString.substring(2) else colorString
+                        Preferences.textGlobalColorDark =
+                            "#" + if (colorString.length > 6) colorString.substring(2) else colorString
                     } else {
-                        Preferences.textGlobalColor = "#" + if (colorString.length > 6) colorString.substring(2) else colorString
+                        Preferences.textGlobalColor =
+                            "#" + if (colorString.length > 6) colorString.substring(2) else colorString
                     }
                 },
                 showAlphaSelector = true,
@@ -218,7 +197,8 @@ class TypographyFragment : Fragment() {
         }
 
         binding.actionSecondaryFontColor.setOnClickListener {
-            BottomSheetColorPicker(requireContext(),
+            BottomSheetColorPicker(
+                requireContext(),
                 colors = colors,
                 header = getString(R.string.settings_secondary_font_color_title),
                 getSelected = { ColorHelper.getSecondaryFontColorRgb(requireActivity().isDarkTheme()) },
@@ -244,31 +224,29 @@ class TypographyFragment : Fragment() {
             ).show()
         }
 
-        binding.actionTextShadow.setOnClickListener {
-            val dialog = BottomSheetMenu<Int>(requireContext(), header = getString(R.string.title_text_shadow)).setSelectedValue(if (requireActivity().isDarkTheme()) Preferences.textShadowDark else Preferences.textShadow)
-            (2 downTo 0).forEach {
-                dialog.addItem(getString(SettingsStringHelper.getTextShadowString(it)), it)
-            }
-            dialog.addOnSelectItemListener { value ->
-                if (requireActivity().isDarkTheme()) {
-                    Preferences.textShadowDark = value
-                } else {
-                    Preferences.textShadow = value
-                }
-            }.show()
-        }
-
         binding.actionCustomFont.setOnClickListener {
-            val dialog = BottomSheetMenu<Int>(requireContext(), header = getString(R.string.settings_custom_font_title)).setSelectedValue(
-                Preferences.customFont)
+            val dialog = BottomSheetMenu<Int>(
+                requireContext(),
+                header = getString(R.string.settings_custom_font_title)
+            ).setSelectedValue(
+                Preferences.customFont
+            )
             dialog.addItem(SettingsStringHelper.getCustomFontLabel(requireContext(), 0), 0)
 
             if (Preferences.customFont == Constants.CUSTOM_FONT_GOOGLE_SANS) {
-                dialog.addItem(SettingsStringHelper.getCustomFontLabel(requireContext(), Constants.CUSTOM_FONT_GOOGLE_SANS), Constants.CUSTOM_FONT_GOOGLE_SANS)
+                dialog.addItem(
+                    SettingsStringHelper.getCustomFontLabel(
+                        requireContext(),
+                        Constants.CUSTOM_FONT_GOOGLE_SANS
+                    ), Constants.CUSTOM_FONT_GOOGLE_SANS
+                )
             }
 
             if (Preferences.customFontFile != "") {
-                dialog.addItem(SettingsStringHelper.getCustomFontLabel(requireContext(), Preferences.customFont), Constants.CUSTOM_FONT_DOWNLOADED)
+                dialog.addItem(
+                    SettingsStringHelper.getCustomFontLabel(requireContext(), Preferences.customFont),
+                    Constants.CUSTOM_FONT_DOWNLOADED
+                )
             }
             dialog.addItem(getString(R.string.action_custom_font_to_search), Constants.CUSTOM_FONT_DOWNLOAD_NEW)
             dialog.addOnSelectItemListener { value ->
@@ -290,7 +268,10 @@ class TypographyFragment : Fragment() {
 
         binding.actionDateFormat.setOnClickListener {
             val now = Calendar.getInstance()
-            val dialog = BottomSheetMenu<String>(requireContext(), header = getString(R.string.settings_date_format_title)).setSelectedValue(Preferences.dateFormat)
+            val dialog = BottomSheetMenu<String>(
+                requireContext(),
+                header = getString(R.string.settings_date_format_title)
+            ).setSelectedValue(Preferences.dateFormat)
 
             dialog.addItem(DateHelper.getDefaultDateText(requireContext(), now), "")
             if (Preferences.dateFormat != "") {
@@ -303,6 +284,7 @@ class TypographyFragment : Fragment() {
                     "-" -> {
                         startActivity(Intent(requireContext(), CustomDateActivity::class.java))
                     }
+
                     "" -> {
                         Preferences.blockingBulk {
                             isDateCapitalize = false
@@ -310,6 +292,7 @@ class TypographyFragment : Fragment() {
                         }
                         Preferences.dateFormat = value
                     }
+
                     else -> {
                         Preferences.dateFormat = value
                     }

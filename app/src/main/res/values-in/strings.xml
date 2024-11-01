@@ -10,10 +10,6 @@
     <string name="settings_background_color_title">Warna latar belakang</string>
     <string name="title_main_text_size">Ukuran teks</string>
     <string name="title_second_text_size">Ukuran teks</string>
-    <string name="title_text_shadow">Bayangan teks</string>
-    <string name="settings_text_shadow_subtitle_none">Nihil</string>
-    <string name="settings_text_shadow_subtitle_low">Rendah</string>
-    <string name="settings_text_shadow_subtitle_high">Tinggi</string>
     <string name="settings_custom_font_title">Fon widget</string>
     <string name="custom_font_subtitle_0">Fon Perangkat</string>
     <string name="custom_font_subtitle_1">Google Sans</string>

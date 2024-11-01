@@ -11,10 +11,6 @@
     <string name="settings_background_color_title">背景颜色</string>
     <string name="title_main_text_size">文字大小</string>
     <string name="title_second_text_size">文字大小</string>
-    <string name="title_text_shadow">文字阴影</string>
-    <string name="settings_text_shadow_subtitle_none">无</string>
-    <string name="settings_text_shadow_subtitle_low">低</string>
-    <string name="settings_text_shadow_subtitle_high">高</string>
     <string name="settings_custom_font_title">微件字体</string>
     <string name="custom_font_subtitle_0">设备字体</string>
     <string name="custom_font_subtitle_1">Google Sans</string>

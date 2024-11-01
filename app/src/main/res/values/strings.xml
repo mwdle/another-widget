@@ -11,10 +11,6 @@
     <string name="settings_background_color_title">Background color</string>
     <string name="title_main_text_size">Text size</string>
     <string name="title_second_text_size">Text size</string>
-    <string name="title_text_shadow">Text shadow</string>
-    <string name="settings_text_shadow_subtitle_none">None</string>
-    <string name="settings_text_shadow_subtitle_low">Low</string>
-    <string name="settings_text_shadow_subtitle_high">High</string>
     <string name="settings_custom_font_title">Widget font</string>
     <string name="custom_font_subtitle_0">Device font</string>
     <string name="custom_font_subtitle_1">Google Sans</string>

@@ -45,19 +45,22 @@ object SettingsStringHelper {
         }
     }
 
-    fun getTextShadowString(shadow: Int): Int {
-        return when (shadow) {
-            0 -> R.string.settings_text_shadow_subtitle_none
-            1 -> R.string.settings_text_shadow_subtitle_low
-            2 -> R.string.settings_text_shadow_subtitle_high
-            else -> R.string.settings_text_shadow_subtitle_low
-        }
-    }
-
     fun getCustomFontLabel(context: Context, font: Int): String {
         return when (font) {
-            Constants.CUSTOM_FONT_GOOGLE_SANS -> context.getString(R.string.custom_font_subtitle_1) + " - ${getVariantLabel(context, Preferences.customFontVariant)}"
-            Constants.CUSTOM_FONT_DOWNLOADED -> Preferences.customFontName + " - ${getVariantLabel(context, Preferences.customFontVariant)}"
+            Constants.CUSTOM_FONT_GOOGLE_SANS -> context.getString(R.string.custom_font_subtitle_1) + " - ${
+                getVariantLabel(
+                    context,
+                    Preferences.customFontVariant
+                )
+            }"
+
+            Constants.CUSTOM_FONT_DOWNLOADED -> Preferences.customFontName + " - ${
+                getVariantLabel(
+                    context,
+                    Preferences.customFontVariant
+                )
+            }"
+
             else -> context.getString(R.string.custom_font_subtitle_0)
         }
     }
@@ -94,29 +97,65 @@ object SettingsStringHelper {
             difference <= 0 -> {
                 return ""
             }
-            TimeUnit.MILLISECONDS.toHours(difference) < 1 && Preferences.widgetUpdateFrequency == Constants.WidgetUpdateFrequency.HIGH.rawValue && TimeUnit.MILLISECONDS.toMinutes(difference) >= 5 -> {
-                return DateUtils.getRelativeTimeSpanString(start, start - 1000 * 60 * (TimeUnit.MILLISECONDS.toMinutes(difference) - TimeUnit.MILLISECONDS.toMinutes(difference) % 5), DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE).toString()
+
+            TimeUnit.MILLISECONDS.toHours(difference) < 1 && Preferences.widgetUpdateFrequency == Constants.WidgetUpdateFrequency.HIGH.rawValue && TimeUnit.MILLISECONDS.toMinutes(
+                difference
+            ) >= 5 -> {
+                return DateUtils.getRelativeTimeSpanString(
+                    start,
+                    start - 1000 * 60 * (TimeUnit.MILLISECONDS.toMinutes(difference) - TimeUnit.MILLISECONDS.toMinutes(
+                        difference
+                    ) % 5),
+                    DateUtils.MINUTE_IN_MILLIS,
+                    DateUtils.FORMAT_ABBREV_RELATIVE
+                ).toString()
             }
-            TimeUnit.MILLISECONDS.toHours(difference) < 1 && Preferences.widgetUpdateFrequency == Constants.WidgetUpdateFrequency.DEFAULT.rawValue && TimeUnit.MILLISECONDS.toMinutes(difference) >= 15 -> {
-                return DateUtils.getRelativeTimeSpanString(start, start - 1000 * 60 * (TimeUnit.MILLISECONDS.toMinutes(difference) - TimeUnit.MILLISECONDS.toMinutes(difference) % 15), DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE).toString()
+
+            TimeUnit.MILLISECONDS.toHours(difference) < 1 && Preferences.widgetUpdateFrequency == Constants.WidgetUpdateFrequency.DEFAULT.rawValue && TimeUnit.MILLISECONDS.toMinutes(
+                difference
+            ) >= 15 -> {
+                return DateUtils.getRelativeTimeSpanString(
+                    start,
+                    start - 1000 * 60 * (TimeUnit.MILLISECONDS.toMinutes(difference) - TimeUnit.MILLISECONDS.toMinutes(
+                        difference
+                    ) % 15),
+                    DateUtils.MINUTE_IN_MILLIS,
+                    DateUtils.FORMAT_ABBREV_RELATIVE
+                ).toString()
             }
+
             TimeUnit.MILLISECONDS.toHours(difference) < 1 && Preferences.widgetUpdateFrequency == Constants.WidgetUpdateFrequency.LOW.rawValue -> {
                 return context.getString(R.string.soon)
             }
+
             TimeUnit.MILLISECONDS.toHours(difference) < 1 -> {
                 return context.getString(R.string.now)
             }
+
             TimeUnit.MILLISECONDS.toHours(difference) < 12 -> {
-                return DateUtils.getRelativeTimeSpanString(start, now, DateUtils.HOUR_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE).toString()
+                return DateUtils.getRelativeTimeSpanString(
+                    start,
+                    now,
+                    DateUtils.HOUR_IN_MILLIS,
+                    DateUtils.FORMAT_ABBREV_RELATIVE
+                ).toString()
             }
+
             eventDate.dayOfYear == nowDate.plusDays(1).dayOfYear -> {
                 return String.format("%s", context.getString(R.string.tomorrow))
             }
+
             eventDate.dayOfYear == nowDate.dayOfYear -> {
                 return String.format("%s", context.getString(R.string.today))
             }
+
             else -> {
-                return DateUtils.getRelativeTimeSpanString(start, now, DateUtils.DAY_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE).toString()
+                return DateUtils.getRelativeTimeSpanString(
+                    start,
+                    now,
+                    DateUtils.DAY_IN_MILLIS,
+                    DateUtils.FORMAT_ABBREV_RELATIVE
+                ).toString()
             }
         }
 
@@ -130,17 +169,15 @@ object SettingsStringHelper {
             nowDate.dayOfYear -> {
                 ""
             }
+
             nowDate.plusDays(1).dayOfYear -> {
                 String.format("%s", context.getString(R.string.tomorrow))
             }
+
             else -> {
                 DateUtils.getRelativeTimeSpanString(start, now, DateUtils.DAY_IN_MILLIS).toString()
             }
         }
 
-    }
-
-    fun getEmojiByUnicode(unicode: Int): String {
-        return String(Character.toChars(unicode))
     }
 }

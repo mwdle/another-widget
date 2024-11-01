@@ -9,10 +9,6 @@
     <string name="settings_background_color_title">Цвет фона</string>
     <string name="title_main_text_size">Размер текста</string>
     <string name="title_second_text_size">Размер текста</string>
-    <string name="title_text_shadow">Тень текста</string>
-    <string name="settings_text_shadow_subtitle_none">Нет</string>
-    <string name="settings_text_shadow_subtitle_low">Слабая</string>
-    <string name="settings_text_shadow_subtitle_high">Сильная</string>
     <string name="settings_custom_font_title">Шрифт виджета</string>
     <string name="custom_font_subtitle_0">Шрифт устройства</string>
     <string name="custom_font_subtitle_1">Google Sans</string>

@@ -11,10 +11,6 @@
     <string name="settings_background_color_title">Baggrundsfarve</string>
     <string name="title_main_text_size">Tekststørrelse</string>
     <string name="title_second_text_size">Tekststørrelse</string>
-    <string name="title_text_shadow">Tekstskygge</string>
-    <string name="settings_text_shadow_subtitle_none">Ingen</string>
-    <string name="settings_text_shadow_subtitle_low">Lav</string>
-    <string name="settings_text_shadow_subtitle_high">Høj</string>
     <string name="settings_custom_font_title">Widget skrifttype</string>
     <string name="custom_font_subtitle_0">Enhedsskrifttype</string>
     <string name="custom_font_subtitle_1">Google Sans</string>

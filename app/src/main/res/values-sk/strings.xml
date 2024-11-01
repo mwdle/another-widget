@@ -11,10 +11,6 @@
     <string name="settings_background_color_title">Farba pozadia</string>
     <string name="title_main_text_size">Veľkosť textu</string>
     <string name="title_second_text_size">Veľkosť textu</string>
-    <string name="title_text_shadow">Tieňovanie textu</string>
-    <string name="settings_text_shadow_subtitle_none">Žiadne</string>
-    <string name="settings_text_shadow_subtitle_low">Slabé</string>
-    <string name="settings_text_shadow_subtitle_high">Silné</string>
     <string name="settings_custom_font_title">Písmo widgetu</string>
     <string name="custom_font_subtitle_0">Písmo zariadenia</string>
     <string name="custom_font_subtitle_1">Google Sans</string>

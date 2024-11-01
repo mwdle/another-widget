@@ -11,10 +11,6 @@
     <string name="settings_background_color_title">Couleur de l\'arrière-plan</string>
     <string name="title_main_text_size">Taille du texte</string>
     <string name="title_second_text_size">Taille du texte</string>
-    <string name="title_text_shadow">Ombre du texte</string>
-    <string name="settings_text_shadow_subtitle_none">Aucune</string>
-    <string name="settings_text_shadow_subtitle_low">Faible</string>
-    <string name="settings_text_shadow_subtitle_high">Élevée</string>
     <string name="settings_custom_font_title">Police du widget</string>
     <string name="custom_font_subtitle_0">Police de l\'appareil</string>
     <string name="custom_font_subtitle_1">Google Sans</string>
