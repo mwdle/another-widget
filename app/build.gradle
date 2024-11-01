@@ -39,14 +39,18 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
     }
+
     packagingOptions {
         resources {
             excludes += ['META-INF/DEPENDENCIES']
         }
     }
 
-
     buildFeatures {
+        // https://stackoverflow.com/a/74220012/25403870
+        // https://medium.com/@nimit.raja/android-hilt-coroutines-mvvm-flow-retrofit-cb200434ecf6
+        // Project doesn't use @BindAdapter or other data binding annotations and thus does not need kapt. The following line suppresses warnings about data binding without kapt
+        //noinspection DataBindingWithoutKapt
         dataBinding = true
         viewBinding = true
     }
@@ -71,6 +75,7 @@ dependencies {
 
     // EventBus
     implementation 'org.greenrobot:eventbus:3.2.0'
+
     // Room
     implementation "androidx.room:room-runtime:2.3.0"
     ksp "androidx.room:room-compiler:2.3.0"
