@@ -12,11 +12,11 @@ While respecting the design of the application, there is a great opportunity to 
 ## What it looks like
 
 <p align="center">
-  <img src="screenshot.png" width="40%">
+  <img src="screenshot.png" width="40%" alt="What it looks like">
 </p>
 
 ## License
--------
+
 Copyright (C) 2017-2020 Tommaso Berlose (http://tommasoberlose.com)
 
 Another Widget binaries and source code can be used according to the [MIT Licence](LICENSE).
