@@ -107,14 +107,6 @@
     <string name="api_key_hint">Kľúč k OpenWeather API</string>
     <string name="default_weather_app">Počasie Google</string>
     <string name="weather_warning">Počasie Google Awareness je zastaralé. Pre zobrazovanie počasia vo widgete je vyžadovaný kľúč k OpenWeather API.</string>
-    <string name="api_key_title_1">Vytvorte si OpenWeather účet</string>
-    <string name="api_key_subtitle_1">Zaregistrujte sa zdarma na OpenWeather. Bude to trvať len pár minút.</string>
-    <string name="api_key_title_2">Skopírujte kľúč k API</string>
-    <string name="api_key_subtitle_2">Nájdite menu s kľúčmi k API vo Vašom účte a skopírujte predvolený kľúč.</string>
-    <string name="api_key_title_3">Vložte kľúč do aplikácie</string>
-    <string name="api_key_subtitle_3">Vložte kľúč do poľa vyššie a uložte ho. Počasie sa zobrazí hneď ako bude kľúč aktivovaný.</string>
-    <string name="action_open_provider">Prejdite na OpenWeatherMap.com</string>
-    <string name="api_key_info_all_set">Aktivácia Vášho API kľúča môže trvať až 10 minút. Počasie sa aktualizuje hneď ako bude dostupné.</string>
     <string name="settings_weather_icon_pack_title">Balíček ikon</string>
     <string name="settings_weather_icon_pack_default">Balíček ikon %d</string>
     <string name="background_location_warning">Zbierame údaje o polohe pre aktualizáciu počasia aj keď je aplikácia zatvorená alebo sa nepoužíva.\nInak tieto údaje nepoužijeme.</string>
@@ -139,7 +131,6 @@
 
     <!-- Glance -->
     <string name="settings_show_next_alarm_title">Nasledujúci budík</string>
-    <string name="next_alarm_warning">Nasledujúci budík vyzerá nesprávne.\nBol nastavený cez %s.</string>
     <string name="settings_at_a_glance_title">Rýchle informácie</string>
     <string name="settings_show_music_title">Práve prehrávaná skladba</string>
     <string name="settings_request_notification_access">Pre získanie informácií o práve prehrávanej skladbe potrebujeme povolenie prístupu k notifikáciám.</string>

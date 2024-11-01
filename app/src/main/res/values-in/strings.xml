@@ -97,14 +97,6 @@
     <string name="api_key_hint">Kunci API OpenWeather</string>
     <string name="default_weather_app">Google Weather</string>
     <string name="weather_warning">Layanan cuaca Google Awareness telah ditutup. Sekarang membutuhkan Kunci API OpenWeather untuk menampilkan cuaca di widget.</string>
-    <string name="api_key_title_1">Daftar akun OpenWeather</string>
-    <string name="api_key_subtitle_1">Daftar akun gratis pada situs OpenWeather. Hanya akan membutuhkan waktu beberapa menit saja.</string>
-    <string name="api_key_title_2">Salin Kunci API anda</string>
-    <string name="api_key_subtitle_2">Temukan menu kunci API dari pengaturan akun anda dan salin kunci default.</string>
-    <string name="api_key_title_3">Masukkan kunci API ke aplikasi</string>
-    <string name="api_key_subtitle_3">Tempel kunci API ke dalam ruas di atas dan simpan. Setelah kunci diaktifkan, cuaca akan segera ditampilkan.</string>
-    <string name="action_open_provider">Kunjungi OpenWeatherMap.com</string>
-    <string name="api_key_info_all_set">Mungkin membutuhkan lebih kurang 10 menit sebelum kunci API anda diaktifkan. Cuaca akan diperbarui segera setelah data tersedia.</string>
     <string name="settings_weather_icon_pack_title">Paket ikon</string>
     <string name="settings_weather_icon_pack_default">Paket ikon %d</string>
 
@@ -128,7 +120,6 @@
 
     <!-- Glance -->
     <string name="settings_show_next_alarm_title">Waktu alarm berikutnya</string>
-    <string name="next_alarm_warning">Waktu alarm berikutnya sepertinya salah.\nTelah disetel %s.</string>
     <string name="settings_at_a_glance_title">Sekilas</string>
     <string name="settings_show_music_title">Lagu yang diputar</string>
     <string name="settings_request_notification_access">Membutuhkan izin akses notifikasi untuk menampilkan lagu yang saat ini diputar.</string>

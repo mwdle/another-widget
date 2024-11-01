@@ -117,14 +117,6 @@
     <string name="api_key_hint">Chiave API OpenWeather</string>
     <string name="default_weather_app">Meteo Google</string>
     <string name="weather_warning">Il meteo di Google Awareness è stato deprecato. È ora necessaria una chiave API OpenWeather per mostrare il meteo.</string>
-    <string name="api_key_title_1">Registra un account su OpenWeather</string>
-    <string name="api_key_subtitle_1">Registra un account gratuito su OpenWeather, ci vorranno solo alcuni minuti.</string>
-    <string name="api_key_title_2">Copia la chiave API</string>
-    <string name="api_key_subtitle_2">Trova la chiave API nelle impostazioni del tuo nuovo account e copia la chiave di default.</string>
-    <string name="api_key_title_3">Inserisci la chiave nell\'app</string>
-    <string name="api_key_subtitle_3">Copia qui la chiave API e salva la nuova configurazione.</string>
-    <string name="action_open_provider">Apri OpenWeatherMap.com</string>
-    <string name="api_key_info_all_set">La chiave API potrebbe aver bisogno di più di 20 minuti per diventare attiva, aggiorneremo il meteo non appena sarà possibile.</string>
     <string name="settings_weather_icon_pack_title">Icon pack</string>
     <string name="settings_weather_icon_pack_default">Icon pack %d</string>
     <string name="background_location_warning">Con la geolocalizzazione attiva raccoglieremo i dati sulla posizione per attivare l\'aggiornamento del meteo anche quando l\'app è chiusa o non in uso.\nNon utilizzeremo i tuoi dati in nessun altro modo.</string>
