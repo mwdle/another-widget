@@ -2,11 +2,11 @@ package com.tommasoberlose.anotherwidget.ui.fragments
 
 import android.animation.ValueAnimator
 import android.content.Intent
+import android.content.res.Resources
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -108,17 +108,7 @@ class MainFragment : Fragment() {
                     binding.widgetBg.layoutParams =
                         (binding.widgetBg.layoutParams as ViewGroup.MarginLayoutParams).apply {
 
-                            val metrics = DisplayMetrics()
-
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                                val display = requireActivity().display
-                                display?.getRealMetrics(metrics)
-                            } else {
-                                @Suppress("DEPRECATION")
-                                val display = requireActivity().windowManager.defaultDisplay
-                                @Suppress("DEPRECATION")
-                                display.getMetrics(metrics)
-                            }
+                            val metrics = Resources.getSystem().displayMetrics
 
                             val dimensions: Pair<Int, Int> =
                                 if (wallpaper.intrinsicWidth >= wallpaper.intrinsicHeight) {
