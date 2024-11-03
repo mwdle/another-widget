@@ -395,4 +395,5 @@
     <string name="default_apps_settings_header" translatable="false">Default apps</string>
     <string name="genericErrorText" translatable="false">Error</string>
     <string name="fontColorLabelPlaceholder" translatable="false">#%s</string>
+    <string name="appVersionTextPlaceholder" translatable="false">v%s (%s)</string>
 </resources>

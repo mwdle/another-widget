@@ -66,13 +66,6 @@ class SettingsFragment : Fragment() {
 
         subscribeUi(viewModel)
 
-        return binding.root
-    }
-
-    @Deprecated("Deprecated")
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
         binding.actionBack.setOnSingleClickListener {
             Navigation.findNavController(it).popBackStack()
         }
@@ -82,11 +75,13 @@ class SettingsFragment : Fragment() {
 
         setupListener()
 
-        binding.appVersion.text = "v%s (%s)".format(BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE)
+        binding.appVersion.text = getString(R.string.appVersionTextPlaceholder).format(BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE)
 
         binding.scrollView.viewTreeObserver.addOnScrollChangedListener {
             binding.toolbar.cardElevation = if (binding.scrollView.scrollY > 0) 32f else 0f
         }
+
+        return binding.root
     }
 
     private fun subscribeUi(
@@ -177,10 +172,6 @@ class SettingsFragment : Fragment() {
                         Preferences.darkThemePreference = value
                     }.show()
             }
-        }
-
-        binding.actionWebsite.setOnClickListener {
-            requireActivity().openURI("http://tommasoberlose.com/")
         }
 
         binding.actionPrivacyPolicy.setOnClickListener {
