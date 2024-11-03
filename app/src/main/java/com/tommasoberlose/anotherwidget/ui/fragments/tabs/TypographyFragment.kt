@@ -147,36 +147,29 @@ class TypographyFragment : Fragment() {
         }
     }
 
-    private fun textSizeClickListener() {
-        BottomSheetPicker(
-            requireContext(),
-            items = (40 downTo 10).map { BottomSheetPicker.MenuItem("${it}sp", it.toFloat()) },
-            getSelected = { Preferences.textMainSize },
-            header = getString(R.string.title_main_text_size),
-            onItemSelected = { value ->
-                if (value != null) Preferences.textMainSize = value
-            }
-        ).show()
-    }
-
-    private fun onFontColorSelected(color: Int) {
-        val colorString = Integer.toHexString(color)
-        if (requireActivity().isDarkTheme()) {
-            Preferences.textGlobalColorDark =
-                "#" + if (colorString.length > 6) colorString.substring(2) else colorString
-        } else {
-            Preferences.textGlobalColor =
-                "#" + if (colorString.length > 6) colorString.substring(2) else colorString
-        }
-    }
-
     private fun setupListener() {
         binding.actionMainTextSize.setOnClickListener {
-            textSizeClickListener()
+            BottomSheetPicker(
+                requireContext(),
+                items = (40 downTo 10).map { BottomSheetPicker.MenuItem("${it}sp", it.toFloat()) },
+                getSelected = { Preferences.textMainSize },
+                header = getString(R.string.title_main_text_size),
+                onItemSelected = { value ->
+                    if (value != null) Preferences.textMainSize = value
+                }
+            ).show()
         }
 
         binding.actionSecondTextSize.setOnClickListener {
-            textSizeClickListener()
+            BottomSheetPicker(
+                requireContext(),
+                items = (40 downTo 10).map { BottomSheetPicker.MenuItem("${it}sp", it.toFloat()) },
+                getSelected = { Preferences.textSecondSize },
+                header = getString(R.string.title_second_text_size),
+                onItemSelected = { value ->
+                    if (value != null) Preferences.textSecondSize = value
+                }
+            ).show()
         }
 
         binding.actionFontColor.setOnClickListener {
@@ -186,7 +179,14 @@ class TypographyFragment : Fragment() {
                 header = getString(R.string.settings_font_color_title),
                 getSelected = { ColorHelper.getFontColorRgb(requireActivity().isDarkTheme()) },
                 onColorSelected = { color: Int ->
-                    onFontColorSelected(color)
+                    val colorString = Integer.toHexString(color)
+                    if (requireActivity().isDarkTheme()) {
+                        Preferences.textGlobalColorDark =
+                            "#" + if (colorString.length > 6) colorString.substring(2) else colorString
+                    } else {
+                        Preferences.textGlobalColor =
+                            "#" + if (colorString.length > 6) colorString.substring(2) else colorString
+                    }
                 },
                 showAlphaSelector = true,
                 alpha = if (requireActivity().isDarkTheme()) Preferences.textGlobalAlphaDark.toIntValue() else Preferences.textGlobalAlpha.toIntValue(),
@@ -207,7 +207,14 @@ class TypographyFragment : Fragment() {
                 header = getString(R.string.settings_secondary_font_color_title),
                 getSelected = { ColorHelper.getSecondaryFontColorRgb(requireActivity().isDarkTheme()) },
                 onColorSelected = { color: Int ->
-                    onFontColorSelected(color)
+                    val colorString = Integer.toHexString(color)
+                    if (requireActivity().isDarkTheme()) {
+                        Preferences.textSecondaryColorDark =
+                            "#" + if (colorString.length > 6) colorString.substring(2) else colorString
+                    } else {
+                        Preferences.textSecondaryColor =
+                            "#" + if (colorString.length > 6) colorString.substring(2) else colorString
+                    }
                 },
                 showAlphaSelector = true,
                 alpha = if (requireActivity().isDarkTheme()) Preferences.textSecondaryAlphaDark.toIntValue() else Preferences.textSecondaryAlpha.toIntValue(),
