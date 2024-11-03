@@ -1,11 +1,14 @@
 package com.tommasoberlose.anotherwidget.ui.fragments.tabs
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -19,7 +22,6 @@ import com.tommasoberlose.anotherwidget.components.BottomSheetPicker
 import com.tommasoberlose.anotherwidget.databinding.FragmentTabTypographyBinding
 import com.tommasoberlose.anotherwidget.global.Constants
 import com.tommasoberlose.anotherwidget.global.Preferences
-import com.tommasoberlose.anotherwidget.global.RequestCode
 import com.tommasoberlose.anotherwidget.helpers.ColorHelper
 import com.tommasoberlose.anotherwidget.helpers.ColorHelper.toHexValue
 import com.tommasoberlose.anotherwidget.helpers.ColorHelper.toIntValue
@@ -42,6 +44,8 @@ class TypographyFragment : Fragment() {
         fun newInstance() = TypographyFragment()
     }
 
+    private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
+
     private lateinit var viewModel: MainViewModel
     private lateinit var colors: IntArray
 
@@ -51,6 +55,12 @@ class TypographyFragment : Fragment() {
         super.onCreate(savedInstanceState)
         enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
         returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
+
+        activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                com.tommasoberlose.anotherwidget.ui.widgets.MainWidget.updateWidget(requireContext())
+            }
+        }
     }
 
     override fun onCreateView(
@@ -67,13 +77,6 @@ class TypographyFragment : Fragment() {
         binding.viewModel = viewModel
         binding.isDarkModeEnabled = activity?.isDarkTheme() == true
 
-        return binding.root
-    }
-
-    @Deprecated("Deprecated")
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
         setupListener()
         lifecycleScope.launch(Dispatchers.IO) {
             val lazyColors = requireContext().resources.getIntArray(R.array.material_colors)
@@ -85,8 +88,9 @@ class TypographyFragment : Fragment() {
         binding.scrollView.viewTreeObserver.addOnScrollChangedListener {
             viewModel.fragmentScrollY.value = binding.scrollView.scrollY
         }
-    }
 
+        return binding.root
+    }
 
     @SuppressLint("DefaultLocale")
     private fun subscribeUi(
@@ -111,7 +115,7 @@ class TypographyFragment : Fragment() {
                     binding.fontColorLabel.text = getString(R.string.transparent)
                 } else {
                     binding.fontColorLabel.text =
-                        "#%s".format(Integer.toHexString(ColorHelper.getFontColor(requireActivity().isDarkTheme())))
+                        getString(R.string.fontColorLabelPlaceholder).format(Integer.toHexString(ColorHelper.getFontColor(requireActivity().isDarkTheme())))
                             .toUpperCase()
                 }
             }
@@ -123,7 +127,7 @@ class TypographyFragment : Fragment() {
                     binding.secondaryFontColorLabel.text = getString(R.string.transparent)
                 } else {
                     binding.secondaryFontColorLabel.text =
-                        "#%s".format(Integer.toHexString(ColorHelper.getSecondaryFontColor(requireActivity().isDarkTheme())))
+                        getString(R.string.fontColorLabelPlaceholder).format(Integer.toHexString(ColorHelper.getSecondaryFontColor(requireActivity().isDarkTheme())))
                             .toUpperCase()
                 }
             }
@@ -143,29 +147,36 @@ class TypographyFragment : Fragment() {
         }
     }
 
+    private fun textSizeClickListener() {
+        BottomSheetPicker(
+            requireContext(),
+            items = (40 downTo 10).map { BottomSheetPicker.MenuItem("${it}sp", it.toFloat()) },
+            getSelected = { Preferences.textMainSize },
+            header = getString(R.string.title_main_text_size),
+            onItemSelected = { value ->
+                if (value != null) Preferences.textMainSize = value
+            }
+        ).show()
+    }
+
+    private fun onFontColorSelected(color: Int) {
+        val colorString = Integer.toHexString(color)
+        if (requireActivity().isDarkTheme()) {
+            Preferences.textGlobalColorDark =
+                "#" + if (colorString.length > 6) colorString.substring(2) else colorString
+        } else {
+            Preferences.textGlobalColor =
+                "#" + if (colorString.length > 6) colorString.substring(2) else colorString
+        }
+    }
+
     private fun setupListener() {
         binding.actionMainTextSize.setOnClickListener {
-            BottomSheetPicker(
-                requireContext(),
-                items = (40 downTo 10).map { BottomSheetPicker.MenuItem("${it}sp", it.toFloat()) },
-                getSelected = { Preferences.textMainSize },
-                header = getString(R.string.title_main_text_size),
-                onItemSelected = { value ->
-                    if (value != null) Preferences.textMainSize = value
-                }
-            ).show()
+            textSizeClickListener()
         }
 
         binding.actionSecondTextSize.setOnClickListener {
-            BottomSheetPicker(
-                requireContext(),
-                items = (40 downTo 10).map { BottomSheetPicker.MenuItem("${it}sp", it.toFloat()) },
-                getSelected = { Preferences.textSecondSize },
-                header = getString(R.string.title_second_text_size),
-                onItemSelected = { value ->
-                    if (value != null) Preferences.textSecondSize = value
-                }
-            ).show()
+            textSizeClickListener()
         }
 
         binding.actionFontColor.setOnClickListener {
@@ -175,14 +186,7 @@ class TypographyFragment : Fragment() {
                 header = getString(R.string.settings_font_color_title),
                 getSelected = { ColorHelper.getFontColorRgb(requireActivity().isDarkTheme()) },
                 onColorSelected = { color: Int ->
-                    val colorString = Integer.toHexString(color)
-                    if (requireActivity().isDarkTheme()) {
-                        Preferences.textGlobalColorDark =
-                            "#" + if (colorString.length > 6) colorString.substring(2) else colorString
-                    } else {
-                        Preferences.textGlobalColor =
-                            "#" + if (colorString.length > 6) colorString.substring(2) else colorString
-                    }
+                    onFontColorSelected(color)
                 },
                 showAlphaSelector = true,
                 alpha = if (requireActivity().isDarkTheme()) Preferences.textGlobalAlphaDark.toIntValue() else Preferences.textGlobalAlpha.toIntValue(),
@@ -203,14 +207,7 @@ class TypographyFragment : Fragment() {
                 header = getString(R.string.settings_secondary_font_color_title),
                 getSelected = { ColorHelper.getSecondaryFontColorRgb(requireActivity().isDarkTheme()) },
                 onColorSelected = { color: Int ->
-                    val colorString = Integer.toHexString(color)
-                    if (requireActivity().isDarkTheme()) {
-                        Preferences.textSecondaryColorDark =
-                            "#" + if (colorString.length > 6) colorString.substring(2) else colorString
-                    } else {
-                        Preferences.textSecondaryColor =
-                            "#" + if (colorString.length > 6) colorString.substring(2) else colorString
-                    }
+                    onFontColorSelected(color)
                 },
                 showAlphaSelector = true,
                 alpha = if (requireActivity().isDarkTheme()) Preferences.textSecondaryAlphaDark.toIntValue() else Preferences.textSecondaryAlpha.toIntValue(),
@@ -250,12 +247,8 @@ class TypographyFragment : Fragment() {
             }
             dialog.addItem(getString(R.string.action_custom_font_to_search), Constants.CUSTOM_FONT_DOWNLOAD_NEW)
             dialog.addOnSelectItemListener { value ->
-                if (value == Constants.CUSTOM_FONT_DOWNLOAD_NEW) {
-                    startActivityForResult(
-                        Intent(requireContext(), CustomFontActivity::class.java),
-                        RequestCode.CUSTOM_FONT_CHOOSER_REQUEST_CODE.code
-                    )
-                } else if (value != Preferences.customFont) {
+                if (value == Constants.CUSTOM_FONT_DOWNLOAD_NEW) activityResultLauncher.launch(Intent(requireContext(), CustomFontActivity::class.java))
+                else if (value != Preferences.customFont) {
                     Preferences.bulk {
                         customFont = value
                         customFontFile = ""
@@ -299,18 +292,6 @@ class TypographyFragment : Fragment() {
                 }
             }.show()
         }
-    }
-
-    @Deprecated("Deprecated")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == android.app.Activity.RESULT_OK) {
-            when (requestCode) {
-                RequestCode.CUSTOM_FONT_CHOOSER_REQUEST_CODE.code -> {
-                    com.tommasoberlose.anotherwidget.ui.widgets.MainWidget.updateWidget(requireContext())
-                }
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data)
     }
 
     private fun maintainScrollPosition(callback: () -> Unit) {

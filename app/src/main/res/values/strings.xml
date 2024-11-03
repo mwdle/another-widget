@@ -394,4 +394,5 @@
     <string name="error_copy_color" translatable="false">The color cannot be copied.</string>
     <string name="default_apps_settings_header" translatable="false">Default apps</string>
     <string name="genericErrorText" translatable="false">Error</string>
+    <string name="fontColorLabelPlaceholder" translatable="false">#%s</string>
 </resources>
