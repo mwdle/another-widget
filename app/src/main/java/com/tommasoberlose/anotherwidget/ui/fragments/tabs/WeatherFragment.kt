@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -24,7 +26,6 @@ import com.tommasoberlose.anotherwidget.components.MaterialBottomSheetDialog
 import com.tommasoberlose.anotherwidget.databinding.FragmentTabWeatherBinding
 import com.tommasoberlose.anotherwidget.global.Constants
 import com.tommasoberlose.anotherwidget.global.Preferences
-import com.tommasoberlose.anotherwidget.global.RequestCode
 import com.tommasoberlose.anotherwidget.helpers.SettingsStringHelper
 import com.tommasoberlose.anotherwidget.helpers.WeatherHelper
 import com.tommasoberlose.anotherwidget.receivers.WeatherReceiver
@@ -42,6 +43,8 @@ class WeatherFragment : Fragment() {
         fun newInstance() = WeatherFragment()
     }
 
+    private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
+
     private lateinit var viewModel: MainViewModel
     private lateinit var binding: FragmentTabWeatherBinding
 
@@ -49,6 +52,11 @@ class WeatherFragment : Fragment() {
         super.onCreate(savedInstanceState)
         enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
         returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
+        activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                WeatherHelper.updateWeather(requireContext())
+            }
+        }
     }
 
     override fun onCreateView(
@@ -64,17 +72,12 @@ class WeatherFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        return binding.root
-    }
-
-    @Deprecated("Deprecated")
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         setupListener()
-
         binding.scrollView.viewTreeObserver.addOnScrollChangedListener {
             viewModel.fragmentScrollY.value = binding.scrollView.scrollY
         }
+
+        return binding.root
     }
 
     private fun subscribeUi(
@@ -151,17 +154,11 @@ class WeatherFragment : Fragment() {
 
     private fun setupListener() {
         binding.actionWeatherProvider.setOnClickListener {
-            startActivityForResult(
-                Intent(requireContext(), WeatherProviderActivity::class.java),
-                RequestCode.WEATHER_PROVIDER_REQUEST_CODE.code
-            )
+            activityResultLauncher.launch(Intent(requireContext(), WeatherProviderActivity::class.java))
         }
 
         binding.actionCustomLocation.setOnClickListener {
-            startActivityForResult(
-                Intent(requireContext(), CustomLocationActivity::class.java),
-                Constants.RESULT_CODE_CUSTOM_LOCATION
-            )
+            activityResultLauncher.launch(Intent(requireContext(), CustomLocationActivity::class.java))
         }
 
         binding.actionChangeUnit.setOnClickListener {
@@ -196,19 +193,6 @@ class WeatherFragment : Fragment() {
         }
     }
 
-    @Deprecated("Deprecated")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == Activity.RESULT_OK) {
-            when (requestCode) {
-                Constants.RESULT_CODE_CUSTOM_LOCATION -> {
-                    WeatherHelper.updateWeather(requireContext())
-                }
-                //RequestCode.WEATHER_PROVIDER_REQUEST_CODE.code -> {
-                //}
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data)
-    }
 
     private fun requirePermission() {
         Dexter.withContext(requireContext())
