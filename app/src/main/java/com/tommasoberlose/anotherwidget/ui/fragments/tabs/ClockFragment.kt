@@ -57,13 +57,6 @@ class ClockFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        return binding.root
-    }
-
-    @Deprecated("Deprecated")
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
         binding.ampmIndicatorToggle.setCheckedImmediatelyNoEvent(Preferences.showAMPMIndicator)
 
         lifecycleScope.launch(Dispatchers.IO) {
@@ -77,6 +70,8 @@ class ClockFragment : Fragment() {
         binding.scrollView.viewTreeObserver?.addOnScrollChangedListener {
             viewModel.fragmentScrollY.value = binding.scrollView.scrollY
         }
+
+        return binding.root
     }
 
     private fun subscribeUi(

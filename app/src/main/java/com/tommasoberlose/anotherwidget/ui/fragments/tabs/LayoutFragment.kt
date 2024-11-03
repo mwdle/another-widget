@@ -58,13 +58,6 @@ class LayoutFragment : Fragment() {
         binding.viewModel = viewModel
         binding.isDarkModeEnabled = requireActivity().isDarkTheme()
 
-        return binding.root
-    }
-
-    @Deprecated("Deprecated")
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
         binding.showDividersToggle.setCheckedImmediatelyNoEvent(Preferences.showDividers)
 
         setupListener()
@@ -78,6 +71,8 @@ class LayoutFragment : Fragment() {
         binding.scrollView.viewTreeObserver?.addOnScrollChangedListener {
             viewModel.fragmentScrollY.value = binding.scrollView.scrollY
         }
+
+        return binding.root
     }
 
 

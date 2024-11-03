@@ -60,13 +60,6 @@ class PreferencesFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        return binding.root
-    }
-
-    @Deprecated("Deprecated")
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
         setupListener()
 
         binding.showEventsSwitch.setCheckedImmediatelyNoEvent(Preferences.showEvents)
@@ -76,6 +69,8 @@ class PreferencesFragment : Fragment() {
         binding.scrollView.viewTreeObserver.addOnScrollChangedListener {
             viewModel.fragmentScrollY.value = binding.scrollView.scrollY
         }
+
+        return binding.root
     }
 
     private fun subscribeUi(

@@ -66,6 +66,7 @@ class GlanceTabFragment : Fragment() {
         returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -76,14 +77,6 @@ class GlanceTabFragment : Fragment() {
 
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
-
-        return binding.root
-    }
-
-    @Deprecated("Deprecated")
-    @SuppressLint("NotifyDataSetChanged")
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
 
         // List
         binding.providersList.hasFixedSize()
@@ -424,6 +417,8 @@ class GlanceTabFragment : Fragment() {
                 binding.providersList.scheduleLayoutAnimation()
             }
         }
+
+        return binding.root
     }
 
     private val nextAlarmChangeBroadcastReceiver = object : BroadcastReceiver() {
