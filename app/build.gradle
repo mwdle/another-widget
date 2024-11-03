@@ -10,13 +10,13 @@ apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
 
 android {
 
-    compileSdk 31
+    compileSdk 32
 
     defaultConfig {
         applicationId "com.tommasoberlose.anotherwidget"
         minSdkVersion 28
-        targetSdkVersion 31
-        versionCode 139
+        targetSdkVersion 32
+        versionCode 140
         versionName "2.3.3.8"
 
         buildConfigField("String", "GOOGLE_API_KEY", apikeyProperties['GOOGLE_API_KEY'])
