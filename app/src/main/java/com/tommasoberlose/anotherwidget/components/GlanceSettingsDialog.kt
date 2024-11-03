@@ -29,6 +29,7 @@ class GlanceSettingsDialog(val context: Activity, val provider: Constants.Glance
 
     private var binding: GlanceProviderSettingsLayoutBinding = GlanceProviderSettingsLayoutBinding.inflate(LayoutInflater.from(context))
 
+    @OptIn(DelicateCoroutinesApi::class)
     override fun show() {
 
         /* TITLE */

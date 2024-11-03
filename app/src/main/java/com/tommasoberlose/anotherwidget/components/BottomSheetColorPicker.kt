@@ -4,8 +4,6 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.View
-import android.widget.FrameLayout
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -47,6 +45,7 @@ class BottomSheetColorPicker(
     private var binding: BottomSheetMenuHorBinding = BottomSheetMenuHorBinding.inflate(LayoutInflater.from(context))
     private var listBinding: BottomSheetMenuListBinding = BottomSheetMenuListBinding.inflate(LayoutInflater.from(context))
 
+    @OptIn(DelicateCoroutinesApi::class)
     override fun show() {
         window?.setDimAmount(0f)
 
