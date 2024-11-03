@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -17,7 +19,6 @@ import com.tommasoberlose.anotherwidget.components.BottomSheetMenu
 import com.tommasoberlose.anotherwidget.databinding.FragmentTabGesturesBinding
 import com.tommasoberlose.anotherwidget.global.Constants
 import com.tommasoberlose.anotherwidget.global.Preferences
-import com.tommasoberlose.anotherwidget.global.RequestCode
 import com.tommasoberlose.anotherwidget.helpers.IntentHelper
 import com.tommasoberlose.anotherwidget.ui.activities.MainActivity
 import com.tommasoberlose.anotherwidget.ui.activities.tabs.ChooseApplicationActivity
@@ -32,6 +33,11 @@ class GesturesFragment : Fragment() {
         fun newInstance() = GesturesFragment()
     }
 
+    private lateinit var calendarResultLauncher: ActivityResultLauncher<Intent>
+    private lateinit var eventResultLauncher: ActivityResultLauncher<Intent>
+    private lateinit var weatherResultLauncher: ActivityResultLauncher<Intent>
+    private lateinit var clockResultLauncher: ActivityResultLauncher<Intent>
+
     private lateinit var viewModel: MainViewModel
     private lateinit var binding: FragmentTabGesturesBinding
 
@@ -39,6 +45,61 @@ class GesturesFragment : Fragment() {
         super.onCreate(savedInstanceState)
         enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
         returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
+
+        calendarResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK && result.data != null ) {
+                val data = result.data!!
+                if (data.hasExtra(Constants.RESULT_APP_NAME) && data.hasExtra(Constants.RESULT_APP_PACKAGE)) {
+                    Preferences.bulk {
+                        calendarAppName = data.getStringExtra(Constants.RESULT_APP_NAME) ?: IntentHelper.DEFAULT_OPTION
+                        calendarAppPackage = data.getStringExtra(Constants.RESULT_APP_PACKAGE) ?: IntentHelper.DEFAULT_OPTION
+                    }
+                    MainWidget.updateWidget(requireContext())
+                }
+            }
+        }
+
+        eventResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK && result.data != null) {
+                val data = result.data!!
+                if (data.hasExtra(Constants.RESULT_APP_NAME) && data.hasExtra(Constants.RESULT_APP_PACKAGE)) {
+                    Preferences.bulk {
+                        eventAppName = data.getStringExtra(Constants.RESULT_APP_NAME) ?: IntentHelper.DEFAULT_OPTION
+                        eventAppPackage =
+                            data.getStringExtra(Constants.RESULT_APP_PACKAGE) ?: IntentHelper.DEFAULT_OPTION
+                    }
+                    MainWidget.updateWidget(requireContext())
+                }
+            }
+        }
+
+        weatherResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK && result.data != null) {
+                val data = result.data!!
+                if (data.hasExtra(Constants.RESULT_APP_NAME) && data.hasExtra(Constants.RESULT_APP_PACKAGE)) {
+                    Preferences.bulk {
+                        weatherAppName = data.getStringExtra(Constants.RESULT_APP_NAME) ?: IntentHelper.DEFAULT_OPTION
+                        weatherAppPackage =
+                            data.getStringExtra(Constants.RESULT_APP_PACKAGE) ?: IntentHelper.DEFAULT_OPTION
+                    }
+                    MainWidget.updateWidget(requireContext())
+                }
+            }
+        }
+
+        clockResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK && result.data != null) {
+                val data = result.data!!
+                if (data.hasExtra(Constants.RESULT_APP_NAME) && data.hasExtra(Constants.RESULT_APP_PACKAGE)) {
+                    Preferences.bulk {
+                        clockAppName = data.getStringExtra(Constants.RESULT_APP_NAME) ?: IntentHelper.DEFAULT_OPTION
+                        clockAppPackage =
+                            data.getStringExtra(Constants.RESULT_APP_PACKAGE) ?: IntentHelper.DEFAULT_OPTION
+                    }
+                    MainWidget.updateWidget(requireContext())
+                }
+            }
+        }
     }
 
     override fun onCreateView(
@@ -54,19 +115,14 @@ class GesturesFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        return binding.root
-    }
-
-    @Deprecated("Deprecated")
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
         binding.showMultipleEventsToggle.setCheckedImmediatelyNoEvent(Preferences.showNextEvent)
         setupListener()
 
         binding.scrollView.viewTreeObserver?.addOnScrollChangedListener {
             viewModel.fragmentScrollY.value = binding.scrollView.scrollY
         }
+
+        return binding.root
     }
 
 
@@ -153,30 +209,21 @@ class GesturesFragment : Fragment() {
         }
 
         binding.actionCalendarApp.setOnClickListener {
-            startActivityForResult(
-                Intent(requireContext(), ChooseApplicationActivity::class.java).apply {
-                    putExtra(Constants.RESULT_APP_PACKAGE, Preferences.calendarAppPackage)
-                },
-                RequestCode.CALENDAR_APP_REQUEST_CODE.code
-            )
+            calendarResultLauncher.launch(Intent(requireContext(), ChooseApplicationActivity::class.java).apply {
+                putExtra(Constants.RESULT_APP_PACKAGE, Preferences.calendarAppPackage)
+            })
         }
 
         binding.actionClockApp.setOnClickListener {
-            startActivityForResult(
-                Intent(requireContext(), ChooseApplicationActivity::class.java).apply {
-                    putExtra(Constants.RESULT_APP_PACKAGE, Preferences.clockAppPackage)
-                },
-                RequestCode.CLOCK_APP_REQUEST_CODE.code
-            )
+            clockResultLauncher.launch(Intent(requireContext(), ChooseApplicationActivity::class.java).apply {
+                putExtra(Constants.RESULT_APP_PACKAGE, Preferences.clockAppPackage)
+            })
         }
 
         binding.actionWeatherApp.setOnClickListener {
-            startActivityForResult(
-                Intent(requireContext(), ChooseApplicationActivity::class.java).apply {
-                    putExtra(Constants.RESULT_APP_PACKAGE, Preferences.weatherAppPackage)
-                },
-                RequestCode.WEATHER_APP_REQUEST_CODE.code
-            )
+            weatherResultLauncher.launch(Intent(requireContext(), ChooseApplicationActivity::class.java).apply {
+                putExtra(Constants.RESULT_APP_PACKAGE, Preferences.weatherAppPackage)
+            })
         }
     }
 
@@ -187,49 +234,5 @@ class GesturesFragment : Fragment() {
             delay(200)
             binding.scrollView.isScrollable = true
         }
-    }
-
-    @Deprecated("Deprecated")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == Activity.RESULT_OK && data != null && data.hasExtra(Constants.RESULT_APP_NAME) && data.hasExtra(
-                Constants.RESULT_APP_PACKAGE
-            )
-        ) {
-            when (requestCode) {
-                RequestCode.CALENDAR_APP_REQUEST_CODE.code -> {
-                    Preferences.bulk {
-                        calendarAppName = data.getStringExtra(Constants.RESULT_APP_NAME) ?: IntentHelper.DEFAULT_OPTION
-                        calendarAppPackage =
-                            data.getStringExtra(Constants.RESULT_APP_PACKAGE) ?: IntentHelper.DEFAULT_OPTION
-                    }
-                }
-
-                RequestCode.EVENT_APP_REQUEST_CODE.code -> {
-                    Preferences.bulk {
-                        eventAppName = data.getStringExtra(Constants.RESULT_APP_NAME) ?: IntentHelper.DEFAULT_OPTION
-                        eventAppPackage =
-                            data.getStringExtra(Constants.RESULT_APP_PACKAGE) ?: IntentHelper.DEFAULT_OPTION
-                    }
-                }
-
-                RequestCode.WEATHER_APP_REQUEST_CODE.code -> {
-                    Preferences.bulk {
-                        weatherAppName = data.getStringExtra(Constants.RESULT_APP_NAME) ?: IntentHelper.DEFAULT_OPTION
-                        weatherAppPackage =
-                            data.getStringExtra(Constants.RESULT_APP_PACKAGE) ?: IntentHelper.DEFAULT_OPTION
-                    }
-                }
-
-                RequestCode.CLOCK_APP_REQUEST_CODE.code -> {
-                    Preferences.bulk {
-                        clockAppName = data.getStringExtra(Constants.RESULT_APP_NAME) ?: IntentHelper.DEFAULT_OPTION
-                        clockAppPackage =
-                            data.getStringExtra(Constants.RESULT_APP_PACKAGE) ?: IntentHelper.DEFAULT_OPTION
-                    }
-                }
-            }
-            MainWidget.updateWidget(requireContext())
-        }
-        super.onActivityResult(requestCode, resultCode, data)
     }
 }
