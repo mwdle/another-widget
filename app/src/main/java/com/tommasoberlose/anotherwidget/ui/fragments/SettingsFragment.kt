@@ -2,16 +2,22 @@ package com.tommasoberlose.anotherwidget.ui.fragments
 
 import android.Manifest
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.transition.MaterialSharedAxis
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
@@ -28,6 +34,7 @@ import com.tommasoberlose.anotherwidget.helpers.CalendarHelper
 import com.tommasoberlose.anotherwidget.helpers.MediaPlayerHelper
 import com.tommasoberlose.anotherwidget.helpers.WeatherHelper
 import com.tommasoberlose.anotherwidget.ui.activities.MainActivity
+import com.tommasoberlose.anotherwidget.ui.activities.MainActivity.Companion.newAndroidWallpaperPermissionsGranted
 import com.tommasoberlose.anotherwidget.ui.activities.settings.IntegrationsActivity
 import com.tommasoberlose.anotherwidget.ui.viewmodels.MainViewModel
 import com.tommasoberlose.anotherwidget.utils.checkGrantedPermission
@@ -42,6 +49,8 @@ class SettingsFragment : Fragment() {
     companion object {
         fun newInstance() = SettingsFragment()
     }
+
+    private lateinit var wallpaperPermissionResultLauncher: ActivityResultLauncher<Intent>
 
     private lateinit var viewModel: MainViewModel
     private lateinit var binding: FragmentAppSettingsBinding
@@ -63,6 +72,11 @@ class SettingsFragment : Fragment() {
 
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+
+        wallpaperPermissionResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (newAndroidWallpaperPermissionsGranted())
+                Preferences.showWallpaper = true
+        }
 
         subscribeUi(viewModel)
 
@@ -117,7 +131,7 @@ class SettingsFragment : Fragment() {
         viewModel.showWallpaper.observe(viewLifecycleOwner) {
             maintainScrollPosition {
                 binding.showWallpaperLabel.text =
-                    if (it && requireActivity().checkGrantedPermission(Manifest.permission.READ_EXTERNAL_STORAGE)) getString(
+                    if (it && (requireActivity().checkGrantedPermission(Manifest.permission.READ_EXTERNAL_STORAGE) || newAndroidWallpaperPermissionsGranted())) getString(
                         R.string.settings_visible
                     ) else getString(R.string.settings_not_visible)
             }
@@ -208,9 +222,7 @@ class SettingsFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         binding.showWallpaperToggle.setCheckedNoEvent(
-            Preferences.showWallpaper && requireActivity().checkGrantedPermission(
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            )
+            Preferences.showWallpaper && (requireActivity().checkGrantedPermission(Manifest.permission.READ_EXTERNAL_STORAGE) || newAndroidWallpaperPermissionsGranted())
         )
     }
 
@@ -220,8 +232,22 @@ class SettingsFragment : Fragment() {
                 Manifest.permission.READ_EXTERNAL_STORAGE
             ).withListener(object : MultiplePermissionsListener {
                 override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
+                    // Wallpaper access requires permission to manage all files on Android 13+ devices when targeting SDK >= 33. Google does not intend to fix this.
+                    // https://issuetracker.google.com/issues/237124750
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !Environment.isExternalStorageManager()) {
+                        MaterialAlertDialogBuilder(requireContext(), R.style.CustomAlertDialog)
+                            .setTitle("Widget Preview Wallpaper Permissions")
+                            .setMessage("On Android 13+ the in-app widget preview now requires access to manage all files in order to display your wallpaper.\n\nGranting this permission is OPTIONAL and is only necessary if you wish to see your wallpaper in the widget preview.")
+                            .setPositiveButton("Grant") { _, _ ->
+                                wallpaperPermissionResultLauncher.launch(Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION).apply {
+                                    data = Uri.parse("package:" + requireContext().packageName)
+                                })
+                            }
+                            .setNegativeButton("Deny") { dialog, _ -> dialog.dismiss() }
+                            .show()
+                    }
                     report?.let {
-                        if (report.areAllPermissionsGranted()) {
+                        if (report.areAllPermissionsGranted() || newAndroidWallpaperPermissionsGranted()) {
                             Preferences.showWallpaper = true
                         } else {
                             binding.showWallpaperToggle.setCheckedNoEvent(false)

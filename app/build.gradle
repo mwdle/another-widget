@@ -10,12 +10,12 @@ apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
 
 android {
 
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.tommasoberlose.anotherwidget"
         minSdkVersion 28
-        targetSdkVersion 32
+        targetSdkVersion 33
         versionCode 140
         versionName "2.3.3.8"
 
