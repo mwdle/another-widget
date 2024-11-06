@@ -138,7 +138,7 @@ class TimeZoneSelectorActivity : AppCompatActivity() {
 
     private fun setupListener() {
         binding.actionBack.setOnClickListener {
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
         }
 
         binding.clearSearch.setOnClickListener {

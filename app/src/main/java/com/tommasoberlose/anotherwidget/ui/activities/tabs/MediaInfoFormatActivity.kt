@@ -1,7 +1,11 @@
 package com.tommasoberlose.anotherwidget.ui.activities.tabs
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.window.OnBackInvokedCallback
+import android.window.OnBackInvokedDispatcher
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -54,7 +58,20 @@ class MediaInfoFormatActivity : AppCompatActivity() {
         binding.mediaInfoFormatInput.requestFocus()
 
         setContentView(binding.root)
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                Preferences.blockingBulk {
+                    mediaInfoFormat = viewModel.mediaInfoFormatInput.value ?: ""
+                }
+                // Temporarily disable custom callback when calling system default back action.
+                isEnabled = false
+                onBackPressedDispatcher.onBackPressed()
+                isEnabled = true
+            }
+        })
     }
+
 
     private var formatJob: Job? = null
 
@@ -83,15 +100,8 @@ class MediaInfoFormatActivity : AppCompatActivity() {
 
     private fun setupListener() {
         binding.actionBack.setOnClickListener {
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
         }
-    }
-
-    override fun onBackPressed() {
-        Preferences.blockingBulk {
-            mediaInfoFormat = viewModel.mediaInfoFormatInput.value ?: ""
-        }
-        super.onBackPressed()
     }
 
     companion object {

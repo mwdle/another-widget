@@ -50,7 +50,7 @@ class CustomFontActivity : AppCompatActivity() {
         binding.listView.layoutManager = mLayoutManager
 
         adapter = SlimAdapter.create()
-        adapter.enableDiff(object: DefaultDiffCallback() {
+        adapter.enableDiff(object : DefaultDiffCallback() {
             override fun areItemsTheSame(oldItem: Any?, newItem: Any?): Boolean {
                 return oldItem is Font && newItem is Font && oldItem.fontFamily == newItem.fontFamily
             }
@@ -207,9 +207,11 @@ class CustomFontActivity : AppCompatActivity() {
                             is Font -> {
                                 it.fontFamily.contains(search, true)
                             }
+
                             is String -> {
                                 it.contains(search, ignoreCase = true)
                             }
+
                             else -> {
                                 true
                             }
@@ -220,12 +222,15 @@ class CustomFontActivity : AppCompatActivity() {
                         el1 is Font && el2 is Font -> {
                             el1.fontFamily.compareTo(el2.fontFamily)
                         }
+
                         el1 is Font && el2 is String -> {
                             el1.fontFamily.compareTo(el2)
                         }
+
                         el1 is String && el2 is Font -> {
                             el1.compareTo(el2.fontFamily)
                         }
+
                         else -> {
                             1
                         }
@@ -248,7 +253,7 @@ class CustomFontActivity : AppCompatActivity() {
 
     private fun setupListener() {
         binding.actionBack.setOnClickListener {
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
         }
 
         binding.clearSearch.setOnClickListener {
@@ -261,7 +266,8 @@ class CustomFontActivity : AppCompatActivity() {
         Preferences.blockingBulk {
             customFont = Constants.CUSTOM_FONT_DOWNLOADED
             customFontName = font.fontFamily
-            customFontFile = if (variantPos != null && variantPos > -1) font.getQueryString(variantPos) else font.queryString
+            customFontFile =
+                if (variantPos != null && variantPos > -1) font.getQueryString(variantPos) else font.queryString
             customFontVariant = if (variantPos != null && variantPos > -1) font.fontVariants[variantPos] else "regular"
         }
         setResult(Activity.RESULT_OK, resultIntent)

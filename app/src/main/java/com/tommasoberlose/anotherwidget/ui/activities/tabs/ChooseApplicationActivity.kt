@@ -1,25 +1,23 @@
 package com.tommasoberlose.anotherwidget.ui.activities.tabs
 
 import android.app.Activity
-import android.os.Bundle
-import com.tommasoberlose.anotherwidget.R
 import android.content.Intent
 import android.content.pm.ResolveInfo
+import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
+import com.tommasoberlose.anotherwidget.R
 import com.tommasoberlose.anotherwidget.databinding.ActivityChooseApplicationBinding
 import com.tommasoberlose.anotherwidget.global.Constants
 import com.tommasoberlose.anotherwidget.helpers.IntentHelper
-import com.tommasoberlose.anotherwidget.helpers.MediaPlayerHelper
 import com.tommasoberlose.anotherwidget.ui.viewmodels.tabs.ChooseApplicationViewModel
 import kotlinx.coroutines.*
 import net.idik.lib.slimadapter.SlimAdapter
@@ -57,7 +55,10 @@ class ChooseApplicationActivity : AppCompatActivity() {
                             .with<ImageView>(R.id.icon) {
                                 it.scaleX = 0.8f
                                 it.scaleY = 0.8f
-                                it.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimaryText), android.graphics.PorterDuff.Mode.MULTIPLY)
+                                it.setColorFilter(
+                                    ContextCompat.getColor(this, R.color.colorPrimaryText),
+                                    android.graphics.PorterDuff.Mode.MULTIPLY
+                                )
                             }
                             .clicked(R.id.item) {
                                 val resultIntent = Intent()
@@ -67,10 +68,19 @@ class ChooseApplicationActivity : AppCompatActivity() {
                                 finish()
                             }
                             .with<MaterialCardView>(R.id.item) {
-                                it.strokeColor = ContextCompat.getColor(this, if (selectedPackage == IntentHelper.DO_NOTHING_OPTION) R.color.colorAccent else R.color.cardBorder)
-                                it.setCardBackgroundColor(ContextCompat.getColor(this, if (selectedPackage == IntentHelper.DO_NOTHING_OPTION) R.color.colorAccent_op10 else R.color.colorPrimaryDark))
+                                it.strokeColor = ContextCompat.getColor(
+                                    this,
+                                    if (selectedPackage == IntentHelper.DO_NOTHING_OPTION) R.color.colorAccent else R.color.cardBorder
+                                )
+                                it.setCardBackgroundColor(
+                                    ContextCompat.getColor(
+                                        this,
+                                        if (selectedPackage == IntentHelper.DO_NOTHING_OPTION) R.color.colorAccent_op10 else R.color.colorPrimaryDark
+                                    )
+                                )
                             }
                     }
+
                     IntentHelper.REFRESH_WIDGET_OPTION -> {
                         injector
                             .text(R.id.text, getString(R.string.action_refresh_widget))
@@ -78,7 +88,10 @@ class ChooseApplicationActivity : AppCompatActivity() {
                             .with<ImageView>(R.id.icon) {
                                 it.scaleX = 0.8f
                                 it.scaleY = 0.8f
-                                it.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimaryText), android.graphics.PorterDuff.Mode.MULTIPLY)
+                                it.setColorFilter(
+                                    ContextCompat.getColor(this, R.color.colorPrimaryText),
+                                    android.graphics.PorterDuff.Mode.MULTIPLY
+                                )
                             }
                             .clicked(R.id.item) {
                                 val resultIntent = Intent()
@@ -88,10 +101,19 @@ class ChooseApplicationActivity : AppCompatActivity() {
                                 finish()
                             }
                             .with<MaterialCardView>(R.id.item) {
-                                it.strokeColor = ContextCompat.getColor(this, if (selectedPackage == IntentHelper.REFRESH_WIDGET_OPTION) R.color.colorAccent else R.color.cardBorder)
-                                it.setCardBackgroundColor(ContextCompat.getColor(this, if (selectedPackage == IntentHelper.REFRESH_WIDGET_OPTION) R.color.colorAccent_op10 else R.color.colorPrimaryDark))
+                                it.strokeColor = ContextCompat.getColor(
+                                    this,
+                                    if (selectedPackage == IntentHelper.REFRESH_WIDGET_OPTION) R.color.colorAccent else R.color.cardBorder
+                                )
+                                it.setCardBackgroundColor(
+                                    ContextCompat.getColor(
+                                        this,
+                                        if (selectedPackage == IntentHelper.REFRESH_WIDGET_OPTION) R.color.colorAccent_op10 else R.color.colorPrimaryDark
+                                    )
+                                )
                             }
                     }
+
                     else -> {
                         injector
                             .text(R.id.text, getString(R.string.default_name))
@@ -99,7 +121,10 @@ class ChooseApplicationActivity : AppCompatActivity() {
                             .with<ImageView>(R.id.icon) {
                                 it.scaleX = 0.8f
                                 it.scaleY = 0.8f
-                                it.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimaryText), android.graphics.PorterDuff.Mode.MULTIPLY)
+                                it.setColorFilter(
+                                    ContextCompat.getColor(this, R.color.colorPrimaryText),
+                                    android.graphics.PorterDuff.Mode.MULTIPLY
+                                )
                             }
                             .clicked(R.id.item) {
                                 val resultIntent = Intent()
@@ -109,8 +134,16 @@ class ChooseApplicationActivity : AppCompatActivity() {
                                 finish()
                             }
                             .with<MaterialCardView>(R.id.item) {
-                                it.strokeColor = ContextCompat.getColor(this, if (selectedPackage == IntentHelper.DEFAULT_OPTION) R.color.colorAccent else R.color.cardBorder)
-                                it.setCardBackgroundColor(ContextCompat.getColor(this, if (selectedPackage == IntentHelper.DEFAULT_OPTION) R.color.colorAccent_op10 else R.color.colorPrimaryDark))
+                                it.strokeColor = ContextCompat.getColor(
+                                    this,
+                                    if (selectedPackage == IntentHelper.DEFAULT_OPTION) R.color.colorAccent else R.color.cardBorder
+                                )
+                                it.setCardBackgroundColor(
+                                    ContextCompat.getColor(
+                                        this,
+                                        if (selectedPackage == IntentHelper.DEFAULT_OPTION) R.color.colorAccent_op10 else R.color.colorPrimaryDark
+                                    )
+                                )
                             }
                     }
                 }
@@ -129,8 +162,16 @@ class ChooseApplicationActivity : AppCompatActivity() {
                         saveApp(item)
                     }
                     .with<MaterialCardView>(R.id.item) {
-                        it.strokeColor = ContextCompat.getColor(this, if (selectedPackage == item.activityInfo.packageName) R.color.colorAccent else R.color.cardBorder)
-                        it.setCardBackgroundColor(ContextCompat.getColor(this, if (selectedPackage == item.activityInfo.packageName) R.color.colorAccent_op10 else R.color.colorPrimaryDark))
+                        it.strokeColor = ContextCompat.getColor(
+                            this,
+                            if (selectedPackage == item.activityInfo.packageName) R.color.colorAccent else R.color.cardBorder
+                        )
+                        it.setCardBackgroundColor(
+                            ContextCompat.getColor(
+                                this,
+                                if (selectedPackage == item.activityInfo.packageName) R.color.colorAccent_op10 else R.color.colorPrimaryDark
+                            )
+                        )
                     }
             }
             .attachTo(binding.listView)
@@ -160,7 +201,10 @@ class ChooseApplicationActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateList(list: List<ResolveInfo>? = viewModel.appList.value, search: String? = viewModel.searchInput.value) {
+    private fun updateList(
+        list: List<ResolveInfo>? = viewModel.appList.value,
+        search: String? = viewModel.searchInput.value
+    ) {
         binding.loader.visibility = View.VISIBLE
         filterJob?.cancel()
         filterJob = lifecycleScope.launch(Dispatchers.IO) {
@@ -177,16 +221,25 @@ class ChooseApplicationActivity : AppCompatActivity() {
                         app1.activityInfo.packageName -> {
                             -1
                         }
+
                         app2.activityInfo.packageName -> {
                             1
                         }
+
                         else -> {
-                            app1.loadLabel(viewModel.pm).toString().compareTo(app2.loadLabel(viewModel.pm).toString(), ignoreCase = true)
+                            app1.loadLabel(viewModel.pm).toString()
+                                .compareTo(app2.loadLabel(viewModel.pm).toString(), ignoreCase = true)
                         }
                     }
                 }
                 withContext(Dispatchers.Main) {
-                    adapter.updateData(listOf(IntentHelper.DO_NOTHING_OPTION, IntentHelper.DEFAULT_OPTION, IntentHelper.REFRESH_WIDGET_OPTION) + filteredList)
+                    adapter.updateData(
+                        listOf(
+                            IntentHelper.DO_NOTHING_OPTION,
+                            IntentHelper.DEFAULT_OPTION,
+                            IntentHelper.REFRESH_WIDGET_OPTION
+                        ) + filteredList
+                    )
                     binding.loader.visibility = View.INVISIBLE
                 }
             }
@@ -195,7 +248,7 @@ class ChooseApplicationActivity : AppCompatActivity() {
 
     private fun setupListener() {
         binding.actionBack.setOnClickListener {
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
         }
 
         binding.clearSearch.setOnClickListener {

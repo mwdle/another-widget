@@ -91,7 +91,10 @@ class AppNotificationsFilterActivity : AppCompatActivity() {
         })
     }
 
-    private fun updateList(list: List<ResolveInfo>? = viewModel.appList.value, search: String? = viewModel.searchInput.value) {
+    private fun updateList(
+        list: List<ResolveInfo>? = viewModel.appList.value,
+        search: String? = viewModel.searchInput.value
+    ) {
         binding.loader.visibility = View.VISIBLE
         filterJob?.cancel()
         filterJob = lifecycleScope.launch(Dispatchers.IO) {
@@ -104,14 +107,19 @@ class AppNotificationsFilterActivity : AppCompatActivity() {
                         it.loadLabel(viewModel.pm).contains(search, true)
                     }
                 }.sortedWith { app1, app2 ->
-                    if (ActiveNotificationsHelper.isAppAccepted(app1.activityInfo.packageName) && ActiveNotificationsHelper.isAppAccepted(app2.activityInfo.packageName)) {
-                        app1.loadLabel(viewModel.pm).toString().compareTo(app2.loadLabel(viewModel.pm).toString(), ignoreCase = true)
+                    if (ActiveNotificationsHelper.isAppAccepted(app1.activityInfo.packageName) && ActiveNotificationsHelper.isAppAccepted(
+                            app2.activityInfo.packageName
+                        )
+                    ) {
+                        app1.loadLabel(viewModel.pm).toString()
+                            .compareTo(app2.loadLabel(viewModel.pm).toString(), ignoreCase = true)
                     } else if (ActiveNotificationsHelper.isAppAccepted(app1.activityInfo.packageName)) {
                         -1
                     } else if (ActiveNotificationsHelper.isAppAccepted(app2.activityInfo.packageName)) {
                         1
                     } else {
-                        app1.loadLabel(viewModel.pm).toString().compareTo(app2.loadLabel(viewModel.pm).toString(), ignoreCase = true)
+                        app1.loadLabel(viewModel.pm).toString()
+                            .compareTo(app2.loadLabel(viewModel.pm).toString(), ignoreCase = true)
                     }
                 }
 
@@ -126,7 +134,7 @@ class AppNotificationsFilterActivity : AppCompatActivity() {
 
     private fun setupListener() {
         binding.actionBack.setOnClickListener {
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
         }
 
         binding.clearSearch.setOnClickListener {

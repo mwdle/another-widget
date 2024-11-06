@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -71,23 +72,6 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
         }
 
         setContentView(binding.root)
-    }
-
-    override fun onBackPressed() {
-        if (mainNavController?.currentDestination?.id == R.id.appMainFragment) {
-            if (settingsNavController?.navigateUp() == false) {
-                if (mAppWidgetId > 0) {
-                    addNewWidget()
-                } else {
-                    setResult(Activity.RESULT_OK)
-                    finish()
-                }
-            } else {
-                viewModel.fragmentScrollY.value = 0
-            }
-        } else {
-            super.onBackPressed()
-        }
     }
 
     override fun onNewIntent(intent: Intent?) {
@@ -169,6 +153,27 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
     override fun onStart() {
         Preferences.preferences.registerOnSharedPreferenceChangeListener(this)
         super.onStart()
+
+        val customBackPressedCallback = object : OnBackPressedCallback(mainNavController?.currentDestination?.id == R.id.appMainFragment) {
+            override fun handleOnBackPressed() {
+                if (settingsNavController?.navigateUp() == false) {
+                    if (mAppWidgetId > 0) {
+                        addNewWidget()
+                    } else {
+                        setResult(Activity.RESULT_OK)
+                        finish()
+                    }
+                }
+                else viewModel.fragmentScrollY.value = 0
+            }
+        }
+
+        onBackPressedDispatcher.addCallback(this, customBackPressedCallback)
+
+        // Enable/disable custom back callback depending on the current fragment.
+        mainNavController?.addOnDestinationChangedListener { _, destination, _ ->
+            customBackPressedCallback.isEnabled = destination.id == R.id.appMainFragment
+        }
     }
 
     override fun onStop() {

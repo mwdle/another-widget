@@ -210,7 +210,7 @@ class MainFragment : Fragment() {
     private var delayJob: Job? = null
 
     class UpdateUiMessageEvent
-    class ChangeTabEvent()
+    class ChangeTabEvent
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onUpdateUiEvent(@Suppress("UNUSED_PARAMETER") ignore: UpdateUiMessageEvent?) {

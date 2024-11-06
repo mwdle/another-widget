@@ -2,6 +2,7 @@ package com.tommasoberlose.anotherwidget.ui.activities.tabs
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -18,7 +19,6 @@ import com.tommasoberlose.anotherwidget.utils.openURI
 import com.tommasoberlose.anotherwidget.utils.toast
 import kotlinx.coroutines.*
 import net.idik.lib.slimadapter.SlimAdapter
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -44,8 +44,11 @@ class CustomDateActivity : AppCompatActivity() {
             .register<String>(R.layout.custom_date_example_item) { item, injector ->
                 injector
                     .text(R.id.custom_date_example_format, item)
-                    .text(R.id.custom_date_example_value, SimpleDateFormat(item, Locale.getDefault()).format(
-                        DATE.time))
+                    .text(
+                        R.id.custom_date_example_value, SimpleDateFormat(item, Locale.getDefault()).format(
+                            DATE.time
+                        )
+                    )
             }
             .attachTo(binding.listView)
 
@@ -59,6 +62,21 @@ class CustomDateActivity : AppCompatActivity() {
         subscribeUi(binding, viewModel)
 
         binding.dateFormat.requestFocus()
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                Preferences.blockingBulk {
+                    dateFormat = viewModel.dateInput.value ?: ""
+                    isDateCapitalize = viewModel.isDateCapitalize.value ?: true
+                    isDateUppercase = viewModel.isDateUppercase.value ?: false
+                }
+                com.tommasoberlose.anotherwidget.ui.widgets.MainWidget.updateWidget(this@CustomDateActivity)
+                // Temporarily disable custom callback when calling system default back action.
+                isEnabled = false
+                onBackPressedDispatcher.onBackPressed()
+                isEnabled = true
+            }
+        })
 
         setContentView(binding.root)
     }
@@ -117,15 +135,32 @@ class CustomDateActivity : AppCompatActivity() {
     private fun updateCapitalizeUi() {
         when {
             viewModel.isDateUppercase.value == true -> {
-                binding.actionCapitalize.setImageDrawable(ContextCompat.getDrawable(this@CustomDateActivity, R.drawable.round_publish))
+                binding.actionCapitalize.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        this@CustomDateActivity,
+                        R.drawable.round_publish
+                    )
+                )
                 binding.actionCapitalize.alpha = 1f
             }
+
             viewModel.isDateCapitalize.value == true -> {
-                binding.actionCapitalize.setImageDrawable(ContextCompat.getDrawable(this@CustomDateActivity, R.drawable.ic_capitalize))
+                binding.actionCapitalize.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        this@CustomDateActivity,
+                        R.drawable.ic_capitalize
+                    )
+                )
                 binding.actionCapitalize.alpha = 1f
             }
+
             else -> {
-                binding.actionCapitalize.setImageDrawable(ContextCompat.getDrawable(this@CustomDateActivity, R.drawable.round_publish))
+                binding.actionCapitalize.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        this@CustomDateActivity,
+                        R.drawable.round_publish
+                    )
+                )
                 binding.actionCapitalize.alpha = 0.3f
             }
         }
@@ -133,7 +168,7 @@ class CustomDateActivity : AppCompatActivity() {
 
     private fun setupListener() {
         binding.actionBack.setOnClickListener {
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
         }
 
         binding.actionCapitalize.setOnClickListener {
@@ -142,10 +177,12 @@ class CustomDateActivity : AppCompatActivity() {
                     viewModel.isDateCapitalize.value = false
                     viewModel.isDateUppercase.value = false
                 }
+
                 viewModel.isDateCapitalize.value == true -> {
                     viewModel.isDateCapitalize.value = false
                     viewModel.isDateUppercase.value = true
                 }
+
                 else -> {
                     viewModel.isDateCapitalize.value = true
                     viewModel.isDateUppercase.value = false
@@ -161,16 +198,6 @@ class CustomDateActivity : AppCompatActivity() {
         binding.actionDateFormatInfo.setOnClickListener {
             openURI("https://developer.android.com/reference/java/text/SimpleDateFormat")
         }
-    }
-
-    override fun onBackPressed() {
-        Preferences.blockingBulk {
-            dateFormat = viewModel.dateInput.value ?: ""
-            isDateCapitalize = viewModel.isDateCapitalize.value ?: true
-            isDateUppercase = viewModel.isDateUppercase.value ?: false
-        }
-        com.tommasoberlose.anotherwidget.ui.widgets.MainWidget.updateWidget(this)
-        super.onBackPressed()
     }
 
     companion object {
