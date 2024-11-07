@@ -6,6 +6,8 @@ import android.app.AlarmManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build.VERSION.SDK_INT
+import android.os.Build.VERSION_CODES.TIRAMISU
 import android.view.LayoutInflater
 import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -24,6 +26,7 @@ import com.tommasoberlose.anotherwidget.ui.fragments.MainFragment
 import com.tommasoberlose.anotherwidget.utils.checkGrantedPermission
 import kotlinx.coroutines.*
 import org.greenrobot.eventbus.EventBus
+
 
 class GlanceSettingsDialog(val context: Activity, val provider: Constants.GlanceProviderId, private val statusCallback: (() -> Unit)?) :
     BottomSheetDialog(context, R.style.BottomSheetDialogTheme) {
@@ -198,9 +201,7 @@ class GlanceSettingsDialog(val context: Activity, val provider: Constants.Glance
                             Preferences.showWeatherAsGlanceProvider = isChecked
                         }
 
-                        else -> {
-
-                        }
+                        else -> {}
                     }
                     statusCallback?.invoke()
                 }
@@ -221,7 +222,10 @@ class GlanceSettingsDialog(val context: Activity, val provider: Constants.Glance
             if (alarm != null && alarm.showIntent != null) {
                 val pm = context.packageManager as PackageManager
                 val appNameOrPackage = try {
-                    pm.getApplicationLabel(pm.getApplicationInfo(alarm.showIntent?.creatorPackage ?: "", 0))
+                    if (SDK_INT > TIRAMISU)
+                        pm.getApplicationLabel(pm.getApplicationInfo(alarm.showIntent?.creatorPackage ?: "", PackageManager.ApplicationInfoFlags.of(0)))
+                    else
+                        @Suppress("DEPRECATION") pm.getApplicationLabel(pm.getApplicationInfo(alarm.showIntent?.creatorPackage ?: "", 0)) // Deprecated in API 33
                 } catch (e: Exception) {
                     alarm.showIntent?.creatorPackage ?: ""
                 }
