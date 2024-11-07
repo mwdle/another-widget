@@ -4,7 +4,6 @@ import android.content.Context
 import android.text.format.DateUtils
 import com.tommasoberlose.anotherwidget.global.Preferences
 import com.tommasoberlose.anotherwidget.utils.getCapWordString
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 

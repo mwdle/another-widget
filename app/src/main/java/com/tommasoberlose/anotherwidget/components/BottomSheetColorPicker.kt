@@ -68,7 +68,7 @@ class BottomSheetColorPicker(
                     onColorSelected?.invoke(Color.parseColor(color))
                     val idx = colors.toList().indexOf(getSelected?.invoke())
                     adapter.notifyItemChanged(idx)
-                    (listBinding.root.layoutManager as GridLayoutManager).scrollToPositionWithOffset(idx,0)
+                    (listBinding.root.layoutManager as GridLayoutManager).scrollToPositionWithOffset(idx, 0)
                 }
             }
             binding.actionPaste.isVisible = context.isClipboardColor()
@@ -92,8 +92,10 @@ class BottomSheetColorPicker(
                     }
                 }
             }
+
             override fun onStartTrackingTouch(seekBar: IndicatorSeekBar?) {
             }
+
             override fun onStopTrackingTouch(seekBar: IndicatorSeekBar?) {
             }
         }
@@ -111,7 +113,8 @@ class BottomSheetColorPicker(
                     injector
                         .with<MaterialCardView>(R.id.color) {
                             it.setCardBackgroundColor(ColorStateList.valueOf(item))
-                            it.strokeWidth = if ((colors.indexOf(item) == 0 && !context.isDarkTheme()) || (colors.indexOf(item) == 10 && context.isDarkTheme())) 2 else 0
+                            it.strokeWidth =
+                                if ((colors.indexOf(item) == 0 && !context.isDarkTheme()) || (colors.indexOf(item) == 10 && context.isDarkTheme())) 2 else 0
                         }
                         .with<AppCompatImageView>(R.id.check) {
                             if (getSelected?.invoke() == item) {
@@ -132,7 +135,7 @@ class BottomSheetColorPicker(
                             onColorSelected?.invoke(item)
                             val position = adapter.data.indexOf(item)
                             adapter.notifyItemChanged(position)
-                            (listBinding.root.layoutManager as GridLayoutManager).scrollToPositionWithOffset(position,0)
+                            (listBinding.root.layoutManager as GridLayoutManager).scrollToPositionWithOffset(position, 0)
                         }
                 }
                 .attachTo(listBinding.root)
@@ -145,7 +148,7 @@ class BottomSheetColorPicker(
                 binding.listContainer.isVisible = true
 
                 val idx = colors.toList().indexOf(getSelected?.invoke())
-                (listBinding.root.layoutManager as GridLayoutManager).scrollToPositionWithOffset(idx,0)
+                (listBinding.root.layoutManager as GridLayoutManager).scrollToPositionWithOffset(idx, 0)
             }
         })
 

@@ -2,11 +2,9 @@ package com.tommasoberlose.anotherwidget.components
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.tommasoberlose.anotherwidget.R
@@ -18,7 +16,13 @@ import com.tommasoberlose.anotherwidget.databinding.BottomSheetMenuItemBinding
  * theme which sets a rounded background to the dialog
  * and doesn't dim the navigation bar
  */
-open class BottomSheetMenu<T>(context: Context, private val header: String? = null, private val message: String? = null, private val isMessageWarning: Boolean = false, private val isMultiSelection: Boolean = false) : BottomSheetDialog(context, R.style.BottomSheetDialogTheme) {
+open class BottomSheetMenu<T>(
+    context: Context,
+    private val header: String? = null,
+    private val message: String? = null,
+    private val isMessageWarning: Boolean = false,
+    private val isMultiSelection: Boolean = false
+) : BottomSheetDialog(context, R.style.BottomSheetDialogTheme) {
 
     private val items: ArrayList<MenuItem<T>> = ArrayList()
     private var selectedRes: ArrayList<T> = ArrayList()
@@ -59,7 +63,12 @@ open class BottomSheetMenu<T>(context: Context, private val header: String? = nu
 
         binding.warningText.isVisible = message != null
         binding.warningText.text = message ?: ""
-        binding.warningText.setTextColor(ContextCompat.getColor(context, if (isMessageWarning) R.color.warningColorText else R.color.colorSecondaryText))
+        binding.warningText.setTextColor(
+            ContextCompat.getColor(
+                context,
+                if (isMessageWarning) R.color.warningColorText else R.color.colorSecondaryText
+            )
+        )
 
         // Menu
         for (item in items) {

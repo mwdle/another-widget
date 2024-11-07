@@ -90,7 +90,10 @@ class WeatherProviderActivity : AppCompatActivity() {
                             WeatherHelper.updateWeather(this@WeatherProviderActivity, true)
                         }.show()
                     }
-                    .visibility(R.id.action_configure, if (/*WeatherHelper.isKeyRequired(provider) && */provider.rawValue == Preferences.weatherProvider) View.VISIBLE else View.GONE)
+                    .visibility(
+                        R.id.action_configure,
+                        if (/*WeatherHelper.isKeyRequired(provider) && */provider.rawValue == Preferences.weatherProvider) View.VISIBLE else View.GONE
+                    )
                     .with<TextView>(R.id.provider_error) {
                         if (Preferences.weatherProviderError != "" && Preferences.weatherProviderError != "-") {
                             it.text = Preferences.weatherProviderError
@@ -102,7 +105,13 @@ class WeatherProviderActivity : AppCompatActivity() {
                             it.isVisible = false
                         }
                     }
-                    .image(R.id.action_configure, ContextCompat.getDrawable(this, if (WeatherHelper.isKeyRequired(provider)) R.drawable.round_settings_24 else R.drawable.outline_info_24))
+                    .image(
+                        R.id.action_configure,
+                        ContextCompat.getDrawable(
+                            this,
+                            if (WeatherHelper.isKeyRequired(provider)) R.drawable.round_settings_24 else R.drawable.outline_info_24
+                        )
+                    )
             }.attachTo(binding.listView)
 
         adapter.updateData(
@@ -158,7 +167,8 @@ class WeatherProviderActivity : AppCompatActivity() {
     fun onMessageEvent(@Suppress("UNUSED_PARAMETER") ignore: MainFragment.UpdateUiMessageEvent?) {
         binding.loader.isVisible = Preferences.weatherProviderError == "-"
         if (Preferences.weatherProviderError == "" && Preferences.weatherProviderLocationError == "") {
-            Snackbar.make(binding.listView, getString(R.string.settings_weather_provider_api_key_subtitle_all_set), Snackbar.LENGTH_LONG).show()
+            Snackbar.make(binding.listView, getString(R.string.settings_weather_provider_api_key_subtitle_all_set), Snackbar.LENGTH_LONG)
+                .show()
         }
     }
 }

@@ -22,13 +22,19 @@ class MaterialBottomSheetDialog(
 
     private var binding = BottomSheetDialogBinding.inflate(LayoutInflater.from(context))
 
-    fun setPositiveButton(label: String? = context.getString(android.R.string.ok), callback: DialogCallback? = null): MaterialBottomSheetDialog {
+    fun setPositiveButton(
+        label: String? = context.getString(android.R.string.ok),
+        callback: DialogCallback? = null
+    ): MaterialBottomSheetDialog {
         positiveButtonLabel = label
         positiveCallback = callback
         return this
     }
 
-    fun setNegativeButton(label: String? = context.getString(android.R.string.cancel), callback: DialogCallback? = null): MaterialBottomSheetDialog {
+    fun setNegativeButton(
+        label: String? = context.getString(android.R.string.cancel),
+        callback: DialogCallback? = null
+    ): MaterialBottomSheetDialog {
         negativeButtonLabel = label
         negativeCallback = callback
         return this

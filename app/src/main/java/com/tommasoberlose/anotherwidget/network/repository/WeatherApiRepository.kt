@@ -10,7 +10,10 @@ class WeatherApiRepository {
 
     /* WEATHER API*/
     private val apiServiceApi: ApiServices.WeatherApiService = getRetrofit().create(ApiServices.WeatherApiService::class.java)
-    suspend fun getWeather() = apiServiceApi.getWeather(Preferences.weatherProviderApiWeatherApi, "${Preferences.customLocationLat},${Preferences.customLocationLon}")
+    suspend fun getWeather() = apiServiceApi.getWeather(
+        Preferences.weatherProviderApiWeatherApi,
+        "${Preferences.customLocationLat},${Preferences.customLocationLon}"
+    )
 
     companion object {
         private const val BASE_URL_API = "http://api.weatherapi.com/v1/"

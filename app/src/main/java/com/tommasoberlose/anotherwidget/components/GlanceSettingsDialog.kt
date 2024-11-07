@@ -25,7 +25,8 @@ import com.tommasoberlose.anotherwidget.utils.checkGrantedPermission
 import kotlinx.coroutines.*
 import org.greenrobot.eventbus.EventBus
 
-class GlanceSettingsDialog(val context: Activity, val provider: Constants.GlanceProviderId, private val statusCallback: (() -> Unit)?) : BottomSheetDialog(context, R.style.BottomSheetDialogTheme) {
+class GlanceSettingsDialog(val context: Activity, val provider: Constants.GlanceProviderId, private val statusCallback: (() -> Unit)?) :
+    BottomSheetDialog(context, R.style.BottomSheetDialogTheme) {
 
     private var binding: GlanceProviderSettingsLayoutBinding = GlanceProviderSettingsLayoutBinding.inflate(LayoutInflater.from(context))
 
@@ -98,7 +99,10 @@ class GlanceSettingsDialog(val context: Activity, val provider: Constants.Glance
             }
             binding.notificationTimerLabel.text = stringArray[Preferences.hideNotificationAfter]
             binding.actionChangeNotificationTimer.setOnClickListener {
-                val dialog = BottomSheetMenu<Int>(context, header = context.getString(R.string.glance_notification_hide_timeout_title)).setSelectedValue(Preferences.hideNotificationAfter)
+                val dialog = BottomSheetMenu<Int>(
+                    context,
+                    header = context.getString(R.string.glance_notification_hide_timeout_title)
+                ).setSelectedValue(Preferences.hideNotificationAfter)
                 Constants.GlanceNotificationTimer.values().forEachIndexed { index, timeout ->
                     dialog.addItem(stringArray[index], timeout.rawValue)
                 }
@@ -131,16 +135,18 @@ class GlanceSettingsDialog(val context: Activity, val provider: Constants.Glance
         }
 
         /* TOGGLE */
-        binding.providerSwitch.setCheckedImmediatelyNoEvent(when (provider) {
-            Constants.GlanceProviderId.PLAYING_SONG -> Preferences.showMusic
-            Constants.GlanceProviderId.NEXT_CLOCK_ALARM -> Preferences.showNextAlarm
-            Constants.GlanceProviderId.BATTERY_LEVEL_LOW -> Preferences.showBatteryCharging
-            Constants.GlanceProviderId.CUSTOM_INFO -> true
-            Constants.GlanceProviderId.NOTIFICATIONS -> Preferences.showNotifications
-            Constants.GlanceProviderId.GREETINGS -> Preferences.showGreetings
-            Constants.GlanceProviderId.EVENTS -> Preferences.showEventsAsGlanceProvider
-            Constants.GlanceProviderId.WEATHER -> Preferences.showWeatherAsGlanceProvider
-        })
+        binding.providerSwitch.setCheckedImmediatelyNoEvent(
+            when (provider) {
+                Constants.GlanceProviderId.PLAYING_SONG -> Preferences.showMusic
+                Constants.GlanceProviderId.NEXT_CLOCK_ALARM -> Preferences.showNextAlarm
+                Constants.GlanceProviderId.BATTERY_LEVEL_LOW -> Preferences.showBatteryCharging
+                Constants.GlanceProviderId.CUSTOM_INFO -> true
+                Constants.GlanceProviderId.NOTIFICATIONS -> Preferences.showNotifications
+                Constants.GlanceProviderId.GREETINGS -> Preferences.showGreetings
+                Constants.GlanceProviderId.EVENTS -> Preferences.showEventsAsGlanceProvider
+                Constants.GlanceProviderId.WEATHER -> Preferences.showWeatherAsGlanceProvider
+            }
+        )
 
         var job: Job? = null
 
@@ -154,25 +160,30 @@ class GlanceSettingsDialog(val context: Activity, val provider: Constants.Glance
                             Preferences.showMusic = isChecked
                             checkNotificationPermission()
                         }
+
                         Constants.GlanceProviderId.NEXT_CLOCK_ALARM -> {
                             Preferences.showNextAlarm = isChecked
                             checkNextAlarm()
                             if (!isChecked)
                                 AlarmHelper.clearTimeout(context)
                         }
+
                         Constants.GlanceProviderId.BATTERY_LEVEL_LOW -> {
                             Preferences.showBatteryCharging = isChecked
                         }
+
                         Constants.GlanceProviderId.NOTIFICATIONS -> {
                             Preferences.showNotifications = isChecked
                             checkLastNotificationsPermission()
                             if (!isChecked)
                                 ActiveNotificationsHelper.clearLastNotification(context)
                         }
+
                         Constants.GlanceProviderId.GREETINGS -> {
                             Preferences.showGreetings = isChecked
                             GreetingsHelper.toggleGreetings(context)
                         }
+
                         Constants.GlanceProviderId.EVENTS -> {
                             Preferences.showEventsAsGlanceProvider = isChecked
                             if (isChecked) {
@@ -182,9 +193,11 @@ class GlanceSettingsDialog(val context: Activity, val provider: Constants.Glance
                                 }
                             }
                         }
+
                         Constants.GlanceProviderId.WEATHER -> {
                             Preferences.showWeatherAsGlanceProvider = isChecked
                         }
+
                         else -> {
 
                         }
@@ -201,7 +214,7 @@ class GlanceSettingsDialog(val context: Activity, val provider: Constants.Glance
         }
         super.show()
     }
-    
+
     private fun checkNextAlarm() {
         with(context.getSystemService(Context.ALARM_SERVICE) as AlarmManager) {
             val alarm = nextAlarmClock
@@ -213,7 +226,10 @@ class GlanceSettingsDialog(val context: Activity, val provider: Constants.Glance
                     alarm.showIntent?.creatorPackage ?: ""
                 }
                 binding.alarmSetByTitle.text = context.getString(R.string.settings_show_next_alarm_app_title).format(appNameOrPackage)
-                binding.alarmSetBySubtitle.text = if (AlarmHelper.isAlarmProbablyWrong(context)) context.getString(R.string.settings_show_next_alarm_app_subtitle_wrong) else context.getString(R.string.settings_show_next_alarm_app_subtitle_correct)
+                binding.alarmSetBySubtitle.text =
+                    if (AlarmHelper.isAlarmProbablyWrong(context)) context.getString(R.string.settings_show_next_alarm_app_subtitle_wrong) else context.getString(
+                        R.string.settings_show_next_alarm_app_subtitle_correct
+                    )
                 binding.alarmSetByContainer.isVisible = true
             } else {
                 binding.alarmSetByContainer.isVisible = false
@@ -256,6 +272,7 @@ class GlanceSettingsDialog(val context: Activity, val provider: Constants.Glance
                 binding.warningContainer.isVisible = false
                 MediaPlayerHelper.updatePlayingMediaInfo(context)
             }
+
             Preferences.showMusic -> {
                 binding.warningContainer.isVisible = true
                 binding.warningTitle.text = context.getString(R.string.settings_request_notification_access)
@@ -263,6 +280,7 @@ class GlanceSettingsDialog(val context: Activity, val provider: Constants.Glance
                     context.startActivity(Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"))
                 }
             }
+
             else -> {
                 binding.warningContainer.isVisible = false
             }
@@ -275,6 +293,7 @@ class GlanceSettingsDialog(val context: Activity, val provider: Constants.Glance
             ActiveNotificationsHelper.checkNotificationAccess(context) -> {
                 binding.warningContainer.isVisible = false
             }
+
             Preferences.showNotifications -> {
                 binding.warningContainer.isVisible = true
                 binding.warningTitle.text = context.getString(R.string.settings_request_last_notification_access)
@@ -282,6 +301,7 @@ class GlanceSettingsDialog(val context: Activity, val provider: Constants.Glance
                     context.startActivity(Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"))
                 }
             }
+
             else -> {
                 binding.warningContainer.isVisible = false
             }

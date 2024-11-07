@@ -10,7 +10,12 @@ class WeatherbitRepository {
 
     /* BIT */
     private val apiServiceBit: ApiServices.WeatherBitService = getRetrofit().create(ApiServices.WeatherBitService::class.java)
-    suspend fun getWeather() = apiServiceBit.getWeather(Preferences.weatherProviderApiWeatherBit, Preferences.customLocationLat, Preferences.customLocationLon, if (Preferences.weatherTempUnit == "F") "I" else "M")
+    suspend fun getWeather() = apiServiceBit.getWeather(
+        Preferences.weatherProviderApiWeatherBit,
+        Preferences.customLocationLat,
+        Preferences.customLocationLon,
+        if (Preferences.weatherTempUnit == "F") "I" else "M"
+    )
 
     companion object {
         private const val BASE_URL_BIT = "https://api.weatherbit.io/v2.0/"

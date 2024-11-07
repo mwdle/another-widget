@@ -25,9 +25,11 @@ class BottomSheetPicker<T>(
     private lateinit var adapter: SlimAdapter
 
     private var binding: BottomSheetMenuHorBinding = BottomSheetMenuHorBinding.inflate(
-        LayoutInflater.from(context))
+        LayoutInflater.from(context)
+    )
     private var listBinding: BottomSheetMenuListBinding = BottomSheetMenuListBinding.inflate(
-        LayoutInflater.from(context))
+        LayoutInflater.from(context)
+    )
 
     @OptIn(DelicateCoroutinesApi::class)
     override fun show() {
@@ -55,14 +57,17 @@ class BottomSheetPicker<T>(
                     val isSelected = item.value == getSelected?.invoke()
                     injector
                         .text(R.id.label, item.title)
-                        .textColor(R.id.label, ContextCompat.getColor(context, if (isSelected) R.color.colorAccent else R.color.colorSecondaryText))
+                        .textColor(
+                            R.id.label,
+                            ContextCompat.getColor(context, if (isSelected) R.color.colorAccent else R.color.colorSecondaryText)
+                        )
                         .selected(R.id.item, isSelected)
                         .clicked(R.id.item) {
                             val oldIdx = items.toList().indexOfFirst { it.value == getSelected?.invoke() }
                             onItemSelected?.invoke(item.value)
                             adapter.notifyItemChanged(position)
                             adapter.notifyItemChanged(oldIdx)
-                            (listBinding.root.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(position,0)
+                            (listBinding.root.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(position, 0)
                         }
                 }
                 .attachTo(listBinding.root)
@@ -75,7 +80,7 @@ class BottomSheetPicker<T>(
                 binding.listContainer.isVisible = true
 
                 val idx = items.toList().indexOfFirst { it.value == getSelected?.invoke() }
-                (listBinding.root.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(idx,0)
+                (listBinding.root.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(idx, 0)
             }
         })
 

@@ -47,7 +47,7 @@ class GesturesFragment : Fragment() {
         returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
 
         calendarResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK && result.data != null ) {
+            if (result.resultCode == Activity.RESULT_OK && result.data != null) {
                 val data = result.data!!
                 if (data.hasExtra(Constants.RESULT_APP_NAME) && data.hasExtra(Constants.RESULT_APP_PACKAGE)) {
                     Preferences.bulk {

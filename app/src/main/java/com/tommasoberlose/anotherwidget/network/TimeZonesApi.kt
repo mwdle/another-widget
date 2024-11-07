@@ -15,7 +15,7 @@ class TimeZonesApi(val context: Context) {
             is NetworkResponse.Success -> {
                 try {
                     id = response.body["timezoneId"] as String
-                } catch(ex: Exception) {
+                } catch (ex: Exception) {
                     ex.printStackTrace()
                 }
             }

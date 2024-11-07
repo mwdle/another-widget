@@ -41,7 +41,10 @@ class NotificationListener : NotificationListenerService() {
                 val isGroupHeader = sbn.notification.flags and Notification.FLAG_GROUP_SUMMARY != 0
                 val isOngoing = sbn.notification.flags and Notification.FLAG_ONGOING_EVENT != 0
 
-                if (Preferences.showNotifications && bundle.containsKey(Notification.EXTRA_TITLE) && !isGroupHeader && !isOngoing && ActiveNotificationsHelper.isAppAccepted(sbn.packageName) && !sbn.packageName.contains("com.android.systemui")) {
+                if (Preferences.showNotifications && bundle.containsKey(Notification.EXTRA_TITLE) && !isGroupHeader && !isOngoing && ActiveNotificationsHelper.isAppAccepted(
+                        sbn.packageName
+                    ) && !sbn.packageName.contains("com.android.systemui")
+                ) {
                     Preferences.lastNotificationId = sbn.id
                     Preferences.lastNotificationTitle = bundle.getString(Notification.EXTRA_TITLE) ?: ""
                     try {

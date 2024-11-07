@@ -2,32 +2,32 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.READ_CALENDAR" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.READ_CALENDAR"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <!-- Wallpaper access requires permission to manage all files and read images on Android 13+ devices when targeting SDK >= 33. Google does not intend to fix this.
          https://issuetracker.google.com/issues/237124750 -->
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" tools:ignore="ScopedStorage"/>
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" tools:ignore="SelectedPhotoAccess" />
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" tools:ignore="SelectedPhotoAccess"/>
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
 
     <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:name=".AWApplication"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/AppTheme"
-        tools:ignore="LockedOrientationActivity">
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:name=".AWApplication"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:usesCleartextTraffic="true"
+            android:theme="@style/AppTheme"
+            tools:ignore="LockedOrientationActivity">
         <activity android:name=".ui.activities.SplashActivity" android:exported="true" android:theme="@style/AppTheme.Main">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity android:name=".ui.activities.MainActivity" android:theme="@style/AppTheme"/>
@@ -44,77 +44,77 @@
 
         <receiver android:name=".ui.widgets.MainWidget" android:exported="true">
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
             <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/the_widget_info" />
+                    android:name="android.appwidget.provider"
+                    android:resource="@xml/the_widget_info"/>
         </receiver>
         <receiver
-            android:name=".receivers.NewCalendarEventReceiver"
-            android:enabled="true"
-            android:exported="true"
-            android:priority="1000">
+                android:name=".receivers.NewCalendarEventReceiver"
+                android:enabled="true"
+                android:exported="true"
+                android:priority="1000">
             <intent-filter>
-                <action android:name="android.intent.action.PROVIDER_CHANGED" />
+                <action android:name="android.intent.action.PROVIDER_CHANGED"/>
                 <data android:scheme="content"/>
                 <data android:host="com.android.calendar"/>
             </intent-filter>
             <intent-filter>
-                <action android:name="com.tommasoberlose.anotherwidget.action.GO_TO_NEXT_EVENT" />
-                <action android:name="com.tommasoberlose.anotherwidget.action.GO_TO_PREVIOUS_EVENT" />
+                <action android:name="com.tommasoberlose.anotherwidget.action.GO_TO_NEXT_EVENT"/>
+                <action android:name="com.tommasoberlose.anotherwidget.action.GO_TO_PREVIOUS_EVENT"/>
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".receivers.UpdatesReceiver"
-            android:enabled="true"
-            android:exported="true">
+                android:name=".receivers.UpdatesReceiver"
+                android:enabled="true"
+                android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="com.tommasoberlose.anotherwidget.action.CALENDAR_UPDATE" />
-                <action android:name="com.tommasoberlose.anotherwidget.action.TIME_UPDATE" />
-                <action android:name="com.sec.android.widgetapp.APPWIDGET_RESIZE" />
-                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
-                <action android:name="android.app.action.NEXT_ALARM_CLOCK_CHANGED" />
-                <action android:name="android.intent.action.DATE_CHANGED" />
-                <action android:name="android.intent.action.TIME_SET" />
-                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
-                <action android:name="android.intent.action.LOCALE_CHANGED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="com.tommasoberlose.anotherwidget.action.CALENDAR_UPDATE"/>
+                <action android:name="com.tommasoberlose.anotherwidget.action.TIME_UPDATE"/>
+                <action android:name="com.sec.android.widgetapp.APPWIDGET_RESIZE"/>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+                <action android:name="android.app.action.NEXT_ALARM_CLOCK_CHANGED"/>
+                <action android:name="android.intent.action.DATE_CHANGED"/>
+                <action android:name="android.intent.action.TIME_SET"/>
+                <action android:name="android.intent.action.TIMEZONE_CHANGED"/>
+                <action android:name="android.intent.action.LOCALE_CHANGED"/>
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".receivers.WeatherReceiver"
-            android:enabled="true"
-            android:exported="true" tools:ignore="ExportedReceiver">
+                android:name=".receivers.WeatherReceiver"
+                android:enabled="true"
+                android:exported="true" tools:ignore="ExportedReceiver">
             <intent-filter>
-                <action android:name="com.tommasoberlose.anotherwidget.action.WEATHER_UPDATE" />
-                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.TIME_SET" />
-                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
-                <action android:name="android.intent.action.LOCALE_CHANGED" />
+                <action android:name="com.tommasoberlose.anotherwidget.action.WEATHER_UPDATE"/>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.TIME_SET"/>
+                <action android:name="android.intent.action.TIMEZONE_CHANGED"/>
+                <action android:name="android.intent.action.LOCALE_CHANGED"/>
             </intent-filter>
         </receiver>
 
         <receiver
-            android:name=".receivers.WidgetClickListenerReceiver"
-            android:enabled="true"
-            android:exported="false">
+                android:name=".receivers.WidgetClickListenerReceiver"
+                android:enabled="true"
+                android:exported="false">
             <intent-filter>
-                <action android:name="com.tommasoberlose.anotherwidget.action.OPEN_WEATHER_INTENT" />
+                <action android:name="com.tommasoberlose.anotherwidget.action.OPEN_WEATHER_INTENT"/>
             </intent-filter>
         </receiver>
 
         <service android:name=".receivers.NotificationListener" android:exported="true"
-            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+                 android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>
-                <action android:name="android.service.notification.NotificationListenerService" />
+                <action android:name="android.service.notification.NotificationListenerService"/>
             </intent-filter>
         </service>
 
         <receiver android:name=".receivers.BatteryLevelReceiver"
-            android:enabled="true"
-            android:exported="true">
+                  android:enabled="true"
+                  android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
                 <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
@@ -128,7 +128,7 @@
 
     <queries>
         <intent>
-            <action android:name="android.intent.action.MAIN" />
+            <action android:name="android.intent.action.MAIN"/>
         </intent>
     </queries>
 

@@ -2,15 +2,13 @@ package com.tommasoberlose.anotherwidget.helpers
 
 import android.Manifest
 import android.content.Context
-import android.content.Intent
 import android.provider.CalendarContract
-import com.tommasoberlose.anotherwidget.models.Event
 import com.tommasoberlose.anotherwidget.global.Preferences
+import com.tommasoberlose.anotherwidget.models.Event
 import com.tommasoberlose.anotherwidget.services.UpdateCalendarWorker
 import com.tommasoberlose.anotherwidget.utils.checkGrantedPermission
 import me.everything.providers.android.calendar.CalendarProvider
 import java.util.*
-import kotlin.collections.ArrayList
 
 /**
  * Created by tommaso on 08/10/17.
@@ -56,7 +54,7 @@ object CalendarHelper {
         UpdateCalendarWorker.cancelTrigger(context)
     }
 
-    fun List<Event>.applyFilters() : List<Event> {
+    fun List<Event>.applyFilters(): List<Event> {
         return this
             .asSequence()
             .filter { (Preferences.showDeclinedEvents || it.selfAttendeeStatus != CalendarContract.Attendees.ATTENDEE_STATUS_DECLINED) }
@@ -72,17 +70,21 @@ object CalendarHelper {
             val date = Calendar.getInstance().apply { timeInMillis = event.startDate }
             val date1 = Calendar.getInstance().apply { timeInMillis = event1.startDate }
 
-            if (date.get(Calendar.DAY_OF_YEAR) == date1.get(Calendar.DAY_OF_YEAR) && date.get(
-                    Calendar.YEAR) == date1.get(Calendar.YEAR)
+            if (date[Calendar.DAY_OF_YEAR] == date1[Calendar.DAY_OF_YEAR] && date[Calendar.YEAR] == date1[Calendar.YEAR]
             ) {
-                if (event.allDay && event1.allDay) {
-                    event.startDate.compareTo(event1.startDate)
-                } else if (event.allDay) {
-                    1
-                } else if (event1.allDay) {
-                    -1
-                } else {
-                    event.startDate.compareTo(event1.startDate)
+                when {
+                    event.allDay && event1.allDay -> {
+                        event.startDate.compareTo(event1.startDate)
+                    }
+                    event.allDay -> {
+                        1
+                    }
+                    event1.allDay -> {
+                        -1
+                    }
+                    else -> {
+                        event.startDate.compareTo(event1.startDate)
+                    }
                 }
             } else {
                 event.startDate.compareTo(event1.startDate)

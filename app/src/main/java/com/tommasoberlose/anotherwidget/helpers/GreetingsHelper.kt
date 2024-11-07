@@ -32,12 +32,14 @@ object GreetingsHelper {
                         set(Calendar.HOUR_OF_DAY, 5)
                     }.timeInMillis,
                     1000 * 60 * 60 * 24,
-                    PendingIntent.getBroadcast(context,
+                    PendingIntent.getBroadcast(
+                        context,
                         MORNING_TIME,
                         Intent(context, UpdatesReceiver::class.java).apply {
                             action = Actions.ACTION_UPDATE_GREETINGS
                         },
-                        PendingIntent.FLAG_IMMUTABLE)
+                        PendingIntent.FLAG_IMMUTABLE
+                    )
                 )
 
                 setRepeating(
@@ -46,12 +48,14 @@ object GreetingsHelper {
                         set(Calendar.HOUR_OF_DAY, 9)
                     }.timeInMillis,
                     1000 * 60 * 60 * 24,
-                    PendingIntent.getBroadcast(context,
+                    PendingIntent.getBroadcast(
+                        context,
                         MORNING_TIME_END,
                         Intent(context, UpdatesReceiver::class.java).apply {
                             action = Actions.ACTION_UPDATE_GREETINGS
                         },
-                        PendingIntent.FLAG_IMMUTABLE)
+                        PendingIntent.FLAG_IMMUTABLE
+                    )
                 )
 
                 setRepeating(
@@ -60,12 +64,14 @@ object GreetingsHelper {
                         set(Calendar.HOUR_OF_DAY, 19)
                     }.timeInMillis,
                     1000 * 60 * 60 * 24,
-                    PendingIntent.getBroadcast(context,
+                    PendingIntent.getBroadcast(
+                        context,
                         EVENING_TIME,
                         Intent(context, UpdatesReceiver::class.java).apply {
                             action = Actions.ACTION_UPDATE_GREETINGS
                         },
-                        PendingIntent.FLAG_IMMUTABLE)
+                        PendingIntent.FLAG_IMMUTABLE
+                    )
                 )
 
                 setRepeating(
@@ -74,31 +80,37 @@ object GreetingsHelper {
                         set(Calendar.HOUR_OF_DAY, 22)
                     }.timeInMillis,
                     1000 * 60 * 60 * 24,
-                    PendingIntent.getBroadcast(context,
+                    PendingIntent.getBroadcast(
+                        context,
                         NIGHT_TIME,
                         Intent(context, UpdatesReceiver::class.java).apply {
                             action = Actions.ACTION_UPDATE_GREETINGS
                         },
-                        PendingIntent.FLAG_IMMUTABLE)
+                        PendingIntent.FLAG_IMMUTABLE
+                    )
                 )
             } else {
                 listOf(MORNING_TIME, MORNING_TIME_END, EVENING_TIME, NIGHT_TIME).forEach {
-                    cancel(PendingIntent.getBroadcast(context, it, Intent(context,
-                        UpdatesReceiver::class.java).apply {
+                    cancel(PendingIntent.getBroadcast(context, it, Intent(
+                        context,
+                        UpdatesReceiver::class.java
+                    ).apply {
                         action = Actions.ACTION_UPDATE_GREETINGS
-                    }, PendingIntent.FLAG_IMMUTABLE))
+                    }, PendingIntent.FLAG_IMMUTABLE
+                    )
+                    )
                 }
             }
         }
     }
 
     fun showGreetings(): Boolean {
-        val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+        val hour = Calendar.getInstance()[Calendar.HOUR_OF_DAY]
         return hour < 9 || hour >= 19
     }
 
     fun getRandomString(context: Context): String {
-        val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+        val hour = Calendar.getInstance()[Calendar.HOUR_OF_DAY]
         val array = when {
             hour in 5..8 -> context.resources.getStringArray(R.array.morning_greetings)
             hour in 19..21 -> context.resources.getStringArray(R.array.evening_greetings)

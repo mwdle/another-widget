@@ -96,7 +96,8 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
         if (extras != null) {
             mAppWidgetId = extras.getInt(
                 AppWidgetManager.EXTRA_APPWIDGET_ID,
-                AppWidgetManager.INVALID_APPWIDGET_ID)
+                AppWidgetManager.INVALID_APPWIDGET_ID
+            )
 
             if (mAppWidgetId != AppWidgetManager.INVALID_APPWIDGET_ID) {
                 binding.actionAddWidget.visibility = View.VISIBLE
@@ -179,8 +180,7 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
                         setResult(Activity.RESULT_OK)
                         finish()
                     }
-                }
-                else viewModel.fragmentScrollY.value = 0
+                } else viewModel.fragmentScrollY.value = 0
             }
         }
 

@@ -10,7 +10,14 @@ class HereRepository {
 
     /* HERE */
     private val apiServiceHere: ApiServices.HereService = getRetrofit().create(ApiServices.HereService::class.java)
-    suspend fun getWeather() = apiServiceHere.getWeather(Preferences.weatherProviderApiHere, Preferences.customLocationLat, Preferences.customLocationLon, "observation", true, Preferences.weatherTempUnit != "F")
+    suspend fun getWeather() = apiServiceHere.getWeather(
+        Preferences.weatherProviderApiHere,
+        Preferences.customLocationLat,
+        Preferences.customLocationLon,
+        "observation",
+        true,
+        Preferences.weatherTempUnit != "F"
+    )
 
     companion object {
         private const val BASE_URL_HERE = "https://weather.ls.hereapi.com/weather/1.0/"
@@ -24,7 +31,7 @@ class HereRepository {
         }
     }
 
-    fun getWeatherIcon(iconName: String, isDaytime: Boolean): String = when(iconName.substringAfter("night_")) {
+    fun getWeatherIcon(iconName: String, isDaytime: Boolean): String = when (iconName.substringAfter("night_")) {
         "sunny" -> "01"
         "clear" -> "01"
         "mostly_sunny" -> "01"

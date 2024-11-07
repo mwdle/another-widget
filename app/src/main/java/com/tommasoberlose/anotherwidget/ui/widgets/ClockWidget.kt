@@ -11,7 +11,6 @@ import com.tommasoberlose.anotherwidget.global.Preferences
 import com.tommasoberlose.anotherwidget.helpers.ColorHelper
 import com.tommasoberlose.anotherwidget.helpers.IntentHelper
 import com.tommasoberlose.anotherwidget.utils.isDarkTheme
-import com.tommasoberlose.anotherwidget.utils.toPixel
 
 class ClockWidget(val context: Context) {
     fun updateClockView(views: RemoteViews, widgetID: Int): RemoteViews {
@@ -99,7 +98,7 @@ class ClockWidget(val context: Context) {
                     if (Preferences.widgetAlign == Constants.WidgetAlign.RIGHT.rawValue)
                         views.setViewPadding(R.id.timezones_container, 0, padding, padding, 0)
                     else
-                        views.setViewPadding(R.id.timezones_container, padding, padding, 0,0)
+                        views.setViewPadding(R.id.timezones_container, padding, padding, 0, 0)
 
                     views.setOnClickPendingIntent(R.id.timezones_container, clockPIntent)
                     views.setViewVisibility(R.id.timezones_container, View.VISIBLE)

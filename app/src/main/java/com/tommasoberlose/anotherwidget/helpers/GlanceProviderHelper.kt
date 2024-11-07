@@ -22,12 +22,15 @@ object GlanceProviderHelper {
                 enabledProviders.contains(p1.id) && enabledProviders.contains(p2.id) -> {
                     enabledProviders.indexOf(p1.id).compareTo(enabledProviders.indexOf(p2.id))
                 }
+
                 enabledProviders.contains(p1.id) -> {
                     -1
                 }
+
                 enabledProviders.contains(p2.id) -> {
                     1
                 }
+
                 else -> {
                     p1.id.compareTo(p2.id)
                 }
@@ -36,51 +39,66 @@ object GlanceProviderHelper {
     }
 
     fun getGlanceProviderById(context: Context, providerId: Constants.GlanceProviderId): GlanceProvider {
-        return when(providerId) {
+        return when (providerId) {
             Constants.GlanceProviderId.NEXT_CLOCK_ALARM -> {
-               GlanceProvider(providerId.id,
-                   context.getString(R.string.settings_show_next_alarm_title),
-                   R.drawable.round_access_alarm_24
-               )
+                GlanceProvider(
+                    providerId.id,
+                    context.getString(R.string.settings_show_next_alarm_title),
+                    R.drawable.round_access_alarm_24
+                )
             }
+
             Constants.GlanceProviderId.PLAYING_SONG -> {
-               GlanceProvider(providerId.id,
-                   context.getString(R.string.settings_show_music_title),
-                   R.drawable.round_music_note_24
-               )
+                GlanceProvider(
+                    providerId.id,
+                    context.getString(R.string.settings_show_music_title),
+                    R.drawable.round_music_note_24
+                )
             }
+
             Constants.GlanceProviderId.CUSTOM_INFO -> {
-               GlanceProvider(providerId.id,
-                   context.getString(R.string.settings_custom_notes_title),
-                   R.drawable.round_sticky_note_2_24
-               )
+                GlanceProvider(
+                    providerId.id,
+                    context.getString(R.string.settings_custom_notes_title),
+                    R.drawable.round_sticky_note_2_24
+                )
             }
+
             Constants.GlanceProviderId.BATTERY_LEVEL_LOW -> {
-               GlanceProvider(providerId.id,
-                   context.getString(R.string.settings_low_battery_level_title),
-                   R.drawable.round_battery_charging_full_24
-               )
+                GlanceProvider(
+                    providerId.id,
+                    context.getString(R.string.settings_low_battery_level_title),
+                    R.drawable.round_battery_charging_full_24
+                )
             }
+
             Constants.GlanceProviderId.NOTIFICATIONS -> {
-                GlanceProvider(providerId.id,
+                GlanceProvider(
+                    providerId.id,
                     context.getString(R.string.settings_show_notifications_title),
                     R.drawable.round_notifications_24
                 )
             }
+
             Constants.GlanceProviderId.GREETINGS -> {
-                GlanceProvider(providerId.id,
+                GlanceProvider(
+                    providerId.id,
                     context.getString(R.string.settings_show_greetings_title),
                     R.drawable.round_history_edu_24
                 )
             }
+
             Constants.GlanceProviderId.EVENTS -> {
-                GlanceProvider(providerId.id,
+                GlanceProvider(
+                    providerId.id,
                     context.getString(R.string.settings_show_events_as_glance_provider_title),
                     R.drawable.round_event_note_24
                 )
             }
+
             Constants.GlanceProviderId.WEATHER -> {
-                GlanceProvider(providerId.id,
+                GlanceProvider(
+                    providerId.id,
                     context.getString(R.string.settings_show_weather_as_glance_provider_title),
                     R.drawable.round_brightness_5_24
                 )
@@ -97,17 +115,18 @@ object GlanceProviderHelper {
         BatteryHelper.updateBatteryInfo(context)
 
         val showGlance = (eventRepository.getEventsCount() == 0 || !Preferences.showEvents || Preferences.showEventsAsGlanceProvider)
-            && (
+                && (
                 (Preferences.showNotifications && ActiveNotificationsHelper.showLastNotification()) ||
-                (Preferences.showNextAlarm && AlarmHelper.getNextAlarm(context) != "") ||
-                (MediaPlayerHelper.isSomeonePlaying(context)) ||
-                (Preferences.showBatteryCharging && Preferences.isCharging || Preferences.isBatteryLevelLow) ||
-                (Preferences.customNotes.isNotEmpty()) ||
-                (Preferences.showWeatherAsGlanceProvider && Preferences.showWeather && Preferences.weatherIcon != "") ||
-                (Preferences.showGreetings && GreetingsHelper.showGreetings()) ||
-                (Preferences.showEventsAsGlanceProvider && Preferences.showEvents && context.checkGrantedPermission(
-                    Manifest.permission.READ_CALENDAR) && eventRepository.getNextEvent() != null)
-            )
+                        (Preferences.showNextAlarm && AlarmHelper.getNextAlarm(context) != "") ||
+                        (MediaPlayerHelper.isSomeonePlaying(context)) ||
+                        (Preferences.showBatteryCharging && Preferences.isCharging || Preferences.isBatteryLevelLow) ||
+                        (Preferences.customNotes.isNotEmpty()) ||
+                        (Preferences.showWeatherAsGlanceProvider && Preferences.showWeather && Preferences.weatherIcon != "") ||
+                        (Preferences.showGreetings && GreetingsHelper.showGreetings()) ||
+                        (Preferences.showEventsAsGlanceProvider && Preferences.showEvents && context.checkGrantedPermission(
+                            Manifest.permission.READ_CALENDAR
+                        ) && eventRepository.getNextEvent() != null)
+                )
         eventRepository.close()
         return showGlance
     }

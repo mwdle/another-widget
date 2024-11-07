@@ -33,46 +33,61 @@ object WeatherHelper {
         MainWidget.updateWidget(context)
     }
 
-    fun getProviderName(context: Context, provider: Constants.WeatherProvider = Constants.WeatherProvider.fromInt(Preferences.weatherProvider)!!): String {
-        return context.getString(when(provider) {
-            Constants.WeatherProvider.OPEN_WEATHER -> R.string.settings_weather_provider_open_weather
-            Constants.WeatherProvider.WEATHER_BIT -> R.string.settings_weather_provider_weatherbit
-            Constants.WeatherProvider.WEATHER_API -> R.string.settings_weather_provider_weather_api
-            Constants.WeatherProvider.HERE -> R.string.settings_weather_provider_here
-            Constants.WeatherProvider.ACCUWEATHER -> R.string.settings_weather_provider_accuweather
-            Constants.WeatherProvider.WEATHER_GOV -> R.string.settings_weather_provider_weather_gov
-            Constants.WeatherProvider.YR -> R.string.settings_weather_provider_yr
-        })
+    fun getProviderName(
+        context: Context,
+        provider: Constants.WeatherProvider = Constants.WeatherProvider.fromInt(Preferences.weatherProvider)!!
+    ): String {
+        return context.getString(
+            when (provider) {
+                Constants.WeatherProvider.OPEN_WEATHER -> R.string.settings_weather_provider_open_weather
+                Constants.WeatherProvider.WEATHER_BIT -> R.string.settings_weather_provider_weatherbit
+                Constants.WeatherProvider.WEATHER_API -> R.string.settings_weather_provider_weather_api
+                Constants.WeatherProvider.HERE -> R.string.settings_weather_provider_here
+                Constants.WeatherProvider.ACCUWEATHER -> R.string.settings_weather_provider_accuweather
+                Constants.WeatherProvider.WEATHER_GOV -> R.string.settings_weather_provider_weather_gov
+                Constants.WeatherProvider.YR -> R.string.settings_weather_provider_yr
+            }
+        )
     }
 
-    fun getProviderInfoTitle(context: Context, provider: Constants.WeatherProvider? = Constants.WeatherProvider.fromInt(Preferences.weatherProvider)!!): String {
-        return context.getString(when(provider) {
-            Constants.WeatherProvider.OPEN_WEATHER -> R.string.weather_provider_info_open_weather_title
-            Constants.WeatherProvider.WEATHER_BIT -> R.string.weather_provider_info_weatherbit_title
-            Constants.WeatherProvider.WEATHER_API -> R.string.weather_provider_info_weatherapi_title
-            Constants.WeatherProvider.HERE -> R.string.weather_provider_info_here_title
-            Constants.WeatherProvider.ACCUWEATHER -> R.string.weather_provider_info_accuweather_title
-            Constants.WeatherProvider.WEATHER_GOV -> R.string.weather_provider_info_weather_gov_title
-            Constants.WeatherProvider.YR -> R.string.weather_provider_info_yr_title
-            else -> R.string.nothing
-        })
+    fun getProviderInfoTitle(
+        context: Context,
+        provider: Constants.WeatherProvider? = Constants.WeatherProvider.fromInt(Preferences.weatherProvider)!!
+    ): String {
+        return context.getString(
+            when (provider) {
+                Constants.WeatherProvider.OPEN_WEATHER -> R.string.weather_provider_info_open_weather_title
+                Constants.WeatherProvider.WEATHER_BIT -> R.string.weather_provider_info_weatherbit_title
+                Constants.WeatherProvider.WEATHER_API -> R.string.weather_provider_info_weatherapi_title
+                Constants.WeatherProvider.HERE -> R.string.weather_provider_info_here_title
+                Constants.WeatherProvider.ACCUWEATHER -> R.string.weather_provider_info_accuweather_title
+                Constants.WeatherProvider.WEATHER_GOV -> R.string.weather_provider_info_weather_gov_title
+                Constants.WeatherProvider.YR -> R.string.weather_provider_info_yr_title
+                else -> R.string.nothing
+            }
+        )
     }
 
-    fun getProviderInfoSubtitle(context: Context, provider: Constants.WeatherProvider? = Constants.WeatherProvider.fromInt(Preferences.weatherProvider)!!): String {
-        return context.getString(when(provider) {
-            Constants.WeatherProvider.OPEN_WEATHER -> R.string.weather_provider_info_open_weather_subtitle
-            Constants.WeatherProvider.WEATHER_BIT -> R.string.weather_provider_info_weatherbit_subtitle
-            Constants.WeatherProvider.WEATHER_API -> R.string.weather_provider_info_weatherapi_subtitle
-            Constants.WeatherProvider.HERE -> R.string.weather_provider_info_here_subtitle
-            Constants.WeatherProvider.ACCUWEATHER -> R.string.weather_provider_info_accuweather_subtitle
-            Constants.WeatherProvider.WEATHER_GOV -> R.string.weather_provider_info_weather_gov_subtitle
-            Constants.WeatherProvider.YR -> R.string.weather_provider_info_yr_subtitle
-            else -> R.string.nothing
-        })
+    fun getProviderInfoSubtitle(
+        context: Context,
+        provider: Constants.WeatherProvider? = Constants.WeatherProvider.fromInt(Preferences.weatherProvider)!!
+    ): String {
+        return context.getString(
+            when (provider) {
+                Constants.WeatherProvider.OPEN_WEATHER -> R.string.weather_provider_info_open_weather_subtitle
+                Constants.WeatherProvider.WEATHER_BIT -> R.string.weather_provider_info_weatherbit_subtitle
+                Constants.WeatherProvider.WEATHER_API -> R.string.weather_provider_info_weatherapi_subtitle
+                Constants.WeatherProvider.HERE -> R.string.weather_provider_info_here_subtitle
+                Constants.WeatherProvider.ACCUWEATHER -> R.string.weather_provider_info_accuweather_subtitle
+                Constants.WeatherProvider.WEATHER_GOV -> R.string.weather_provider_info_weather_gov_subtitle
+                Constants.WeatherProvider.YR -> R.string.weather_provider_info_yr_subtitle
+                else -> R.string.nothing
+            }
+        )
     }
 
     fun getProviderLink(provider: Constants.WeatherProvider? = Constants.WeatherProvider.fromInt(Preferences.weatherProvider)!!): String {
-        return when(provider) {
+        return when (provider) {
             Constants.WeatherProvider.OPEN_WEATHER -> "https://home.openweathermap.org/users/sign_in"
             Constants.WeatherProvider.WEATHER_BIT -> "https://www.weatherbit.io/account/login"
             Constants.WeatherProvider.WEATHER_API -> "https://www.weatherapi.com/login.aspx"
@@ -84,17 +99,19 @@ object WeatherHelper {
         }
     }
 
-    fun isKeyRequired(provider: Constants.WeatherProvider? = Constants.WeatherProvider.fromInt(Preferences.weatherProvider)!!): Boolean = when (provider) {
-        Constants.WeatherProvider.OPEN_WEATHER,
-        Constants.WeatherProvider.WEATHER_BIT,
-        Constants.WeatherProvider.WEATHER_API,
-        Constants.WeatherProvider.HERE,
-        Constants.WeatherProvider.ACCUWEATHER -> true
+    fun isKeyRequired(provider: Constants.WeatherProvider? = Constants.WeatherProvider.fromInt(Preferences.weatherProvider)!!): Boolean =
+        when (provider) {
+            Constants.WeatherProvider.OPEN_WEATHER,
+            Constants.WeatherProvider.WEATHER_BIT,
+            Constants.WeatherProvider.WEATHER_API,
+            Constants.WeatherProvider.HERE,
+            Constants.WeatherProvider.ACCUWEATHER -> true
 
-        Constants.WeatherProvider.WEATHER_GOV,
-        Constants.WeatherProvider.YR -> false
-        else -> true
-    }
+            Constants.WeatherProvider.WEATHER_GOV,
+            Constants.WeatherProvider.YR -> false
+
+            else -> true
+        }
 
     fun getWeatherIconResource(context: Context, icon: String, style: Int = Preferences.weatherIconPack): Int {
         return when (icon) {
@@ -106,6 +123,7 @@ object WeatherHelper {
                     else -> if (context.isDarkTheme()) R.drawable.clear_day_5 else R.drawable.clear_day_5_light
                 }
             }
+
             "02d" -> {
                 when (style) {
                     Constants.WeatherIconPack.COOL.rawValue -> R.drawable.partly_cloudy_3
@@ -114,6 +132,7 @@ object WeatherHelper {
                     else -> if (context.isDarkTheme()) R.drawable.partly_cloudy_5 else R.drawable.partly_cloudy_5_light
                 }
             }
+
             "03d" -> {
                 when (style) {
                     Constants.WeatherIconPack.COOL.rawValue -> R.drawable.mostly_cloudy_3
@@ -122,6 +141,7 @@ object WeatherHelper {
                     else -> if (context.isDarkTheme()) R.drawable.mostly_cloudy_5 else R.drawable.mostly_cloudy_5_light
                 }
             }
+
             "04d", "04n" -> {
                 when (style) {
                     Constants.WeatherIconPack.COOL.rawValue -> R.drawable.cloudy_weather_3
@@ -130,6 +150,7 @@ object WeatherHelper {
                     else -> if (context.isDarkTheme()) R.drawable.cloudy_weather_5 else R.drawable.cloudy_weather_5_light
                 }
             }
+
             "09d" -> {
                 when (style) {
                     Constants.WeatherIconPack.COOL.rawValue -> R.drawable.storm_weather_day_3
@@ -138,6 +159,7 @@ object WeatherHelper {
                     else -> if (context.isDarkTheme()) R.drawable.storm_weather_day_5 else R.drawable.storm_weather_day_5_light
                 }
             }
+
             "10d" -> {
                 when (style) {
                     Constants.WeatherIconPack.COOL.rawValue -> R.drawable.rainy_day_3
@@ -146,6 +168,7 @@ object WeatherHelper {
                     else -> if (context.isDarkTheme()) R.drawable.rainy_day_5 else R.drawable.rainy_day_5_light
                 }
             }
+
             "11d" -> {
                 when (style) {
                     Constants.WeatherIconPack.COOL.rawValue -> R.drawable.thunder_day_3
@@ -154,6 +177,7 @@ object WeatherHelper {
                     else -> if (context.isDarkTheme()) R.drawable.thunder_day_5 else R.drawable.thunder_day_5_light
                 }
             }
+
             "13d" -> {
                 when (style) {
                     Constants.WeatherIconPack.COOL.rawValue -> R.drawable.snow_day_3
@@ -162,6 +186,7 @@ object WeatherHelper {
                     else -> if (context.isDarkTheme()) R.drawable.snow_day_5 else R.drawable.snow_day_5_light
                 }
             }
+
             "50d" -> {
                 when (style) {
                     Constants.WeatherIconPack.COOL.rawValue -> R.drawable.haze_day_3
@@ -170,6 +195,7 @@ object WeatherHelper {
                     else -> if (context.isDarkTheme()) R.drawable.haze_day_5 else R.drawable.haze_day_5_light
                 }
             }
+
             "80d" -> {
                 when (style) {
                     Constants.WeatherIconPack.COOL.rawValue -> R.drawable.windy_day_3
@@ -178,6 +204,7 @@ object WeatherHelper {
                     else -> if (context.isDarkTheme()) R.drawable.windy_day_5 else R.drawable.windy_day_5_light
                 }
             }
+
             "81d" -> {
                 when (style) {
                     Constants.WeatherIconPack.COOL.rawValue -> R.drawable.rain_snow_day_3
@@ -186,6 +213,7 @@ object WeatherHelper {
                     else -> if (context.isDarkTheme()) R.drawable.rain_snow_day_5 else R.drawable.rain_snow_day_5_light
                 }
             }
+
             "82d", "82n" -> {
                 when (style) {
                     Constants.WeatherIconPack.COOL.rawValue -> R.drawable.haze_weather_3
@@ -194,6 +222,7 @@ object WeatherHelper {
                     else -> if (context.isDarkTheme()) R.drawable.haze_weather_5 else R.drawable.haze_weather_5_light
                 }
             }
+
             "01n" -> {
                 when (style) {
                     Constants.WeatherIconPack.COOL.rawValue -> R.drawable.clear_night_3
@@ -202,6 +231,7 @@ object WeatherHelper {
                     else -> if (context.isDarkTheme()) R.drawable.clear_night_5 else R.drawable.clear_night_5_light
                 }
             }
+
             "02n" -> {
                 when (style) {
                     Constants.WeatherIconPack.COOL.rawValue -> R.drawable.partly_cloudy_night_3
@@ -210,6 +240,7 @@ object WeatherHelper {
                     else -> if (context.isDarkTheme()) R.drawable.partly_cloudy_night_5 else R.drawable.partly_cloudy_night_5_light
                 }
             }
+
             "03n" -> {
                 when (style) {
                     Constants.WeatherIconPack.COOL.rawValue -> R.drawable.mostly_cloudy_night_3
@@ -218,6 +249,7 @@ object WeatherHelper {
                     else -> if (context.isDarkTheme()) R.drawable.mostly_cloudy_night_5 else R.drawable.mostly_cloudy_night_5_light
                 }
             }
+
             "09n" -> {
                 when (style) {
                     Constants.WeatherIconPack.COOL.rawValue -> R.drawable.storm_weather_night_3
@@ -226,6 +258,7 @@ object WeatherHelper {
                     else -> if (context.isDarkTheme()) R.drawable.storm_weather_night_5 else R.drawable.storm_weather_night_5_light
                 }
             }
+
             "10n" -> {
                 when (style) {
                     Constants.WeatherIconPack.COOL.rawValue -> R.drawable.rainy_night_3
@@ -234,6 +267,7 @@ object WeatherHelper {
                     else -> if (context.isDarkTheme()) R.drawable.rainy_night_5 else R.drawable.rainy_night_5_light
                 }
             }
+
             "11n" -> {
                 when (style) {
                     Constants.WeatherIconPack.COOL.rawValue -> R.drawable.thunder_night_3
@@ -242,6 +276,7 @@ object WeatherHelper {
                     else -> if (context.isDarkTheme()) R.drawable.thunder_night_5 else R.drawable.thunder_night_5_light
                 }
             }
+
             "13n" -> {
                 when (style) {
                     Constants.WeatherIconPack.COOL.rawValue -> R.drawable.snow_night_3
@@ -250,6 +285,7 @@ object WeatherHelper {
                     else -> if (context.isDarkTheme()) R.drawable.snow_night_5 else R.drawable.snow_night_5_light
                 }
             }
+
             "50n" -> {
                 when (style) {
                     Constants.WeatherIconPack.COOL.rawValue -> R.drawable.haze_night_3
@@ -258,6 +294,7 @@ object WeatherHelper {
                     else -> if (context.isDarkTheme()) R.drawable.haze_night_5 else R.drawable.haze_night_5_light
                 }
             }
+
             "80n" -> {
                 when (style) {
                     Constants.WeatherIconPack.COOL.rawValue -> R.drawable.windy_night_3
@@ -266,6 +303,7 @@ object WeatherHelper {
                     else -> if (context.isDarkTheme()) R.drawable.windy_night_5 else R.drawable.windy_night_5_light
                 }
             }
+
             "81n" -> {
                 when (style) {
                     Constants.WeatherIconPack.COOL.rawValue -> R.drawable.rain_snow_night_3
@@ -274,6 +312,7 @@ object WeatherHelper {
                     else -> if (context.isDarkTheme()) R.drawable.rain_snow_night_5 else R.drawable.rain_snow_night_5_light
                 }
             }
+
             else -> {
                 return if (context.isDarkTheme()) R.drawable.unknown_dark else R.drawable.unknown_light
             }
@@ -372,7 +411,7 @@ object WeatherHelper {
         else -> ""
     } + iconString.substring(3)
 
-    fun getWeatherApiIcon(icon: Int, isDaytime: Boolean): String = when(icon) {
+    fun getWeatherApiIcon(icon: Int, isDaytime: Boolean): String = when (icon) {
         1000 -> "01"
         1003 -> "02"
         1006 -> "03"

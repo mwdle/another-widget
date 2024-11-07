@@ -4,23 +4,18 @@ import android.Manifest
 import android.content.Context
 import android.location.Location
 import android.location.LocationManager
-import androidx.work.CoroutineWorker
-import androidx.work.ExistingWorkPolicy
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
-import androidx.work.Worker
-import androidx.work.WorkerParameters
+import androidx.work.*
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.location.LocationServices
 import com.tommasoberlose.anotherwidget.global.Preferences
 import com.tommasoberlose.anotherwidget.network.WeatherNetworkApi
 import com.tommasoberlose.anotherwidget.utils.checkGrantedPermission
-import java.util.concurrent.TimeUnit
-import kotlin.coroutines.resume
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
+import java.util.concurrent.TimeUnit
+import kotlin.coroutines.resume
 
 class WeatherWorker(context: Context, params: WorkerParameters) : CoroutineWorker(context, params) {
 
@@ -44,7 +39,8 @@ class WeatherWorker(context: Context, params: WorkerParameters) : CoroutineWorke
                     lm.getLastKnownLocation(provider)?.let {
                         if (location == null ||
                             it.time - location!!.time > 2 * 60 * 1000 ||
-                            (it.time - location!!.time > -2 * 60 * 1000 && it.accuracy < location!!.accuracy))
+                            (it.time - location!!.time > -2 * 60 * 1000 && it.accuracy < location!!.accuracy)
+                        )
                             location = it
                     }
                 }

@@ -28,13 +28,17 @@ fun Context.toast(message: String, long: Boolean = false) {
     toast.show()
 }
 
-fun Int.toPixel(context: Context): Int = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this.toFloat(), context.resources.displayMetrics).toInt()
+fun Int.toPixel(context: Context): Int =
+    TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this.toFloat(), context.resources.displayMetrics).toInt()
+
 fun Float.toPixel(context: Context): Float = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this, context.resources.displayMetrics)
 
 fun Context.openURI(url: String) {
     try {
         val builder: CustomTabsIntent.Builder = CustomTabsIntent.Builder()
-        builder.setDefaultColorSchemeParams(CustomTabColorSchemeParams.Builder().setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary)).build())
+        builder.setDefaultColorSchemeParams(
+            CustomTabColorSchemeParams.Builder().setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary)).build()
+        )
         val customTabsIntent: CustomTabsIntent = builder.build()
         customTabsIntent.launchUrl(this, Uri.parse(url))
     } catch (e: Exception) {
@@ -68,7 +72,7 @@ fun Context.checkGrantedPermission(permission: String): Boolean {
 fun android.app.AlarmManager.setExactIfCanSchedule(type: Int, triggerAtMillis: Long, operation: android.app.PendingIntent) {
     // uncomment the following check after bumping compileSdkVersion/targetSdkVersion to 31
     //if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.S || canScheduleExactAlarms())
-        setExact(type, triggerAtMillis, operation)
+    setExact(type, triggerAtMillis, operation)
     //else
     //    set(type, triggerAtMillis, operation)
 }

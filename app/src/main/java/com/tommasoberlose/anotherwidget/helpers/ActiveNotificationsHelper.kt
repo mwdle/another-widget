@@ -32,16 +32,20 @@ object ActiveNotificationsHelper {
         val enabledNotificationListeners =
             Settings.Secure.getString(contentResolver, "enabled_notification_listeners")
         val packageName: String = context.packageName
-        return NotificationManagerCompat.getEnabledListenerPackages(context).contains(packageName) && (enabledNotificationListeners != null && enabledNotificationListeners.contains(NotificationListener::class.java.name))
+        return NotificationManagerCompat.getEnabledListenerPackages(context)
+            .contains(packageName) && (enabledNotificationListeners != null && enabledNotificationListeners.contains(NotificationListener::class.java.name))
     }
 
-    fun isAppAccepted(appPkg: String): Boolean = Preferences.appNotificationsFilter == "" || Preferences.appNotificationsFilter.contains(appPkg)
+    fun isAppAccepted(appPkg: String): Boolean =
+        Preferences.appNotificationsFilter == "" || Preferences.appNotificationsFilter.contains(appPkg)
 
     fun toggleAppFilter(appPkg: String) {
         if (Preferences.appNotificationsFilter == "" || !Preferences.appNotificationsFilter.contains(appPkg)) {
-            Preferences.appNotificationsFilter = Preferences.appNotificationsFilter.split(",").union(listOf(appPkg)).joinToString(separator = ",")
+            Preferences.appNotificationsFilter =
+                Preferences.appNotificationsFilter.split(",").union(listOf(appPkg)).joinToString(separator = ",")
         } else {
-            Preferences.appNotificationsFilter = Preferences.appNotificationsFilter.split(",").filter { it != appPkg }.joinToString(separator = ",")
+            Preferences.appNotificationsFilter =
+                Preferences.appNotificationsFilter.split(",").filter { it != appPkg }.joinToString(separator = ",")
         }
     }
 }

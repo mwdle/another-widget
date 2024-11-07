@@ -4,17 +4,14 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.Typeface
 import android.os.Bundle
 import android.widget.RemoteViews
 import com.tommasoberlose.anotherwidget.global.Constants
 import com.tommasoberlose.anotherwidget.global.Preferences
 import com.tommasoberlose.anotherwidget.helpers.*
-import com.tommasoberlose.anotherwidget.receivers.*
-import com.tommasoberlose.anotherwidget.utils.toPixel
-import java.lang.Exception
-import kotlin.math.min
+import com.tommasoberlose.anotherwidget.receivers.UpdatesReceiver
+import com.tommasoberlose.anotherwidget.receivers.WeatherReceiver
 
 
 class MainWidget : AppWidgetProvider() {
@@ -50,7 +47,7 @@ class MainWidget : AppWidgetProvider() {
         fun updateWidget(context: Context) {
             handler.run {
                 removeCallbacksAndMessages(null)
-                postDelayed ({
+                postDelayed({
                     context.sendBroadcast(IntentHelper.getWidgetUpdateIntent(context))
                 }, 100)
             }
@@ -62,14 +59,21 @@ class MainWidget : AppWidgetProvider() {
             return widgetManager.getAppWidgetIds(widgetComponent).size
         }
 
-        internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager,
-                                     appWidgetId: Int) {
+        internal fun updateAppWidget(
+            context: Context, appWidgetManager: AppWidgetManager,
+            appWidgetId: Int
+        ) {
             val dimensions = WidgetHelper.WidgetSizeProvider(context, appWidgetManager).getWidgetsSize(appWidgetId)
 
             WidgetHelper.runWithCustomTypeface(context) {
                 val views = when (Preferences.widgetAlign) {
                     Constants.WidgetAlign.LEFT.rawValue -> AlignedWidget(context).generateWidget(appWidgetId, dimensions.first, it)
-                    Constants.WidgetAlign.RIGHT.rawValue -> AlignedWidget(context, rightAligned = true).generateWidget(appWidgetId, dimensions.first, it)
+                    Constants.WidgetAlign.RIGHT.rawValue -> AlignedWidget(context, rightAligned = true).generateWidget(
+                        appWidgetId,
+                        dimensions.first,
+                        it
+                    )
+
                     else -> StandardWidget(context).generateWidget(appWidgetId, dimensions.first, it)
                 }
                 try {
@@ -87,10 +91,12 @@ class MainWidget : AppWidgetProvider() {
                     width,
                     typeface
                 )
+
                 Constants.WidgetAlign.RIGHT.rawValue -> AlignedWidget(
                     context,
                     rightAligned = true
                 ).generateWidget(0, width, typeface)
+
                 else -> StandardWidget(context).generateWidget(0, width, typeface)
             }
         }

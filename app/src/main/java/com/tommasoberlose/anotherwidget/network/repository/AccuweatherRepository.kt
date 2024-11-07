@@ -10,7 +10,11 @@ class AccuweatherRepository {
 
     /* ACCUWEATHER */
     private val apiServiceAccu: ApiServices.AccuweatherService = getRetrofit().create(ApiServices.AccuweatherService::class.java)
-    suspend fun getLocation() = apiServiceAccu.getLocation(Preferences.weatherProviderApiAccuweather, "${Preferences.customLocationLat},${Preferences.customLocationLon}")
+    suspend fun getLocation() = apiServiceAccu.getLocation(
+        Preferences.weatherProviderApiAccuweather,
+        "${Preferences.customLocationLat},${Preferences.customLocationLon}"
+    )
+
     suspend fun getWeather(locationKey: String) = apiServiceAccu.getWeather(locationKey, Preferences.weatherProviderApiAccuweather)
 
     companion object {
@@ -25,7 +29,7 @@ class AccuweatherRepository {
         }
     }
 
-    fun getWeatherIcon(icon: Int, isDaytime: Boolean): String = when(icon) {
+    fun getWeatherIcon(icon: Int, isDaytime: Boolean): String = when (icon) {
         1, 2, 30, 33, 34 -> "01"
         3, 4, 35, 36 -> "02"
         5, 37 -> "50"

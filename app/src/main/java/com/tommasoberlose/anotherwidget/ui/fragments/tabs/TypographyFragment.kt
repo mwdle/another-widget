@@ -127,7 +127,13 @@ class TypographyFragment : Fragment() {
                     binding.secondaryFontColorLabel.text = getString(R.string.transparent)
                 } else {
                     binding.secondaryFontColorLabel.text =
-                        getString(R.string.fontColorLabelPlaceholder).format(Integer.toHexString(ColorHelper.getSecondaryFontColor(requireActivity().isDarkTheme())))
+                        getString(R.string.fontColorLabelPlaceholder).format(
+                            Integer.toHexString(
+                                ColorHelper.getSecondaryFontColor(
+                                    requireActivity().isDarkTheme()
+                                )
+                            )
+                        )
                             .toUpperCase()
                 }
             }
@@ -254,7 +260,12 @@ class TypographyFragment : Fragment() {
             }
             dialog.addItem(getString(R.string.action_custom_font_to_search), Constants.CUSTOM_FONT_DOWNLOAD_NEW)
             dialog.addOnSelectItemListener { value ->
-                if (value == Constants.CUSTOM_FONT_DOWNLOAD_NEW) activityResultLauncher.launch(Intent(requireContext(), CustomFontActivity::class.java))
+                if (value == Constants.CUSTOM_FONT_DOWNLOAD_NEW) activityResultLauncher.launch(
+                    Intent(
+                        requireContext(),
+                        CustomFontActivity::class.java
+                    )
+                )
                 else if (value != Preferences.customFont) {
                     Preferences.bulk {
                         customFont = value

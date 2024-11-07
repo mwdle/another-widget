@@ -111,9 +111,11 @@ class AppNotificationsFilterActivity : AppCompatActivity() {
                         ActiveNotificationsHelper.isAppAccepted(app1.activityInfo.packageName) -> {
                             -1
                         }
+
                         ActiveNotificationsHelper.isAppAccepted(app2.activityInfo.packageName) -> {
                             1
                         }
+
                         else -> {
                             app1.loadLabel(viewModel.pm).toString()
                                 .compareTo(app2.loadLabel(viewModel.pm).toString(), ignoreCase = true)

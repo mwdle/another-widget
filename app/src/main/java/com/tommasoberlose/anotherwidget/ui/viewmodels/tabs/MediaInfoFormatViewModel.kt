@@ -7,5 +7,6 @@ import com.tommasoberlose.anotherwidget.global.Preferences
 import com.tommasoberlose.anotherwidget.helpers.MediaPlayerHelper
 
 class MediaInfoFormatViewModel(application: Application) : AndroidViewModel(application) {
-    val mediaInfoFormatInput: MutableLiveData<String> = MutableLiveData(if (Preferences.mediaInfoFormat == "") MediaPlayerHelper.DEFAULT_MEDIA_INFO_FORMAT else Preferences.mediaInfoFormat)
+    val mediaInfoFormatInput: MutableLiveData<String> =
+        MutableLiveData(if (Preferences.mediaInfoFormat == "") MediaPlayerHelper.DEFAULT_MEDIA_INFO_FORMAT else Preferences.mediaInfoFormat)
 }

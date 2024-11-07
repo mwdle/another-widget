@@ -8,6 +8,6 @@ import com.tommasoberlose.anotherwidget.global.Preferences
 
 class TimeZoneSelectorViewModel(application: Application) : AndroidViewModel(application) {
 
-    val addresses: MutableLiveData<List<Address>> =  MutableLiveData(emptyList())
+    val addresses: MutableLiveData<List<Address>> = MutableLiveData(emptyList())
     val locationInput: MutableLiveData<String> = MutableLiveData(Preferences.altTimezoneLabel)
 }

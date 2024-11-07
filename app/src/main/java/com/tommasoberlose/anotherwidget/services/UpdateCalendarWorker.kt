@@ -4,12 +4,7 @@ import android.Manifest
 import android.content.Context
 import android.os.Build
 import android.provider.CalendarContract
-import androidx.work.Constraints
-import androidx.work.ExistingWorkPolicy
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
-import androidx.work.Worker
-import androidx.work.WorkerParameters
+import androidx.work.*
 import com.tommasoberlose.anotherwidget.db.EventRepository
 import com.tommasoberlose.anotherwidget.global.Preferences
 import com.tommasoberlose.anotherwidget.helpers.CalendarHelper
@@ -20,9 +15,9 @@ import com.tommasoberlose.anotherwidget.receivers.UpdatesReceiver
 import com.tommasoberlose.anotherwidget.ui.fragments.MainFragment
 import com.tommasoberlose.anotherwidget.ui.widgets.MainWidget
 import com.tommasoberlose.anotherwidget.utils.checkGrantedPermission
-import java.util.*
 import me.everything.providers.android.calendar.CalendarProvider
 import org.greenrobot.eventbus.EventBus
+import java.util.*
 
 class UpdateCalendarWorker(context: Context, params: WorkerParameters) : Worker(context, params) {
 
@@ -133,8 +128,9 @@ class UpdateCalendarWorker(context: Context, params: WorkerParameters) : Worker(
                     } else {
                         val first = filteredEventList.first()
                         if (Preferences.nextEventId != first.id && (
-                            //Preferences.showWeatherAsGlanceProvider || !Preferences.showNextEvent ||
-                            eventRepository.getEventById(first.id)?.startDate != first.startDate))
+                                    //Preferences.showWeatherAsGlanceProvider || !Preferences.showNextEvent ||
+                                    eventRepository.getEventById(first.id)?.startDate != first.startDate)
+                        )
                             eventRepository.saveNextEventData(first)
                         eventRepository.saveEvents(filteredEventList)
                     }

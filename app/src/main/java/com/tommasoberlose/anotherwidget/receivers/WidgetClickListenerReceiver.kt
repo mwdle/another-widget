@@ -6,7 +6,6 @@ import android.content.Intent
 import android.net.Uri
 import com.tommasoberlose.anotherwidget.R
 import com.tommasoberlose.anotherwidget.global.Actions
-import com.tommasoberlose.anotherwidget.global.Preferences
 import com.tommasoberlose.anotherwidget.helpers.IntentHelper
 import com.tommasoberlose.anotherwidget.utils.toast
 

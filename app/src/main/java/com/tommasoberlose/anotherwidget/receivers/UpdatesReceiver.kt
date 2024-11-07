@@ -13,8 +13,8 @@ import com.tommasoberlose.anotherwidget.helpers.*
 import com.tommasoberlose.anotherwidget.models.Event
 import com.tommasoberlose.anotherwidget.ui.widgets.MainWidget
 import com.tommasoberlose.anotherwidget.utils.setExactIfCanSchedule
-import java.util.*
 import org.joda.time.Period
+import java.util.*
 
 
 class UpdatesReceiver : BroadcastReceiver() {
@@ -125,43 +125,51 @@ class UpdatesReceiver : BroadcastReceiver() {
             val fireTime = when {
                 event.startDate <= now.timeInMillis
                     -> event.endDate
+
                 event.startDate > now.timeInMillis + limit
                     -> event.startDate - limit
+
                 !Preferences.showDiffTime
                     -> return
+
                 event.allDay
                     -> event.startDate
+
                 diff.hours > 12
                     -> event.startDate - 12 * 1000 * 60 * 60 + 1000 * 60
+
                 diff.hours > 0
                     -> event.startDate - diff.hours * 1000 * 60 * 60 + 1000 * 60
+
                 else
                     -> event.startDate - 1000 * 60 * when (Preferences.widgetUpdateFrequency) {
-                        Constants.WidgetUpdateFrequency.DEFAULT.rawValue -> {
-                            when {
-                                diff.minutes >= 45 -> 44
-                                diff.minutes >= 30 -> 29
-                                diff.minutes >= 15 -> 14
-                                else -> 0
-                            }
+                    Constants.WidgetUpdateFrequency.DEFAULT.rawValue -> {
+                        when {
+                            diff.minutes >= 45 -> 44
+                            diff.minutes >= 30 -> 29
+                            diff.minutes >= 15 -> 14
+                            else -> 0
                         }
-                        Constants.WidgetUpdateFrequency.HIGH.rawValue -> {
-                            when {
-                                diff.minutes >= 5 -> diff.minutes - diff.minutes % 5 - 1
-                                else -> 0
-                            }
-                        }
-                        else -> 0
                     }
+
+                    Constants.WidgetUpdateFrequency.HIGH.rawValue -> {
+                        when {
+                            diff.minutes >= 5 -> diff.minutes - diff.minutes % 5 - 1
+                            else -> 0
+                        }
+                    }
+
+                    else -> 0
+                }
             }
             // no need to schedule updates after the next ACTION_CALENDAR_UPDATE
             if (Calendar.getInstance().apply {
-                set(Calendar.MILLISECOND, 0)
-                set(Calendar.SECOND, 0)
-                set(Calendar.MINUTE, 0)
-                set(Calendar.HOUR_OF_DAY, 0)
-                add(Calendar.DATE, 1)
-            }.timeInMillis <= fireTime) return
+                    set(Calendar.MILLISECOND, 0)
+                    set(Calendar.SECOND, 0)
+                    set(Calendar.MINUTE, 0)
+                    set(Calendar.HOUR_OF_DAY, 0)
+                    add(Calendar.DATE, 1)
+                }.timeInMillis <= fireTime) return
             with(context.getSystemService(Context.ALARM_SERVICE) as AlarmManager) {
                 setExactIfCanSchedule(
                     AlarmManager.RTC,

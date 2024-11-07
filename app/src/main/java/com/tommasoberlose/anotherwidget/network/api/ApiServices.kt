@@ -1,7 +1,10 @@
 package com.tommasoberlose.anotherwidget.network.api
 
 import com.haroldadmin.cnradapter.NetworkResponse
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.Headers
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 object ApiServices {
     interface WeatherGovApiService {

@@ -67,16 +67,22 @@ object IntentHelper {
                 Intent(Intent.ACTION_VIEW).apply {
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK
                     data = Uri.parse("dynact://velour/weather/ProxyActivity")
-                    component = ComponentName("com.google.android.googlequicksearchbox", "com.google.android.apps.gsa.velour.DynamicActivityTrampoline")
+                    component = ComponentName(
+                        "com.google.android.googlequicksearchbox",
+                        "com.google.android.apps.gsa.velour.DynamicActivityTrampoline"
+                    )
                     setClassName("com.google.android.googlequicksearchbox", "com.google.android.apps.gsa.velour.DynamicActivityTrampoline")
                 }
             }
+
             DO_NOTHING_OPTION -> {
                 Intent()
             }
+
             REFRESH_WIDGET_OPTION -> {
                 getWidgetRefreshIntent(context)
             }
+
             else -> {
                 val pm: PackageManager = context.packageManager
                 try {
@@ -104,12 +110,15 @@ object IntentHelper {
                     data = calendarUri
                 }
             }
+
             DO_NOTHING_OPTION -> {
                 Intent()
             }
+
             REFRESH_WIDGET_OPTION -> {
                 getWidgetRefreshIntent(context)
             }
+
             else -> {
                 val pm: PackageManager = context.packageManager
                 try {
@@ -133,7 +142,8 @@ object IntentHelper {
                 if (Preferences.calendarAppPackage == "") {
                     Intent(Intent.ACTION_VIEW).apply {
                         data = uri
-                        flags = (Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        flags =
+                            (Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED or Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         if (!e.allDay) {
                             putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, e.startDate)
                             putExtra(CalendarContract.EXTRA_EVENT_END_TIME, e.endDate)
@@ -181,6 +191,7 @@ object IntentHelper {
                     }
                 }
             }
+
             false -> {
                 getCalendarIntent(context, e.startDate)
             }
@@ -194,12 +205,15 @@ object IntentHelper {
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 }
             }
+
             DO_NOTHING_OPTION -> {
                 Intent()
             }
+
             REFRESH_WIDGET_OPTION -> {
                 getWidgetRefreshIntent(context)
             }
+
             else -> {
                 val pm: PackageManager = context.packageManager
                 try {
@@ -222,6 +236,7 @@ object IntentHelper {
             DO_NOTHING_OPTION -> {
                 Intent()
             }
+
             else -> {
                 val pm: PackageManager = context.packageManager
                 try {

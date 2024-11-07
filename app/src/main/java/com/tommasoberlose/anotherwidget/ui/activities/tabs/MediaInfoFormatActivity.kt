@@ -39,7 +39,8 @@ class MediaInfoFormatActivity : AppCompatActivity() {
                 injector
                     .text(R.id.custom_date_example_format, item)
                     .text(
-                        R.id.custom_date_example_value, MediaPlayerHelper.getMediaInfo(item, EXAMPLE_TITLE, EXAMPLE_ARTIST, EXAMPLE_ALBUM))
+                        R.id.custom_date_example_value, MediaPlayerHelper.getMediaInfo(item, EXAMPLE_TITLE, EXAMPLE_ARTIST, EXAMPLE_ALBUM)
+                    )
             }
             .attachTo(binding.listView)
 

@@ -110,9 +110,11 @@ class MusicPlayersFilterActivity : AppCompatActivity() {
                         MediaPlayerHelper.isMusicPlayerAccepted(app1.activityInfo.packageName) -> {
                             -1
                         }
+
                         MediaPlayerHelper.isMusicPlayerAccepted(app2.activityInfo.packageName) -> {
                             1
                         }
+
                         else -> {
                             app1.loadLabel(viewModel.pm).toString()
                                 .compareTo(app2.loadLabel(viewModel.pm).toString(), ignoreCase = true)

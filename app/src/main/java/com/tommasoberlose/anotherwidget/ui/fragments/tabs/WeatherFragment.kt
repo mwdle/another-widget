@@ -162,7 +162,10 @@ class WeatherFragment : Fragment() {
         }
 
         binding.actionChangeUnit.setOnClickListener {
-            BottomSheetMenu<String>(requireContext(), header = getString(R.string.settings_unit_title)).setSelectedValue(Preferences.weatherTempUnit)
+            BottomSheetMenu<String>(
+                requireContext(),
+                header = getString(R.string.settings_unit_title)
+            ).setSelectedValue(Preferences.weatherTempUnit)
                 .addItem(getString(R.string.fahrenheit), "F")
                 .addItem(getString(R.string.celsius), "C")
                 .addOnSelectItemListener { value ->
@@ -175,7 +178,9 @@ class WeatherFragment : Fragment() {
 
         binding.actionWeatherRefreshPeriod.setOnClickListener {
             val dialog =
-                BottomSheetMenu<Int>(requireContext(), header = getString(R.string.settings_weather_refresh_period_title)).setSelectedValue(Preferences.weatherRefreshPeriod)
+                BottomSheetMenu<Int>(requireContext(), header = getString(R.string.settings_weather_refresh_period_title)).setSelectedValue(
+                    Preferences.weatherRefreshPeriod
+                )
             (5 downTo 0).forEach {
                 dialog.addItem(getString(SettingsStringHelper.getRefreshPeriodString(it)), it)
             }
@@ -199,36 +204,36 @@ class WeatherFragment : Fragment() {
             .withPermissions(
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION
-            ).withListener(object: MultiplePermissionsListener {
+            ).withListener(object : MultiplePermissionsListener {
                 private var shouldShowRationale = false
                 override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
                     report?.let {
                         if (report.grantedPermissionResponses.isNotEmpty()) {
                             checkLocationPermission()
                             WeatherHelper.updateWeather(requireContext())
-                        }
-                        else if (!shouldShowRationale && report.isAnyPermissionPermanentlyDenied) {
+                        } else if (!shouldShowRationale && report.isAnyPermissionPermanentlyDenied) {
                             MaterialBottomSheetDialog(
                                 requireContext(),
                                 getString(R.string.title_permission_location),
                                 getString(R.string.description_permission_location)
                             ).setNegativeButton(getString(R.string.action_ignore))
-                            .setPositiveButton(getString(R.string.action_grant_permission)) {
-                                startActivity(
-                                    Intent(
-                                        android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-                                    ).apply {
-                                        data = android.net.Uri.fromParts(
-                                            "package",
-                                            requireContext().packageName,
-                                            null
-                                        )
-                                    }
-                                )
-                            }.show()
+                                .setPositiveButton(getString(R.string.action_grant_permission)) {
+                                    startActivity(
+                                        Intent(
+                                            android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                                        ).apply {
+                                            data = android.net.Uri.fromParts(
+                                                "package",
+                                                requireContext().packageName,
+                                                null
+                                            )
+                                        }
+                                    )
+                                }.show()
                         }
                     }
                 }
+
                 override fun onPermissionRationaleShouldBeShown(
                     permissions: MutableList<PermissionRequest>?,
                     token: PermissionToken?

@@ -60,7 +60,11 @@ class MainFragment : Fragment() {
 
         // Warnings
         if (getString(R.string.xiaomi_manufacturer).equals(Build.MANUFACTURER, ignoreCase = true) && Preferences.showXiaomiWarning) {
-            MaterialBottomSheetDialog(requireContext(), getString(R.string.xiaomi_warning_title), getString(R.string.xiaomi_warning_message))
+            MaterialBottomSheetDialog(
+                requireContext(),
+                getString(R.string.xiaomi_warning_title),
+                getString(R.string.xiaomi_warning_message)
+            )
                 .setNegativeButton(getString(R.string.action_ignore)) {
                     Preferences.showXiaomiWarning = false
                 }
@@ -77,13 +81,15 @@ class MainFragment : Fragment() {
         val navHost = childFragmentManager.findFragmentById(R.id.settings_fragment) as? NavHostFragment?
         navHost?.navController?.addOnDestinationChangedListener { controller, destination, _ ->
             val show = destination.id != R.id.tabSelectorFragment
-            binding.actionBack.animate().alpha(if (show) 1f else 0f).setDuration(200).translationX((if (show) 0f else 4f).convertDpToPixel(requireContext())).start()
+            binding.actionBack.animate().alpha(if (show) 1f else 0f).setDuration(200)
+                .translationX((if (show) 0f else 4f).convertDpToPixel(requireContext())).start()
             binding.actionBack.setOnSingleClickListener {
                 controller.navigateUp()
             }
             binding.actionBack.isClickable = show
             binding.actionBack.isFocusable = show
-            binding.actionSettings.animate().alpha(if (!show) 1f else 0f).setDuration(200).translationX((if (!show) 0f else -4f).convertDpToPixel(requireContext())).start()
+            binding.actionSettings.animate().alpha(if (!show) 1f else 0f).setDuration(200)
+                .translationX((if (!show) 0f else -4f).convertDpToPixel(requireContext())).start()
             binding.actionSettings.isClickable = !show
             binding.actionSettings.isFocusable = !show
             binding.fragmentTitle.text = if (show) destination.label.toString() else getString(R.string.app_name)
@@ -117,7 +123,8 @@ class MainFragment : Fragment() {
                                     metrics.widthPixels to (wallpaper.intrinsicHeight) * metrics.widthPixels / (wallpaper.intrinsicWidth)
                                 }
 
-                            setMargins(0, (-80).toPixel(requireContext()), 0, 0
+                            setMargins(
+                                0, (-80).toPixel(requireContext()), 0, 0
                             )
 
                             width = dimensions.first

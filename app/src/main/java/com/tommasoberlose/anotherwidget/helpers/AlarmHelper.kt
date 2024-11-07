@@ -32,9 +32,9 @@ object AlarmHelper {
         with(context.getSystemService(Context.ALARM_SERVICE) as AlarmManager) {
             val alarm = nextAlarmClock
             return (
-                alarm != null
-                && alarm.triggerTime - Calendar.getInstance().timeInMillis < 5 * 60 * 1000
-            )
+                    alarm != null
+                            && alarm.triggerTime - Calendar.getInstance().timeInMillis < 5 * 60 * 1000
+                    )
         }
     }
 

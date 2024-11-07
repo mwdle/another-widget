@@ -13,7 +13,6 @@ import com.tommasoberlose.anotherwidget.global.Preferences
 import com.tommasoberlose.anotherwidget.receivers.NotificationListener
 import com.tommasoberlose.anotherwidget.ui.widgets.MainWidget
 import com.tommasoberlose.anotherwidget.utils.ignoreExceptions
-import java.lang.Exception
 
 object MediaPlayerHelper {
     const val MEDIA_INFO_TITLE = "%TITLE"
@@ -22,9 +21,15 @@ object MediaPlayerHelper {
 
     const val DEFAULT_MEDIA_INFO_FORMAT = "%TITLE, %ARTIST"
 
-    fun isSomeonePlaying(context: Context) = Preferences.showMusic && ActiveNotificationsHelper.checkNotificationAccess(context) && Preferences.mediaPlayerTitle != ""
+    fun isSomeonePlaying(context: Context) =
+        Preferences.showMusic && ActiveNotificationsHelper.checkNotificationAccess(context) && Preferences.mediaPlayerTitle != ""
 
-    fun getMediaInfo(format: String = Preferences.mediaInfoFormat, title: String = Preferences.mediaPlayerTitle, artist: String = Preferences.mediaPlayerArtist, album: String = Preferences.mediaPlayerAlbum): String {
+    fun getMediaInfo(
+        format: String = Preferences.mediaInfoFormat,
+        title: String = Preferences.mediaPlayerTitle,
+        artist: String = Preferences.mediaPlayerArtist,
+        album: String = Preferences.mediaPlayerAlbum
+    ): String {
         return when (format) {
             "",
             DEFAULT_MEDIA_INFO_FORMAT -> {
@@ -37,6 +42,7 @@ object MediaPlayerHelper {
                         .replace("\\n", System.getProperty("line.separator") ?: " ")
                 }
             }
+
             else -> {
                 format.replace(MEDIA_INFO_TITLE, title)
                     .replace(MEDIA_INFO_ARTIST, artist)
@@ -118,7 +124,8 @@ object MediaPlayerHelper {
         }
     }
 
-    fun isMusicPlayerAccepted(appPkg: String): Boolean = Preferences.musicPlayersFilter == "" || Preferences.musicPlayersFilter.contains(appPkg)
+    fun isMusicPlayerAccepted(appPkg: String): Boolean =
+        Preferences.musicPlayersFilter == "" || Preferences.musicPlayersFilter.contains(appPkg)
 
     fun toggleMusicPlayerFilter(appPkg: String) {
         if (Preferences.musicPlayersFilter == "" || !Preferences.musicPlayersFilter.contains(appPkg)) {
