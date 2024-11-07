@@ -6,7 +6,10 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.media.session.MediaSession
-import android.os.Build
+import android.os.Build.VERSION.SDK_INT
+import android.os.Build.VERSION_CODES.TIRAMISU
+import android.os.Bundle
+import android.os.Parcelable
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import com.tommasoberlose.anotherwidget.global.Actions
@@ -32,9 +35,15 @@ class NotificationListener : NotificationListenerService() {
         super.onListenerDisconnected()
     }
 
+    // https://stackoverflow.com/questions/73019160/the-getparcelableextra-method-is-deprecated
+    private inline fun <reified T : Parcelable> Bundle.parcelable(key: String): T? = when {
+        SDK_INT > TIRAMISU -> getParcelable(key, T::class.java)
+        else -> @Suppress("DEPRECATION") getParcelable(key) as? T
+    }
+
     override fun onNotificationPosted(sbn: StatusBarNotification?) {
         sbn?.notification?.extras?.let { bundle ->
-            bundle.getParcelable<MediaSession.Token>(Notification.EXTRA_MEDIA_SESSION)?.let {
+            bundle.parcelable<MediaSession.Token>(Notification.EXTRA_MEDIA_SESSION)?.let {
                 if (Preferences.showMusic)
                     MediaPlayerHelper.updatePlayingMediaInfo(this)
             } ?: run {
@@ -48,12 +57,7 @@ class NotificationListener : NotificationListenerService() {
                     Preferences.lastNotificationId = sbn.id
                     Preferences.lastNotificationTitle = bundle.getString(Notification.EXTRA_TITLE) ?: ""
                     try {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                            Preferences.lastNotificationIcon = sbn.notification.smallIcon.resId
-                        } else {
-                            @Suppress("DEPRECATION")
-                            Preferences.lastNotificationIcon = sbn.notification.icon
-                        }
+                        Preferences.lastNotificationIcon = sbn.notification.smallIcon.resId
                     } catch (ex: Exception) {
                         Preferences.lastNotificationIcon = 0
                     }
