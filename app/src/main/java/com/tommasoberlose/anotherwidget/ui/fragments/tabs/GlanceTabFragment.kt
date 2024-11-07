@@ -75,7 +75,7 @@ class GlanceTabFragment : Fragment() {
         viewModel = ViewModelProvider(activity as MainActivity)[MainViewModel::class.java]
         binding = FragmentTabGlanceBinding.inflate(inflater)
 
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
         // List

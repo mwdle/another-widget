@@ -6,6 +6,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
+import android.os.Build.VERSION.SDK_INT
+import android.os.Build.VERSION_CODES.TIRAMISU
 import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
@@ -56,7 +58,7 @@ class SettingsFragment : Fragment() {
 
     private lateinit var mediaImagePermissionLauncher: ActivityResultLauncher<String>
 
-    private fun newAndroidWallpaperPermissionsGranted() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && Environment.isExternalStorageManager() && ContextCompat.checkSelfPermission(requireContext(), READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED
+    private fun newAndroidWallpaperPermissionsGranted() = SDK_INT >= TIRAMISU && Environment.isExternalStorageManager() && ContextCompat.checkSelfPermission(requireContext(), READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED
 
     private lateinit var viewModel: MainViewModel
     private lateinit var binding: FragmentAppSettingsBinding
@@ -76,7 +78,7 @@ class SettingsFragment : Fragment() {
         viewModel = ViewModelProvider(activity as MainActivity)[MainViewModel::class.java]
         binding = FragmentAppSettingsBinding.inflate(inflater)
 
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
         manageFilesPermissionLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -245,7 +247,7 @@ class SettingsFragment : Fragment() {
                 override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
                     // Wallpaper access requires permission to manage all files on Android 13+ devices when targeting SDK >= 33. Google does not intend to fix this.
                     // https://issuetracker.google.com/issues/237124750
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !(Environment.isExternalStorageManager() || ContextCompat.checkSelfPermission(requireContext(), READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED)) {
+                    if (SDK_INT >= TIRAMISU && !(Environment.isExternalStorageManager() || ContextCompat.checkSelfPermission(requireContext(), READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED)) {
                         MaterialAlertDialogBuilder(requireContext(), R.style.CustomAlertDialog)
                             .setTitle("Widget Preview Wallpaper Permissions")
                             .setMessage("On Android 13+ the in-app widget preview now requires access to manage all files and read all images in order to display your wallpaper.\n\nGranting these permissions is OPTIONAL and is only necessary if you wish to see your wallpaper in the widget preview.")

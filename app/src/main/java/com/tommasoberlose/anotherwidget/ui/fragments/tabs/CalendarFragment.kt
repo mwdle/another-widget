@@ -50,7 +50,7 @@ class CalendarFragment : Fragment() {
 
         subscribeUi(viewModel)
 
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
         binding.showAllDayToggle.setCheckedImmediatelyNoEvent(Preferences.calendarAllDay)

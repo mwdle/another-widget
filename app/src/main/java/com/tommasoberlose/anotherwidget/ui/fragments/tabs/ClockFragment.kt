@@ -54,7 +54,7 @@ class ClockFragment : Fragment() {
 
         subscribeUi(viewModel)
 
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
         binding.ampmIndicatorToggle.setCheckedImmediatelyNoEvent(Preferences.showAMPMIndicator)

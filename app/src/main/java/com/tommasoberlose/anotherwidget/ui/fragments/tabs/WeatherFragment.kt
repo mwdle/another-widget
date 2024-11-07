@@ -69,7 +69,7 @@ class WeatherFragment : Fragment() {
 
         subscribeUi(viewModel)
 
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
         setupListener()

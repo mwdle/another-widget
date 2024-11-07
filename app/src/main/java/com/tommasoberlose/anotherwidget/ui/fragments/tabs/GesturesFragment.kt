@@ -112,7 +112,7 @@ class GesturesFragment : Fragment() {
 
         subscribeUi(viewModel)
 
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
         binding.showMultipleEventsToggle.setCheckedImmediatelyNoEvent(Preferences.showNextEvent)
