@@ -29,7 +29,7 @@ class AppNotificationsFilterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(AppNotificationsViewModel::class.java)
+        viewModel = ViewModelProvider(this)[AppNotificationsViewModel::class.java]
         binding = ActivityAppNotificationsFilterBinding.inflate(layoutInflater)
 
         binding.listView.setHasFixedSize(true)
@@ -98,7 +98,7 @@ class AppNotificationsFilterActivity : AppCompatActivity() {
         binding.loader.visibility = View.VISIBLE
         filterJob?.cancel()
         filterJob = lifecycleScope.launch(Dispatchers.IO) {
-            if (list != null && list.isNotEmpty()) {
+            if (!list.isNullOrEmpty()) {
                 delay(200)
                 val filteredList: List<ResolveInfo> = if (search == null || search == "") {
                     list
@@ -107,19 +107,17 @@ class AppNotificationsFilterActivity : AppCompatActivity() {
                         it.loadLabel(viewModel.pm).contains(search, true)
                     }
                 }.sortedWith { app1, app2 ->
-                    if (ActiveNotificationsHelper.isAppAccepted(app1.activityInfo.packageName) && ActiveNotificationsHelper.isAppAccepted(
-                            app2.activityInfo.packageName
-                        )
-                    ) {
-                        app1.loadLabel(viewModel.pm).toString()
-                            .compareTo(app2.loadLabel(viewModel.pm).toString(), ignoreCase = true)
-                    } else if (ActiveNotificationsHelper.isAppAccepted(app1.activityInfo.packageName)) {
-                        -1
-                    } else if (ActiveNotificationsHelper.isAppAccepted(app2.activityInfo.packageName)) {
-                        1
-                    } else {
-                        app1.loadLabel(viewModel.pm).toString()
-                            .compareTo(app2.loadLabel(viewModel.pm).toString(), ignoreCase = true)
+                    when {
+                        ActiveNotificationsHelper.isAppAccepted(app1.activityInfo.packageName) -> {
+                            -1
+                        }
+                        ActiveNotificationsHelper.isAppAccepted(app2.activityInfo.packageName) -> {
+                            1
+                        }
+                        else -> {
+                            app1.loadLabel(viewModel.pm).toString()
+                                .compareTo(app2.loadLabel(viewModel.pm).toString(), ignoreCase = true)
+                        }
                     }
                 }
 

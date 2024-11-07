@@ -1,10 +1,7 @@
 package com.tommasoberlose.anotherwidget.ui.activities.tabs
 
-import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.window.OnBackInvokedCallback
-import android.window.OnBackInvokedDispatcher
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider

@@ -28,7 +28,7 @@ class MusicPlayersFilterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(MusicPlayersFilterViewModel::class.java)
+        viewModel = ViewModelProvider(this)[MusicPlayersFilterViewModel::class.java]
         binding = ActivityMusicPlayersFilterBinding.inflate(layoutInflater)
 
         binding.listView.setHasFixedSize(true)
@@ -97,7 +97,7 @@ class MusicPlayersFilterActivity : AppCompatActivity() {
         binding.loader.visibility = View.VISIBLE
         filterJob?.cancel()
         filterJob = lifecycleScope.launch(Dispatchers.IO) {
-            if (list != null && list.isNotEmpty()) {
+            if (!list.isNullOrEmpty()) {
                 delay(200)
                 val filteredList: List<ResolveInfo> = if (search == null || search == "") {
                     list
@@ -106,19 +106,17 @@ class MusicPlayersFilterActivity : AppCompatActivity() {
                         it.loadLabel(viewModel.pm).contains(search, true)
                     }
                 }.sortedWith { app1, app2 ->
-                    if (MediaPlayerHelper.isMusicPlayerAccepted(app1.activityInfo.packageName) && MediaPlayerHelper.isMusicPlayerAccepted(
-                            app2.activityInfo.packageName
-                        )
-                    ) {
-                        app1.loadLabel(viewModel.pm).toString()
-                            .compareTo(app2.loadLabel(viewModel.pm).toString(), ignoreCase = true)
-                    } else if (MediaPlayerHelper.isMusicPlayerAccepted(app1.activityInfo.packageName)) {
-                        -1
-                    } else if (MediaPlayerHelper.isMusicPlayerAccepted(app2.activityInfo.packageName)) {
-                        1
-                    } else {
-                        app1.loadLabel(viewModel.pm).toString()
-                            .compareTo(app2.loadLabel(viewModel.pm).toString(), ignoreCase = true)
+                    when {
+                        MediaPlayerHelper.isMusicPlayerAccepted(app1.activityInfo.packageName) -> {
+                            -1
+                        }
+                        MediaPlayerHelper.isMusicPlayerAccepted(app2.activityInfo.packageName) -> {
+                            1
+                        }
+                        else -> {
+                            app1.loadLabel(viewModel.pm).toString()
+                                .compareTo(app2.loadLabel(viewModel.pm).toString(), ignoreCase = true)
+                        }
                     }
                 }
 

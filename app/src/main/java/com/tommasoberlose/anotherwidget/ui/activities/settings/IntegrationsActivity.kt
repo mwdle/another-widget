@@ -18,7 +18,7 @@ class IntegrationsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(IntegrationsViewModel::class.java)
+        viewModel = ViewModelProvider(this)[IntegrationsViewModel::class.java]
         binding = ActivityIntegrationsBinding.inflate(layoutInflater)
 
         binding.listView.setHasFixedSize(true)

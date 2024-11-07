@@ -37,7 +37,7 @@ class ChooseApplicationActivity : AppCompatActivity() {
 
         selectedPackage = intent.extras?.getString(Constants.RESULT_APP_PACKAGE)
 
-        viewModel = ViewModelProvider(this).get(ChooseApplicationViewModel::class.java)
+        viewModel = ViewModelProvider(this)[ChooseApplicationViewModel::class.java]
         binding = ActivityChooseApplicationBinding.inflate(layoutInflater)
 
         binding.listView.setHasFixedSize(true)
@@ -208,7 +208,7 @@ class ChooseApplicationActivity : AppCompatActivity() {
         binding.loader.visibility = View.VISIBLE
         filterJob?.cancel()
         filterJob = lifecycleScope.launch(Dispatchers.IO) {
-            if (list != null && list.isNotEmpty()) {
+            if (!list.isNullOrEmpty()) {
                 delay(200)
                 val filteredList: List<ResolveInfo> = if (search == null || search == "") {
                     list

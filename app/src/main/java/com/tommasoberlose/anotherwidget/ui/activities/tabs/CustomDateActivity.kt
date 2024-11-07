@@ -31,7 +31,7 @@ class CustomDateActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(CustomDateViewModel::class.java)
+        viewModel = ViewModelProvider(this)[CustomDateViewModel::class.java]
         binding = ActivityCustomDateBinding.inflate(layoutInflater)
 
 
