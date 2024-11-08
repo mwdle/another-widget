@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -121,6 +122,13 @@ class WeatherProviderActivity : AppCompatActivity() {
         setupListener()
         subscribeUi(viewModel)
 
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                setResult(Activity.RESULT_OK)
+                finish()
+            }
+        })
+
         setContentView(binding.root)
     }
 
@@ -144,13 +152,8 @@ class WeatherProviderActivity : AppCompatActivity() {
 
     private fun setupListener() {
         binding.actionBack.setOnClickListener {
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
         }
-    }
-
-    override fun onBackPressed() {
-        setResult(Activity.RESULT_OK)
-        finish()
     }
 
     override fun onResume() {
