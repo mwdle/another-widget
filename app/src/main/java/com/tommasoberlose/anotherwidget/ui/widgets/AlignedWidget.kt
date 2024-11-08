@@ -9,7 +9,6 @@ import android.util.TypedValue
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.RemoteViews
 import android.widget.TextView
@@ -355,8 +354,7 @@ class AlignedWidget(val context: Context, val rightAligned: Boolean = false) {
                                     )
                                     showSomething = true
                                     break@loop
-                                } catch (_: Exception) {
-                                }
+                                } catch (_: Exception) {}
                             }
                         }
 
@@ -870,7 +868,7 @@ class AlignedWidget(val context: Context, val rightAligned: Boolean = false) {
 
 
             // Color
-            listOf<TextView>(
+            listOf(
                 bindingView.date,
                 bindingView.weatherDateLineTemperature,
                 bindingView.nextEvent,
@@ -880,9 +878,9 @@ class AlignedWidget(val context: Context, val rightAligned: Boolean = false) {
             }
 
             if (Preferences.weatherIconPack != Constants.WeatherIconPack.MINIMAL.rawValue) {
-                listOf<ImageView>(bindingView.actionNext)
+                listOf(bindingView.actionNext)
             } else {
-                listOf<ImageView>(
+                listOf(
                     bindingView.actionNext,
                     bindingView.weatherDateLineWeatherIcon,
                     bindingView.weatherSubLineWeatherIcon
@@ -895,7 +893,7 @@ class AlignedWidget(val context: Context, val rightAligned: Boolean = false) {
                         .toFloat()) / 100
             }
 
-            listOf<TextView>(
+            listOf(
                 bindingView.subLineText,
                 bindingView.weatherSubLineDivider,
                 bindingView.weatherSubLineTemperature
@@ -905,12 +903,11 @@ class AlignedWidget(val context: Context, val rightAligned: Boolean = false) {
 
             if (!isWeatherShownAsGlanceProvider) {
                 if (Preferences.weatherIconPack != Constants.WeatherIconPack.MINIMAL.rawValue) {
-                    listOf<ImageView>(bindingView.subLineIcon, bindingView.subLineIconShadow)
+                    listOf(bindingView.subLineIcon)
                 } else {
-                    listOf<ImageView>(
+                    listOf(
                         bindingView.subLineIcon,
-                        bindingView.weatherSubLineWeatherIcon,
-                        bindingView.subLineIconShadow
+                        bindingView.weatherSubLineWeatherIcon
                     )
                 }.forEach {
                     it.setColorFilter(ColorHelper.getSecondaryFontColorRgb(context.applicationContext.isDarkTheme()))
@@ -922,7 +919,7 @@ class AlignedWidget(val context: Context, val rightAligned: Boolean = false) {
             }
 
             // Text Size
-            listOf<Pair<TextView, Float>>(
+            listOf(
                 bindingView.date to Preferences.textMainSize,
                 bindingView.weatherDateLineTemperature to ((Preferences.textMainSize + Preferences.textSecondSize) / 2),
                 bindingView.nextEvent to Preferences.textMainSize,
@@ -939,11 +936,9 @@ class AlignedWidget(val context: Context, val rightAligned: Boolean = false) {
             // Icons scale
             listOf(
                 bindingView.subLineIcon to Preferences.textSecondSize / 16f,
-                bindingView.subLineIconShadow to Preferences.textSecondSize / 16f,
                 bindingView.weatherSubLineWeatherIcon to Preferences.textSecondSize / 16f,
                 bindingView.weatherDateLineWeatherIcon to ((Preferences.textMainSize + Preferences.textSecondSize) / 2) / 24f,
                 bindingView.actionNext to Preferences.textMainSize / 24f,
-                bindingView.actionNextShadow to Preferences.textMainSize / 24f
             ).forEach {
                 if (it.first.tag == null)
                     it.first.tag = it.first.layoutParams.height
@@ -967,7 +962,7 @@ class AlignedWidget(val context: Context, val rightAligned: Boolean = false) {
                     }
                 )
 
-                listOf<TextView>(
+                listOf(
                     bindingView.date,
                     bindingView.weatherDateLineTemperature,
                     bindingView.nextEvent,
@@ -979,7 +974,7 @@ class AlignedWidget(val context: Context, val rightAligned: Boolean = false) {
                     it.typeface = googleSans
                 }
             } else if (Preferences.customFont == Constants.CUSTOM_FONT_DOWNLOADED && typeface != null) {
-                listOf<TextView>(
+                listOf(
                     bindingView.date,
                     bindingView.weatherDateLineTemperature,
                     bindingView.nextEvent,

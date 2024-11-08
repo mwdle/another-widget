@@ -9,7 +9,6 @@ import android.util.TypedValue
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.ImageView
 import android.widget.RemoteViews
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -906,7 +905,7 @@ class StandardWidget(val context: Context) {
 
 
             // Color
-            listOf<TextView>(
+            listOf(
                 bindingView.date,
                 bindingView.weatherDateLineDivider,
                 bindingView.weatherDateLineTemperature,
@@ -917,9 +916,9 @@ class StandardWidget(val context: Context) {
             }
 
             if (Preferences.weatherIconPack != Constants.WeatherIconPack.MINIMAL.rawValue) {
-                listOf<ImageView>(bindingView.actionNext, bindingView.actionPrevious)
+                listOf(bindingView.actionNext, bindingView.actionPrevious)
             } else {
-                listOf<ImageView>(
+                listOf(
                     bindingView.actionNext,
                     bindingView.actionPrevious,
                     bindingView.weatherDateLineWeatherIcon,
@@ -933,7 +932,7 @@ class StandardWidget(val context: Context) {
                         .toFloat()) / 100
             }
 
-            listOf<TextView>(
+            listOf(
                 bindingView.subLineText,
                 bindingView.weatherSubLineDivider,
                 bindingView.weatherSubLineTemperature
@@ -943,12 +942,11 @@ class StandardWidget(val context: Context) {
 
             if (!isWeatherShownAsGlanceProvider) {
                 if (Preferences.weatherIconPack != Constants.WeatherIconPack.MINIMAL.rawValue) {
-                    listOf<ImageView>(bindingView.subLineIcon, bindingView.subLineIconShadow)
+                    listOf(bindingView.subLineIcon)
                 } else {
-                    listOf<ImageView>(
+                    listOf(
                         bindingView.subLineIcon,
-                        bindingView.weatherSubLineWeatherIcon,
-                        bindingView.subLineIconShadow
+                        bindingView.weatherSubLineWeatherIcon
                     )
                 }.forEach {
                     it.setColorFilter(ColorHelper.getSecondaryFontColorRgb(context.applicationContext.isDarkTheme()))
@@ -960,7 +958,7 @@ class StandardWidget(val context: Context) {
             }
 
             // Text Size
-            listOf<Pair<TextView, Float>>(
+            listOf(
                 bindingView.date to Preferences.textMainSize,
                 bindingView.weatherDateLineDivider to (Preferences.textMainSize * 0.9f),
                 bindingView.weatherDateLineTemperature to Preferences.textMainSize,
@@ -978,13 +976,10 @@ class StandardWidget(val context: Context) {
             // Icons scale
             listOf(
                 bindingView.subLineIcon to Preferences.textSecondSize / 16f,
-                bindingView.subLineIconShadow to Preferences.textSecondSize / 16f,
                 bindingView.weatherSubLineWeatherIcon to Preferences.textSecondSize / 16f,
                 bindingView.weatherDateLineWeatherIcon to Preferences.textMainSize / 24f,
                 bindingView.actionNext to Preferences.textMainSize / 24f,
-                bindingView.actionNextShadow to Preferences.textMainSize / 24f,
                 bindingView.actionPrevious to Preferences.textMainSize / 24f,
-                bindingView.actionPreviousShadow to Preferences.textMainSize / 24f
             ).forEach {
                 if (it.first.tag == null)
                     it.first.tag = it.first.layoutParams.height
@@ -994,9 +989,7 @@ class StandardWidget(val context: Context) {
                 }
             }
 
-
-            bindingView.actionPrevious.scaleX = bindingView.actionPrevious.scaleX * -1
-            bindingView.actionPreviousShadow.scaleX = bindingView.actionPreviousShadow.scaleX * -1
+            bindingView.actionPrevious.scaleX *= -1
 
             // Custom Font
             if (Preferences.customFont == Constants.CUSTOM_FONT_GOOGLE_SANS) {
@@ -1012,7 +1005,7 @@ class StandardWidget(val context: Context) {
                     }
                 )
 
-                listOf<TextView>(
+                listOf(
                     bindingView.date,
                     bindingView.weatherDateLineDivider,
                     bindingView.weatherDateLineTemperature,
@@ -1025,7 +1018,7 @@ class StandardWidget(val context: Context) {
                     it.typeface = googleSans
                 }
             } else if (Preferences.customFont == Constants.CUSTOM_FONT_DOWNLOADED && typeface != null) {
-                listOf<TextView>(
+                listOf(
                     bindingView.date,
                     bindingView.weatherDateLineDivider,
                     bindingView.weatherDateLineTemperature,

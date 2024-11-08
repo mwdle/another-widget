@@ -85,11 +85,6 @@
                 <ImageView
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:id="@+id/action_previous_shadow"
-                    android:src="@drawable/round_chevron_right_24" />
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
                     android:id="@+id/action_previous"
                     android:src="@drawable/round_chevron_right_24" />
             </RelativeLayout>
@@ -119,11 +114,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical">
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:id="@+id/action_next_shadow"
-                    android:src="@drawable/round_chevron_right_24" />
                 <ImageView
                     android:layout_width="32dp"
                     android:layout_height="32dp"
@@ -176,14 +166,6 @@
                     android:layout_height="wrap_content"
                     android:clipToPadding="false"
                     android:clipChildren="false">
-                    <ImageView
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:clipToPadding="false"
-                        android:clipChildren="false"
-                        android:layout_marginEnd="6dp"
-                        android:id="@+id/sub_line_icon_shadow"
-                        android:src="@drawable/round_today_24"/>
                     <ImageView
                         android:layout_width="16dp"
                         android:layout_height="16dp"
