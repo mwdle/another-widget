@@ -27,6 +27,7 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            // https://stackoverflow.com/questions/47568997/cannot-resolve-symbol-kotlinoptions-in-gradle-build
             lintOptions.abortOnError false
         }
     }
@@ -36,6 +37,7 @@ android {
         targetCompatibility JavaVersion.VERSION_11
     }
 
+    // https://stackoverflow.com/questions/47568997/cannot-resolve-symbol-kotlinoptions-in-gradle-build
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
         freeCompilerArgs += ["-Xopt-in=kotlin.RequiresOptIn"]
