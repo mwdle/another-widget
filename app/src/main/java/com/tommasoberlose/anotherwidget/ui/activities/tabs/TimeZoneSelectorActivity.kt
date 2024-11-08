@@ -3,6 +3,8 @@ package com.tommasoberlose.anotherwidget.ui.activities.tabs
 import android.app.Activity
 import android.location.Address
 import android.location.Geocoder
+import android.os.Build.VERSION.SDK_INT
+import android.os.Build.VERSION_CODES.TIRAMISU
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
@@ -22,6 +24,8 @@ import com.tommasoberlose.anotherwidget.ui.widgets.MainWidget
 import com.tommasoberlose.anotherwidget.utils.toast
 import kotlinx.coroutines.*
 import net.idik.lib.slimadapter.SlimAdapter
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 class TimeZoneSelectorActivity : AppCompatActivity() {
 
@@ -116,12 +120,22 @@ class TimeZoneSelectorActivity : AppCompatActivity() {
             searchJob?.cancel()
             searchJob = lifecycleScope.launch(Dispatchers.IO) {
                 delay(200)
-                val list = if (location == null || location == "") {
-                    viewModel.addresses.value!!
-                } else {
+                var list = viewModel.addresses.value!!
+                if (location != null && location != "")
+                {
                     val coder = Geocoder(this@TimeZoneSelectorActivity)
                     try {
-                        coder.getFromLocationName(location, 10) as ArrayList<Address>
+                        if (SDK_INT >= TIRAMISU) {
+                            list = suspendCoroutine { continuation ->
+                                coder.getFromLocationName(location, 10, Geocoder.GeocodeListener { addresses ->
+                                    continuation.resume(addresses)
+                                })
+                            }
+                        }
+                        else {
+                            @Suppress("DEPRECATION")
+                            list = coder.getFromLocationName(location, 10) as ArrayList<Address>
+                        }
                     } catch (ignored: Exception) {
                         emptyList<Address>()
                     }
