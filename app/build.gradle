@@ -16,8 +16,8 @@ android {
         applicationId "com.tommasoberlose.anotherwidget"
         minSdkVersion 28
         targetSdkVersion 33
-        versionCode 140
-        versionName "2.3.3.8"
+        versionCode 141
+        versionName "2.3.3.9"
 
         buildConfigField("String", "GOOGLE_API_KEY", apikeyProperties['GOOGLE_API_KEY'])
     }
