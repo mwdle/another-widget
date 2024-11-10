@@ -23,15 +23,15 @@
     <string name="global_style_header">Widget</string>
     <string name="action_capitalize_the_date">Capitalize the date</string>
     <string name="settings_date_format_title">Date format</string>
-    <string name="header_widget_background" translatable="false">Widget background</string>
-    <string name="settings_secondary_row_top_margin_title" translatable="false">Rows spacing</string>
-    <string name="action_custom_font_to_search" translatable="false">Custom font…</string>
-    <string name="font_family_settings_title" translatable="false">Font family</string>
-    <string name="settings_widget_align_title" translatable="false">Widget alignment</string>
-    <string name="settings_widget_align_left_subtitle" translatable="false">Left</string>
-    <string name="settings_widget_align_right_subtitle" translatable="false">Right</string>
-    <string name="settings_widget_align_center_subtitle" translatable="false">Center</string>
-    
+    <string name="header_widget_background" tools:ignore="MissingTranslation">Widget background</string>
+    <string name="settings_secondary_row_top_margin_title" tools:ignore="MissingTranslation">Rows spacing</string>
+    <string name="action_custom_font_to_search" tools:ignore="MissingTranslation">Custom font…</string>
+    <string name="font_family_settings_title" tools:ignore="MissingTranslation">Font family</string>
+    <string name="settings_widget_align_title" tools:ignore="MissingTranslation">Widget alignment</string>
+    <string name="settings_widget_align_left_subtitle" tools:ignore="MissingTranslation">Left</string>
+    <string name="settings_widget_align_right_subtitle" tools:ignore="MissingTranslation">Right</string>
+    <string name="settings_widget_align_center_subtitle" tools:ignore="MissingTranslation">Center</string>
+
     <string name="font_100" translatable="false">Thin</string>
     <string name="font_200" translatable="false">Light</string>
     <string name="font_300" translatable="false">Book</string>
@@ -52,12 +52,12 @@
     <string name="font_800_italic" translatable="false">Black Italic</string>
     <string name="font_900_italic" translatable="false">Heavy Italic</string>
 
-    <string name="settings_widget_padding_title" translatable="false">Widget padding</string>
-    <string name="settings_widget_margin_title" translatable="false">Widget margin</string>
-    <string name="settings_widget_dim_none" translatable="false">None</string>
-    <string name="settings_widget_dim_small" translatable="false">Small</string>
-    <string name="settings_widget_dim_medium" translatable="false">Medium</string>
-    <string name="settings_widget_dim_large" translatable="false">Large</string>
+    <string name="settings_widget_padding_title" tools:ignore="MissingTranslation">Widget padding</string>
+    <string name="settings_widget_margin_title" tools:ignore="MissingTranslation">Widget margin</string>
+    <string name="settings_widget_dim_none" tools:ignore="MissingTranslation">None</string>
+    <string name="settings_widget_dim_small" tools:ignore="MissingTranslation">Small</string>
+    <string name="settings_widget_dim_medium" tools:ignore="MissingTranslation">Medium</string>
+    <string name="settings_widget_dim_large" tools:ignore="MissingTranslation">Large</string>
 
     <!-- Calendar -->
     <string name="settings_calendar_title">Calendar</string>
@@ -103,19 +103,19 @@
     <string name="settings_widget_update_frequency_high">High</string>
     <string name="filters_header">Filters</string>
     <string name="event_detail_header">Event detail</string>
-    <string name="settings_attendee_status_title" translatable="false">Attendee status</string>
-    <string name="settings_attendee_status_subtitle" translatable="false">Filter accepted or declined events</string>
-    <string name="settings_busy_events_title" translatable="false">Relevant events</string>
-    <string name="settings_busy_events_subtitle" translatable="false">Show only events that keep busy</string>
-    <string name="attendee_status_accepted" translatable="false">Accepted events</string>
-    <string name="attendee_status_invited" translatable="false">Events invitations</string>
-    <string name="attendee_status_declined" translatable="false">Declined events</string>
+    <string name="settings_attendee_status_title" tools:ignore="MissingTranslation">Attendee status</string>
+    <string name="settings_attendee_status_subtitle" tools:ignore="MissingTranslation">Filter accepted or declined events</string>
+    <string name="settings_busy_events_title" tools:ignore="MissingTranslation">Relevant events</string>
+    <string name="settings_busy_events_subtitle" tools:ignore="MissingTranslation">Show only events that keep busy</string>
+    <string name="attendee_status_accepted" tools:ignore="MissingTranslation">Accepted events</string>
+    <string name="attendee_status_invited" tools:ignore="MissingTranslation">Events invitations</string>
+    <string name="attendee_status_declined" tools:ignore="MissingTranslation">Declined events</string>
 
     <string name="calendar_sync_notification_channel_id" translatable="false">calendar-sync</string>
-    <string name="calendar_sync_notification_channel_name" translatable="false">Events sync service</string>
-    <string name="calendar_sync_notification_channel_description" translatable="false">Service used to synchronize the calendar events.</string>
-    <string name="calendar_sync_notification_title" translatable="false">Syncing calendar events…</string>
-    <string name="settings_show_next_event_on_multiple_lines_title" translatable="false">Show title on multiple lines</string>
+    <string name="calendar_sync_notification_channel_name" tools:ignore="MissingTranslation">Events sync service</string>
+    <string name="calendar_sync_notification_channel_description" tools:ignore="MissingTranslation">Service used to synchronize the calendar events.</string>
+    <string name="calendar_sync_notification_title" tools:ignore="MissingTranslation">Syncing calendar events…</string>
+    <string name="settings_show_next_event_on_multiple_lines_title" tools:ignore="MissingTranslation">Show title on multiple lines</string>
 
     <!-- Weather -->
     <string name="settings_weather_title">Weather</string>
@@ -144,8 +144,8 @@
     <string name="weather_warning">Google Awareness API is now deprecated. It is now required to have an API key from a third-party provider to show weather in the widget.</string>
     <string name="settings_weather_icon_pack_title">Icon pack</string>
     <string name="settings_weather_icon_pack_default">Icon pack %d</string>
-    <string name="background_location_warning" translatable="false">When Geolocation is selected, we collect location data to update the weather information even when the app is closed or not in use.\nWe will not use these data otherwise.</string>
-    <string name="settings_weather_provider_api" translatable="false">Weather provider</string>
+    <string name="background_location_warning" tools:ignore="MissingTranslation">When Geolocation is selected, we collect location data to update the weather information even when the app is closed or not in use.\nWe will not use these data otherwise.</string>
+    <string name="settings_weather_provider_api" tools:ignore="MissingTranslation">Weather provider</string>
 
     <string name="settings_weather_provider_open_weather" translatable="false">OpenWeatherMap.org</string>
     <string name="settings_weather_provider_weatherbit" translatable="false">Weatherbit.io</string>
@@ -155,57 +155,57 @@
     <string name="settings_weather_provider_weather_gov" translatable="false">Weather.gov (USA)\nby National Weather Services</string>
     <string name="settings_weather_provider_yr" translatable="false">YR.no/Met.no\nby Meteorologisk Institutt</string>
 
-    <string name="weather_provider_info_open_weather_title" translatable="false">This weather provider needs\nan API key to work correctly.</string>
-    <string name="weather_provider_info_weatherbit_title" translatable="false">This weather provider needs\nan API key to work correctly.</string>
-    <string name="weather_provider_info_weatherapi_title" translatable="false">This weather provider needs\nan API key to work correctly.</string>
-    <string name="weather_provider_info_here_title" translatable="false">This weather provider needs\nan API key to work correctly.</string>
-    <string name="weather_provider_info_accuweather_title" translatable="false">This weather provider needs\nan API key to work correctly.</string>
-    <string name="weather_provider_info_weather_gov_title" translatable="false">This weather provider only works\nfor locations inside the USA.</string>
-    <string name="weather_provider_info_yr_title" translatable="false">This weather provider only allows\nCelsius temperature unit.</string>
+    <string name="weather_provider_info_open_weather_title" tools:ignore="MissingTranslation">This weather provider needs\nan API key to work correctly.</string>
+    <string name="weather_provider_info_weatherbit_title" tools:ignore="MissingTranslation">This weather provider needs\nan API key to work correctly.</string>
+    <string name="weather_provider_info_weatherapi_title" tools:ignore="MissingTranslation">This weather provider needs\nan API key to work correctly.</string>
+    <string name="weather_provider_info_here_title" tools:ignore="MissingTranslation">This weather provider needs\nan API key to work correctly.</string>
+    <string name="weather_provider_info_accuweather_title" tools:ignore="MissingTranslation">This weather provider needs\nan API key to work correctly.</string>
+    <string name="weather_provider_info_weather_gov_title" tools:ignore="MissingTranslation">This weather provider only works\nfor locations inside the USA.</string>
+    <string name="weather_provider_info_yr_title" tools:ignore="MissingTranslation">This weather provider only allows\nCelsius temperature unit.</string>
 
-    <string name="weather_provider_info_open_weather_subtitle" translatable="false">Open the provider website, create a personal account and copy the default key here.</string>
-    <string name="weather_provider_info_weatherbit_subtitle" translatable="false">Open the provider website, create a personal account and copy the default key here.</string>
-    <string name="weather_provider_info_weatherapi_subtitle" translatable="false">Open the provider website, create a personal account and copy the default key here.</string>
-    <string name="weather_provider_info_here_subtitle" translatable="false">Open the provider website, create a personal account and copy the default key here.</string>
-    <string name="weather_provider_info_accuweather_subtitle" translatable="false">Open the provider website, create a personal account and copy the default key here.</string>
-    <string name="weather_provider_info_weather_gov_subtitle" translatable="false">\n</string>
-    <string name="weather_provider_info_yr_subtitle" translatable="false">\n</string>
+    <string name="weather_provider_info_open_weather_subtitle" tools:ignore="MissingTranslation">Open the provider website, create a personal account and copy the default key here.</string>
+    <string name="weather_provider_info_weatherbit_subtitle" tools:ignore="MissingTranslation">Open the provider website, create a personal account and copy the default key here.</string>
+    <string name="weather_provider_info_weatherapi_subtitle" tools:ignore="MissingTranslation">Open the provider website, create a personal account and copy the default key here.</string>
+    <string name="weather_provider_info_here_subtitle" tools:ignore="MissingTranslation">Open the provider website, create a personal account and copy the default key here.</string>
+    <string name="weather_provider_info_accuweather_subtitle" tools:ignore="MissingTranslation">Open the provider website, create a personal account and copy the default key here.</string>
+    <string name="weather_provider_info_weather_gov_subtitle" tools:ignore="MissingTranslation">\n</string>
+    <string name="weather_provider_info_yr_subtitle" tools:ignore="MissingTranslation">\n</string>
 
-    <string name="weather_provider_error_missing_key" translatable="false">The weather provider that you\'ve selected requires an API key.</string>
-    <string name="weather_provider_error_wrong_location" translatable="false">The current location is not supported.</string>
-    <string name="weather_provider_error_missing_location" translatable="false">Please select a valid location.</string>
-    <string name="weather_provider_error_expired_key" translatable="false">It seems that your API key has expired.</string>
-    <string name="weather_provider_error_invalid_key" translatable="false">API key not valid, or not yet activated.</string>
-    <string name="weather_provider_error_misconfigured" translatable="false">The weather provider is wrongly configured.</string>
-    <string name="weather_provider_error_connection" translatable="false">Connection error.</string>
-    <string name="weather_provider_error_generic" translatable="false">Something went wrong, check the weather provider config.</string>
-    <string name="api_key_required_message" translatable="false">Account required</string>
-    <string name="us_only_message" translatable="false">USA Only</string>
-    <string name="celsius_only_message" translatable="false">Metric Unit Only</string>
-    <string name="weather_select_a_provider" translatable="false">Select a provider</string>
-    <string name="weather_provider_activity_subtitle" translatable="false">Select a weather provider from the list.\nA few providers need a free personal account,\nbut they are usually more accurate.</string>
+    <string name="weather_provider_error_missing_key" tools:ignore="MissingTranslation">The weather provider that you\'ve selected requires an API key.</string>
+    <string name="weather_provider_error_wrong_location" tools:ignore="MissingTranslation">The current location is not supported.</string>
+    <string name="weather_provider_error_missing_location" tools:ignore="MissingTranslation">Please select a valid location.</string>
+    <string name="weather_provider_error_expired_key" tools:ignore="MissingTranslation">It seems that your API key has expired.</string>
+    <string name="weather_provider_error_invalid_key" tools:ignore="MissingTranslation">API key not valid, or not yet activated.</string>
+    <string name="weather_provider_error_misconfigured" tools:ignore="MissingTranslation">The weather provider is wrongly configured.</string>
+    <string name="weather_provider_error_connection" tools:ignore="MissingTranslation">Connection error.</string>
+    <string name="weather_provider_error_generic" tools:ignore="MissingTranslation">Something went wrong, check the weather provider config.</string>
+    <string name="api_key_required_message" tools:ignore="MissingTranslation">Account required</string>
+    <string name="us_only_message" tools:ignore="MissingTranslation">USA Only</string>
+    <string name="celsius_only_message" tools:ignore="MissingTranslation">Metric Unit Only</string>
+    <string name="weather_select_a_provider" tools:ignore="MissingTranslation">Select a provider</string>
+    <string name="weather_provider_activity_subtitle" tools:ignore="MissingTranslation">Select a weather provider from the list.\nA few providers need a free personal account,\nbut they are usually more accurate.</string>
 
     <string name="location_access_notification_channel_id" translatable="false">location-access</string>
-    <string name="location_access_notification_channel_name" translatable="false">Weather update service</string>
-    <string name="location_access_notification_channel_description" translatable="false">Service used to update the weather based on the current location of the user.</string>
-    <string name="location_access_notification_title" translatable="false">Updating the weather…</string>
-    <string name="location_access_notification_subtitle" translatable="false">We\'re updating the weather based on your current location.</string>
+    <string name="location_access_notification_channel_name" tools:ignore="MissingTranslation">Weather update service</string>
+    <string name="location_access_notification_channel_description" tools:ignore="MissingTranslation">Service used to update the weather based on the current location of the user.</string>
+    <string name="location_access_notification_title" tools:ignore="MissingTranslation">Updating the weather…</string>
+    <string name="location_access_notification_subtitle" tools:ignore="MissingTranslation">We\'re updating the weather based on your current location.</string>
 
-    <string name="weather_label_clear" translatable="false">Clear</string>
-    <string name="weather_label_partly_cloudy" translatable="false">Partly cloudy</string>
-    <string name="weather_label_mostly_cloudy" translatable="false">Mostly cloudy</string>
-    <string name="weather_label_cloudy_weather" translatable="false">Cloudy</string>
-    <string name="weather_label_storm_weather" translatable="false">Storm</string>
-    <string name="weather_label_rainy" translatable="false">Rainy</string>
-    <string name="weather_label_thunder" translatable="false">Thunder</string>
-    <string name="weather_label_snow" translatable="false">Snow</string>
-    <string name="weather_label_haze" translatable="false">Haze</string>
-    <string name="weather_label_windy" translatable="false">Windy</string>
-    <string name="weather_label_rain_snow" translatable="false">Rain and snow</string>
-    <string name="weather_label_unknown" translatable="false">Unknown</string>
+    <string name="weather_label_clear" tools:ignore="MissingTranslation">Clear</string>
+    <string name="weather_label_partly_cloudy" tools:ignore="MissingTranslation">Partly cloudy</string>
+    <string name="weather_label_mostly_cloudy" tools:ignore="MissingTranslation">Mostly cloudy</string>
+    <string name="weather_label_cloudy_weather" tools:ignore="MissingTranslation">Cloudy</string>
+    <string name="weather_label_storm_weather" tools:ignore="MissingTranslation">Storm</string>
+    <string name="weather_label_rainy" tools:ignore="MissingTranslation">Rainy</string>
+    <string name="weather_label_thunder" tools:ignore="MissingTranslation">Thunder</string>
+    <string name="weather_label_snow" tools:ignore="MissingTranslation">Snow</string>
+    <string name="weather_label_haze" tools:ignore="MissingTranslation">Haze</string>
+    <string name="weather_label_windy" tools:ignore="MissingTranslation">Windy</string>
+    <string name="weather_label_rain_snow" tools:ignore="MissingTranslation">Rain and snow</string>
+    <string name="weather_label_unknown" tools:ignore="MissingTranslation">Unknown</string>
 
     <!-- Clock -->
-    <string name="settings_clock_title" translatable="false">Clock</string>
+    <string name="settings_clock_title">Clock</string>
     <string name="settings_clock_app_title">Clock</string>
     <string name="title_show_clock">Show Clock</string>
     <string name="show_clock_visible">Clock is visible</string>
@@ -220,19 +220,19 @@
     <string name="clock_warning">Due to technological limitations, the clock won\'t have the custom font and the text shadows selected in the typography section.</string>
     <string name="settings_clock_text_color_title">Text color</string>
     <string name="settings_ampm_indicator_title">Show AM/PM indicator</string>
-    <string name="clock_text_header" translatable="false">Clock text style</string>
-    <string name="time_zones_header" translatable="false">Time Zones</string>
-    <string name="settings_alt_timezone_title" translatable="false">Multiple clock</string>
-    <string name="no_time_zone_label" translatable="false">None</string>
-    <string name="time_zone_search_error_message" translatable="false">Error searching the time zone.</string>
-    <string name="geoname_credit" translatable="false">Service available thanks to <a href="http://www.geonames.org/">GeoNames</a>.</string>
+    <string name="clock_text_header">Clock text style</string>
+    <string name="time_zones_header" tools:ignore="MissingTranslation">Time Zones</string>
+    <string name="settings_alt_timezone_title" tools:ignore="MissingTranslation">Multiple clock</string>
+    <string name="no_time_zone_label" tools:ignore="MissingTranslation">None</string>
+    <string name="time_zone_search_error_message" tools:ignore="MissingTranslation">Error searching the time zone.</string>
+    <string name="geoname_credit" tools:ignore="MissingTranslation">Service available thanks to <a href="https://www.geonames.org/">GeoNames</a>.</string>
 
     <!-- Glance -->
     <string name="settings_show_next_alarm_title">Next clock alarm</string>
     <string name="settings_at_a_glance_title">At a glance</string>
     <string name="settings_show_music_title">Current playing song</string>
     <string name="settings_request_notification_access">We need the notification access permission to check the current playing song.</string>
-    <string name="settings_request_last_notification_access" translatable="false">We need the notification access permission to check your last notifications.</string>
+    <string name="settings_request_last_notification_access" tools:ignore="MissingTranslation">We need the notification access permission to check your last notifications.</string>
     <string name="settings_request_fitness_access">We need a few permissions to get your daily steps from Google Fit.</string>
     <string name="title_show_glance">Show at a glance info</string>
     <string name="description_show_glance_visible">Service enabled</string>
@@ -245,29 +245,29 @@
     <string name="settings_low_battery_level_title">Battery</string>
     <string name="battery_low_warning">Low battery level</string>
     <string name="charging">Charging</string>
-    <string name="charged" translatable="false">Fully charged</string>
+    <string name="charged" tools:ignore="MissingTranslation">Fully charged</string>
     <string name="providers">Providers</string>
     <string name="glance_info">Glance info will show up only when there are no events displayed and only when a few conditions are verified.</string>
-    <string name="settings_music_players_filter_title" translatable="false">Music Players</string>
-    <string name="settings_music_players_filter_subtitle" translatable="false">Choose your relevant music players</string>
-    <string name="settings_show_music_subtitle" translatable="false">We use the music players\' notification to show the current playing song.</string>
-    <string name="settings_low_battery_level_subtitle" translatable="false">Get advised when the device has the battery low or is charging.</string>
-    <string name="settings_daily_steps_subtitle" translatable="false">View your daily steps for a brief moment after finishing a walk or a run.</string>
-    <string name="settings_show_next_alarm_subtitle" translatable="false">View your next clock alarm.\nCheck if your default clock app is the only one setting alarms.</string>
-    <string name="settings_show_next_alarm_app_title" translatable="false">Alarm set by %s</string>
-    <string name="settings_show_next_alarm_app_subtitle_wrong" translatable="false">The next alarm clock seems to be wrong</string>
-    <string name="settings_show_next_alarm_app_subtitle_correct" translatable="false">The next alarm clock seems to be correct</string>
-    <string name="settings_show_notifications_title" translatable="false">Latest notifications</string>
-    <string name="settings_show_notifications_subtitle" translatable="false">Check out the latest notifications that showed up on your device.</string>
-    <string name="settings_show_greetings_title" translatable="false">Greetings</string>
-    <string name="settings_show_greetings_subtitle" translatable="false">View some cool phrase to lighten your day when you don\'t expect it.</string>
-    <string name="google_fit_account_connected" translatable="false">Account linked</string>
-    <string name="google_fit_account_not_connected" translatable="false">Account not linked</string>
-    <string name="google_fit" translatable="false">Google Fit</string>
-    <string name="action_connect" translatable="false">Connect</string>
-    <string name="action_disconnect" translatable="false">Disconnect</string>
-    <string name="applications_filter_title" translatable="false">Applications</string>
-    <string name="applications_filter_subtitle" translatable="false">Choose which notifications to view</string>
+    <string name="settings_music_players_filter_title" tools:ignore="MissingTranslation">Music Players</string>
+    <string name="settings_music_players_filter_subtitle" tools:ignore="MissingTranslation">Choose your relevant music players</string>
+    <string name="settings_show_music_subtitle" tools:ignore="MissingTranslation">We use the music players\' notification to show the current playing song.</string>
+    <string name="settings_low_battery_level_subtitle" tools:ignore="MissingTranslation">Get advised when the device has the battery low or is charging.</string>
+    <string name="settings_daily_steps_subtitle" tools:ignore="MissingTranslation">View your daily steps for a brief moment after finishing a walk or a run.</string>
+    <string name="settings_show_next_alarm_subtitle" tools:ignore="MissingTranslation">View your next clock alarm.\nCheck if your default clock app is the only one setting alarms.</string>
+    <string name="settings_show_next_alarm_app_title" tools:ignore="MissingTranslation">Alarm set by %s</string>
+    <string name="settings_show_next_alarm_app_subtitle_wrong" tools:ignore="MissingTranslation">The next alarm clock seems to be wrong</string>
+    <string name="settings_show_next_alarm_app_subtitle_correct" tools:ignore="MissingTranslation">The next alarm clock seems to be correct</string>
+    <string name="settings_show_notifications_title" tools:ignore="MissingTranslation">Latest notifications</string>
+    <string name="settings_show_notifications_subtitle" tools:ignore="MissingTranslation">Check out the latest notifications that showed up on your device.</string>
+    <string name="settings_show_greetings_title" tools:ignore="MissingTranslation">Greetings</string>
+    <string name="settings_show_greetings_subtitle" tools:ignore="MissingTranslation">View some cool phrase to lighten your day when you don\'t expect it.</string>
+    <string name="google_fit_account_connected" tools:ignore="MissingTranslation">Account linked</string>
+    <string name="google_fit_account_not_connected" tools:ignore="MissingTranslation">Account not linked</string>
+    <string name="google_fit" tools:ignore="MissingTranslation">Google Fit</string>
+    <string name="action_connect" tools:ignore="MissingTranslation">Connect</string>
+    <string name="action_disconnect" tools:ignore="MissingTranslation">Disconnect</string>
+    <string name="applications_filter_title" tools:ignore="MissingTranslation">Applications</string>
+    <string name="applications_filter_subtitle" tools:ignore="MissingTranslation">Choose which notifications to view</string>
     <string-array name="morning_greetings" tools:ignore="InconsistentArrays">
         <item>Good morning!</item>
         <item>Have a good day!</item>
@@ -286,10 +286,10 @@
         <item>Good night!</item>
         <item>Sleep well!</item>
         <item>Sweet dreams till sunbeams find you!</item>
-        <item>See you tomorrow...</item>
+        <item>See you tomorrow…</item>
         <item>Don\'t stay up too late!</item>
     </string-array>
-    <string name="glance_notification_hide_timeout_title" translatable="false">Hide the notification after</string>
+    <string name="glance_notification_hide_timeout_title" tools:ignore="MissingTranslation">Hide the notification after</string>
     <string-array name="glance_notifications_timeout">
         <item>30 seconds</item>
         <item>1 minute</item>
@@ -298,13 +298,13 @@
         <item>15 minutes</item>
         <item>Dismissal</item>
     </string-array>
-    <string name="settings_show_events_as_glance_provider_title" translatable="false">Events</string>
-    <string name="settings_show_events_as_glance_provider_subtitle" translatable="false">View a sneak peek of your calendar events and always show the current date.</string>
-    <string name="settings_show_events_as_glance_provider_error" translatable="false">Please enable the show of the events in the calendar tab and grant the required permission.</string>
-    <string name="events_glance_provider_format" translatable="false">%1$s %2$s</string>
-    <string name="settings_show_weather_as_glance_provider_title" translatable="false">Weather</string>
-    <string name="settings_show_weather_as_glance_provider_subtitle" translatable="false">View more information about the weather and always show the current date.</string>
-    <string name="settings_show_weather_as_glance_provider_error" translatable="false">Please enable the show of the weather and fix the configuration\'s errors.</string>
+    <string name="settings_show_events_as_glance_provider_title" tools:ignore="MissingTranslation">Events</string>
+    <string name="settings_show_events_as_glance_provider_subtitle" tools:ignore="MissingTranslation">View a sneak peek of your calendar events and always show the current date.</string>
+    <string name="settings_show_events_as_glance_provider_error" tools:ignore="MissingTranslation">Please enable the show of the events in the calendar tab and grant the required permission.</string>
+    <string name="events_glance_provider_format" tools:ignore="MissingTranslation">%1$s %2$s</string>
+    <string name="settings_show_weather_as_glance_provider_title" tools:ignore="MissingTranslation">Weather</string>
+    <string name="settings_show_weather_as_glance_provider_subtitle" tools:ignore="MissingTranslation">View more information about the weather and always show the current date.</string>
+    <string name="settings_show_weather_as_glance_provider_error" tools:ignore="MissingTranslation">Please enable the show of the weather and fix the configuration\'s errors.</string>
 
     <!-- Settings -->
     <string name="action_share">Share</string>
@@ -315,7 +315,7 @@
     <string name="action_refresh_widget">Refresh widget</string>
     <string name="toolbar_transition_name" translatable="false">toolbar</string>
     <string name="error_opening_uri">Error opening URL: Link copied to clipboard.</string>
-    <string name="loading_text">Loading Data...</string>
+    <string name="loading_text">Loading Data…</string>
     <string name="error_opening_app">Error opening app.</string>
     <string name="default_name">Default app</string>
     <string name="action_save">Save</string>
@@ -350,10 +350,10 @@
     <string name="provider_header">Provider</string>
     <string name="appearance_header">Appearance</string>
     <string name="preferences_header">Preferences</string>
-    <string name="settings_privacy_policy_title" translatable="false"><![CDATA[Legal & Privacy]]></string>
-    <string name="settings_privacy_policy_subtitle" translatable="false">View the privacy policy of the app</string>
-    <string name="project_header" translatable="false">Open-source project</string>
-    <string name="information_header" translatable="false">Information</string>
+    <string name="settings_privacy_policy_title" tools:ignore="MissingTranslation"><![CDATA[Legal & Privacy]]></string>
+    <string name="settings_privacy_policy_subtitle" tools:ignore="MissingTranslation">View the privacy policy of the app</string>
+    <string name="project_header" tools:ignore="MissingTranslation">Open-source project</string>
+    <string name="information_header" tools:ignore="MissingTranslation">Information</string>
 
     <!-- Activities -->
     <string name="action_choose_application">Choose application</string>
@@ -368,31 +368,31 @@
     <string name="support_dev_subtitle">This is a single developer project,\nso thank you for the support!</string>
     <string name="settings_title_integrations">Integrations</string>
     <string name="label_count_installed_integrations">%d installed integrations</string>
-    <string name="nothing" translatable="false">Nothing</string>
-    <string name="action_dismiss" translatable="false">Dismiss</string>
-    <string name="action_accept" translatable="false">Accept</string>
-    <string name="gestures_do_nothing" translatable="false">None</string>
-    <string name="song_info_format_activity_title" translatable="false">Song info format</string>
-    <string name="song_info_format_activity_subtitle" translatable="false">Change the visible song info</string>
+    <string name="nothing" tools:ignore="MissingTranslation">Nothing</string>
+    <string name="action_dismiss" tools:ignore="MissingTranslation">Dismiss</string>
+    <string name="action_accept" tools:ignore="MissingTranslation">Accept</string>
+    <string name="gestures_do_nothing" tools:ignore="MissingTranslation">None</string>
+    <string name="song_info_format_activity_title" tools:ignore="MissingTranslation">Song info format</string>
+    <string name="song_info_format_activity_subtitle" tools:ignore="MissingTranslation">Change the visible song info</string>
 
     <!-- More -->
-    <string name="look_and_feel_header" translatable="false"><![CDATA[Look & feel]]></string>
-    <string name="typography_settings_title" translatable="false">Typography</string>
-    <string name="typography_settings_subtitle" translatable="false">Set text font, size and color</string>
-    <string name="layout_settings_title" translatable="false">Layout</string>
-    <string name="gestures_settings_subtitle" translatable="false">Actions, behaviour and shortcuts</string>
-    <string name="gestures_settings_title" translatable="false">Gestures</string>
-    <string name="gestures_amp_input_header" translatable="false"><![CDATA[Gestures & input]]></string>
-    <string name="clock_settings_subtitle" translatable="false">Set size, color and time zones</string>
-    <string name="layout_settings_subtitle" translatable="false">Widget spacing and tweaks</string>
-    <string name="smart_content_header" translatable="false">Smart content</string>
-    <string name="spacing_settings_header" translatable="false">Spacing</string>
-    <string name="gestures_refresh_widget" translatable="false">None, the widget will be refreshed</string>
-    <string name="settings_disabled" translatable="false">Disabled</string>
-    <string name="settings_enabled" translatable="false">Enabled</string>
-    <string name="color_copied" translatable="false">Color copied into the clipboard.</string>
-    <string name="error_copy_color" translatable="false">The color cannot be copied.</string>
-    <string name="default_apps_settings_header" translatable="false">Default apps</string>
+    <string name="look_and_feel_header" tools:ignore="MissingTranslation"><![CDATA[Look & feel]]></string>
+    <string name="typography_settings_title" tools:ignore="MissingTranslation">Typography</string>
+    <string name="typography_settings_subtitle" tools:ignore="MissingTranslation">Set text font, size and color</string>
+    <string name="layout_settings_title" tools:ignore="MissingTranslation">Layout</string>
+    <string name="gestures_settings_subtitle" tools:ignore="MissingTranslation">Actions, behaviour and shortcuts</string>
+    <string name="gestures_settings_title" tools:ignore="MissingTranslation">Gestures</string>
+    <string name="gestures_amp_input_header" tools:ignore="MissingTranslation"><![CDATA[Gestures & input]]></string>
+    <string name="clock_settings_subtitle" tools:ignore="MissingTranslation">Set size, color and time zones</string>
+    <string name="layout_settings_subtitle" tools:ignore="MissingTranslation">Widget spacing and tweaks</string>
+    <string name="smart_content_header" tools:ignore="MissingTranslation">Smart content</string>
+    <string name="spacing_settings_header" tools:ignore="MissingTranslation">Spacing</string>
+    <string name="gestures_refresh_widget" tools:ignore="MissingTranslation">None, the widget will be refreshed</string>
+    <string name="settings_disabled" tools:ignore="MissingTranslation">Disabled</string>
+    <string name="settings_enabled" tools:ignore="MissingTranslation">Enabled</string>
+    <string name="color_copied" tools:ignore="MissingTranslation">Color copied into the clipboard.</string>
+    <string name="error_copy_color" tools:ignore="MissingTranslation">The color cannot be copied.</string>
+    <string name="default_apps_settings_header" tools:ignore="MissingTranslation">Default apps</string>
     <string name="genericErrorText" translatable="false">Error</string>
     <string name="fontColorLabelPlaceholder" translatable="false">#%s</string>
     <string name="appVersionTextPlaceholder" translatable="false">v%s (%s)</string>
